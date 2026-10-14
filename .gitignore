@@ -1,0 +1,6 @@
+.gocache/
+.scratch/
+dist/
+.DS_Store
+*.test
+*.out
