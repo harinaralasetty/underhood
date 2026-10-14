@@ -3,6 +3,7 @@ package target
 
 import (
 	"fmt"
+	"os"
 	"path/filepath"
 	"sort"
 	"strings"
@@ -67,7 +68,12 @@ func Analyze(path string, options model.Options) (Result, error) {
 		kinds = append(kinds, t.Kind())
 		ok, reason := t.Detect(root)
 		if ok {
-			return t.Analyze(Context{root, options})
+			result, err := t.Analyze(Context{root, options})
+			if strings.HasPrefix(result.Target.Kind, "windows-") {
+				home, _ := os.UserHomeDir()
+				result.Target.Path = model.Clean(filepath.Clean(path), "", home)
+			}
+			return result, err
 		}
 		if reason != "" {
 			reasons = append(reasons, reason)

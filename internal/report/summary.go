@@ -14,6 +14,8 @@ func baseID(id string) string { return strings.SplitN(id, "@", 2)[0] }
 const summaryLimit = 8
 
 var summaryLabels = map[string]string{
+	"windows.pe.unsigned": "Not signed",
+
 	"automation.NSAppleScriptEnabled":   "Declares AppleScript support",
 	"automation.OSAScriptingDefinition": "Declares an AppleScript scripting dictionary",
 	"automation.INIntentsSupported":     "Declares supported Siri intents",
@@ -44,7 +46,56 @@ func Summary(findings []model.Finding) []model.SummaryItem {
 		if strings.HasPrefix(base, "sign.") && f.Severity == model.Info && base != "sign.unsigned" && base != "sign.adhoc" {
 			continue
 		}
+		if strings.HasPrefix(base, "windows.") && f.Severity == model.Info && (f.Category == "hardening" || f.Category == "sections" || base == "windows.imports.libraries") {
+			continue
+		}
 		text := f.Title
+		if strings.HasPrefix(base, "windows.pe.") && f.Severity == model.Info {
+			continue
+		}
+		if strings.HasPrefix(base, "windows.manifest.") && len(f.Evidence) > 0 {
+			value := f.Evidence[0].Value
+			weight := func(v string) int {
+				switch v {
+				case "requireAdministrator":
+					return 3
+				case "highestAvailable":
+					return 2
+				case "true":
+					return 1
+				}
+				return 0
+			}
+			for _, ev := range f.Evidence {
+				if weight(ev.Value) > weight(value) {
+					value = ev.Value
+				}
+			}
+			switch base {
+			case "windows.manifest.requestedExecutionLevel":
+				switch value {
+				case "requireAdministrator":
+					text = "Requires administrator privileges"
+				case "highestAvailable":
+					text = "Requests highest available privileges"
+				case "asInvoker":
+					text = "Runs with the invoking user's privileges"
+				}
+			case "windows.manifest.uiAccess":
+				if strings.EqualFold(value, "true") {
+					text = "Requests access to higher-privilege user interfaces"
+				} else {
+					text = "Does not request elevated UI access"
+				}
+			case "windows.manifest.autoElevate":
+				if strings.EqualFold(value, "true") {
+					text = "Declares automatic elevation"
+				} else {
+					text = "Automatic elevation disabled"
+				}
+			}
+		}
+
 		if label, ok := summaryLabels[base]; ok {
 			text = label
 		}
@@ -71,6 +122,9 @@ func Summary(findings []model.Finding) []model.SummaryItem {
 			}
 		}
 		key := base
+		if strings.HasPrefix(base, "windows.manifest.") {
+			key += "=" + text
+		}
 		switch {
 		case strings.HasPrefix(base, "privacy."):
 			key = "privacy"

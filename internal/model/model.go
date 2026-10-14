@@ -39,7 +39,7 @@ const (
 )
 
 // Categories is the stable presentation order.
-var Categories = []string{"identity", "signing", "entitlements", "permissions", "registrations", "launchItems", "automation", "network"}
+var Categories = []string{"identity", "signing", "entitlements", "permissions", "registrations", "launchItems", "automation", "network", "windows-manifest", "capabilities", "imports", "hardening", "sections"}
 
 // Evidence locates a declaration or byte string.
 type Evidence struct {

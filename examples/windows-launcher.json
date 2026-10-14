@@ -1,0 +1,597 @@
+{
+  "findings": [
+    {
+      "category": "hardening",
+      "confidence": "declared",
+      "detail": "Header declaration only; runtime enforcement is not assessed.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "OptionalHeader.DllCharacteristics",
+          "value": "false"
+        }
+      ],
+      "id": "windows.hardening.appContainer",
+      "severity": "info",
+      "title": "AppContainer"
+    },
+    {
+      "category": "hardening",
+      "confidence": "declared",
+      "detail": "Header declaration only; runtime enforcement is not assessed.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "OptionalHeader.DllCharacteristics",
+          "value": "true"
+        }
+      ],
+      "id": "windows.hardening.aslr",
+      "severity": "info",
+      "title": "ASLR"
+    },
+    {
+      "category": "hardening",
+      "confidence": "declared",
+      "detail": "Header declaration only; runtime enforcement is not assessed.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "OptionalHeader.DllCharacteristics",
+          "value": "false"
+        }
+      ],
+      "id": "windows.hardening.cfg",
+      "severity": "notable",
+      "title": "Control Flow Guard not declared"
+    },
+    {
+      "category": "hardening",
+      "confidence": "declared",
+      "detail": "Header declaration only; runtime enforcement is not assessed.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "OptionalHeader.DllCharacteristics",
+          "value": "false"
+        }
+      ],
+      "id": "windows.hardening.forceIntegrity",
+      "severity": "info",
+      "title": "Force integrity"
+    },
+    {
+      "category": "hardening",
+      "confidence": "declared",
+      "detail": "Header declaration only; runtime enforcement is not assessed.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "OptionalHeader.DllCharacteristics",
+          "value": "false"
+        }
+      ],
+      "id": "windows.hardening.highEntropyVA",
+      "severity": "info",
+      "title": "High-entropy VA"
+    },
+    {
+      "category": "hardening",
+      "confidence": "declared",
+      "detail": "Header declaration only; runtime enforcement is not assessed.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "OptionalHeader.DllCharacteristics",
+          "value": "false"
+        }
+      ],
+      "id": "windows.hardening.noSEH",
+      "severity": "info",
+      "title": "No SEH"
+    },
+    {
+      "category": "hardening",
+      "confidence": "declared",
+      "detail": "Header declaration only; runtime enforcement is not assessed.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "OptionalHeader.DllCharacteristics",
+          "value": "true"
+        }
+      ],
+      "id": "windows.hardening.nx",
+      "severity": "info",
+      "title": "NX compatibility"
+    },
+    {
+      "category": "hardening",
+      "confidence": "declared",
+      "detail": "Header declaration only; runtime enforcement is not assessed.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "OptionalHeader.DllCharacteristics",
+          "value": "true"
+        }
+      ],
+      "id": "windows.hardening.terminalServerAware",
+      "severity": "info",
+      "title": "Terminal-server aware"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "x64",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "COFF.Machine",
+          "value": "x64"
+        }
+      ],
+      "id": "windows.identity.machine",
+      "severity": "info",
+      "title": "Machine"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "console",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "OptionalHeader.Subsystem",
+          "value": "console"
+        }
+      ],
+      "id": "windows.identity.subsystem",
+      "severity": "info",
+      "title": "Subsystem"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "The COFF timestamp can be forged or zeroed for reproducible builds.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "COFF.TimeDateStamp",
+          "value": "1659768065 (2022-08-06T06:41:05Z)"
+        }
+      ],
+      "id": "windows.identity.timestamp",
+      "severity": "info",
+      "title": "Linker timestamp"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "EXE",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "COFF.Characteristics",
+          "value": "EXE"
+        }
+      ],
+      "id": "windows.identity.type",
+      "severity": "info",
+      "title": "Image type"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "Declared linker, OS and subsystem versions.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "OptionalHeader",
+          "value": "linker 10.0; OS 5.2; subsystem 5.2; image size 135168"
+        }
+      ],
+      "id": "windows.identity.versions",
+      "severity": "info",
+      "title": "Image versions"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "Simple Launcher User",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": ".rsrc/RT_VERSION/102/0/CompanyName",
+          "value": "Simple Launcher User"
+        }
+      ],
+      "id": "windows.version.CompanyName",
+      "severity": "info",
+      "title": "CompanyName"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "Simple Launcher Executable",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": ".rsrc/RT_VERSION/102/0/FileDescription",
+          "value": "Simple Launcher Executable"
+        }
+      ],
+      "id": "windows.version.FileDescription",
+      "severity": "info",
+      "title": "FileDescription"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "1.1.0.14",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": ".rsrc/RT_VERSION/102/0/FileVersion",
+          "value": "1.1.0.14"
+        }
+      ],
+      "id": "windows.version.FileVersion",
+      "severity": "info",
+      "title": "FileVersion"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "t64.exe",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": ".rsrc/RT_VERSION/102/0/InternalName",
+          "value": "t64.exe"
+        }
+      ],
+      "id": "windows.version.InternalName",
+      "severity": "info",
+      "title": "InternalName"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "Copyright (C) Simple Launcher User",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": ".rsrc/RT_VERSION/102/0/LegalCopyright",
+          "value": "Copyright (C) Simple Launcher User"
+        }
+      ],
+      "id": "windows.version.LegalCopyright",
+      "severity": "info",
+      "title": "LegalCopyright"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "t64.exe",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": ".rsrc/RT_VERSION/102/0/OriginalFilename",
+          "value": "t64.exe"
+        }
+      ],
+      "id": "windows.version.OriginalFilename",
+      "severity": "info",
+      "title": "OriginalFilename"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "Simple Launcher",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": ".rsrc/RT_VERSION/102/0/ProductName",
+          "value": "Simple Launcher"
+        }
+      ],
+      "id": "windows.version.ProductName",
+      "severity": "info",
+      "title": "ProductName"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "1.1.0.14",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": ".rsrc/RT_VERSION/102/0/ProductVersion",
+          "value": "1.1.0.14"
+        }
+      ],
+      "id": "windows.version.ProductVersion",
+      "severity": "info",
+      "title": "ProductVersion"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "1.1.0.14",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": ".rsrc/RT_VERSION/102/0/FixedFileVersion",
+          "value": "1.1.0.14"
+        }
+      ],
+      "id": "windows.version.fixed",
+      "severity": "info",
+      "title": "Fixed file version"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "Product version 1.1.0.14; flags mask 0x3f; flags 0x0; OS 0x40004; type 0x1; subtype 0x0; date 0x000000000",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": ".rsrc/RT_VERSION/102/0/VS_FIXEDFILEINFO",
+          "value": "Product version 1.1.0.14; flags mask 0x3f; flags 0x0; OS 0x40004; type 0x1; subtype 0x0; date 0x000000000"
+        }
+      ],
+      "id": "windows.version.fixedInfo",
+      "severity": "info",
+      "title": "Fixed version metadata"
+    },
+    {
+      "category": "imports",
+      "confidence": "heuristic",
+      "detail": "These APIs are common in legitimate tools and in malware; presence does not establish use.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "ImportDirectory",
+          "value": "KERNEL32.dll:IsDebuggerPresent"
+        }
+      ],
+      "id": "windows.imports.debugger",
+      "severity": "notable",
+      "title": "Debugger detection APIs"
+    },
+    {
+      "category": "imports",
+      "confidence": "heuristic",
+      "detail": "These APIs are common in legitimate tools and in malware; presence does not establish use. Dynamic resolution means static imports under-report available APIs.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "ImportDirectory",
+          "value": "KERNEL32.dll:GetProcAddress"
+        },
+        {
+          "file": "t64.exe",
+          "locator": "ImportDirectory",
+          "value": "KERNEL32.dll:LoadLibraryW"
+        }
+      ],
+      "id": "windows.imports.dynamic",
+      "severity": "info",
+      "title": "Dynamic loading APIs"
+    },
+    {
+      "category": "imports",
+      "confidence": "declared",
+      "detail": "Static import declarations; dynamically loaded libraries may be absent.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "ImportDirectory",
+          "value": "KERNEL32.dll, SHLWAPI.dll"
+        }
+      ],
+      "id": "windows.imports.libraries",
+      "severity": "info",
+      "title": "Imported libraries"
+    },
+    {
+      "category": "sections",
+      "confidence": "declared",
+      "detail": "Section flags and sizes are static declarations.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "Sections[0]",
+          "value": ".text; raw 61440; virtual 60961; flags 0x60000020"
+        }
+      ],
+      "id": "windows.section.0",
+      "severity": "info",
+      "title": "Section .text"
+    },
+    {
+      "category": "sections",
+      "confidence": "declared",
+      "detail": "Section flags and sizes are static declarations.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "Sections[1]",
+          "value": ".rdata; raw 14848; virtual 14404; flags 0x40000040"
+        }
+      ],
+      "id": "windows.section.1",
+      "severity": "info",
+      "title": "Section .rdata"
+    },
+    {
+      "category": "sections",
+      "confidence": "declared",
+      "detail": "Section flags and sizes are static declarations.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "Sections[2]",
+          "value": ".data; raw 5120; virtual 16708; flags 0xc0000040"
+        }
+      ],
+      "id": "windows.section.2",
+      "severity": "info",
+      "title": "Section .data"
+    },
+    {
+      "category": "sections",
+      "confidence": "declared",
+      "detail": "Section flags and sizes are static declarations.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "Sections[3]",
+          "value": ".pdata; raw 3072; virtual 2880; flags 0x40000040"
+        }
+      ],
+      "id": "windows.section.3",
+      "severity": "info",
+      "title": "Section .pdata"
+    },
+    {
+      "category": "sections",
+      "confidence": "declared",
+      "detail": "Section flags and sizes are static declarations.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "Sections[4]",
+          "value": ".rsrc; raw 21504; virtual 21492; flags 0x40000040"
+        }
+      ],
+      "id": "windows.section.4",
+      "severity": "info",
+      "title": "Section .rsrc"
+    },
+    {
+      "category": "sections",
+      "confidence": "declared",
+      "detail": "Section flags and sizes are static declarations.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "Sections[5]",
+          "value": ".reloc; raw 1024; virtual 852; flags 0x42000040"
+        }
+      ],
+      "id": "windows.section.5",
+      "severity": "info",
+      "title": "Section .reloc"
+    },
+    {
+      "category": "signing",
+      "confidence": "declared",
+      "detail": "No Authenticode certificate table is declared. Authenticode/MSIX signatures are parsed but not cryptographically verified; trust, revocation and timestamp validity are not assessed.",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": "Security directory",
+          "value": "absent"
+        }
+      ],
+      "id": "windows.pe.unsigned",
+      "severity": "notable",
+      "title": "Unsigned"
+    },
+    {
+      "category": "windows-manifest",
+      "confidence": "declared",
+      "detail": "asInvoker",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": ".rsrc/RT_MANIFEST/1/1033/requestedExecutionLevel",
+          "value": "asInvoker"
+        }
+      ],
+      "id": "windows.manifest.requestedExecutionLevel",
+      "severity": "info",
+      "title": "Requested execution level"
+    },
+    {
+      "category": "windows-manifest",
+      "confidence": "declared",
+      "detail": "false",
+      "evidence": [
+        {
+          "file": "t64.exe",
+          "locator": ".rsrc/RT_MANIFEST/1/1033/uiAccess",
+          "value": "false"
+        }
+      ],
+      "id": "windows.manifest.uiAccess",
+      "severity": "info",
+      "title": "UI access"
+    }
+  ],
+  "limits": [
+    "Authenticode/MSIX signatures are parsed but not cryptographically verified; trust, revocation and timestamp validity are not assessed.",
+    "Findings are not a verdict of safety; applications may behave differently from declarations.",
+    "Imports are heuristics common in legitimate tools and in malware; presence does not establish use.",
+    "No registry, services or scheduled tasks are inspected; external manifests and installer contents are not read.",
+    "PE folders inspect at most 20 of 200 detected PE files, at depth two, with at most 20,000 inventory entries; symlinks inside targets are not traversed.",
+    "Runtime-built URLs and server-driven behaviour are invisible.",
+    "Static analysis only; target binaries are never executed.",
+    "Strings in a binary are not proof of network traffic; endpoints are not verified traffic."
+  ],
+  "scannedAt": "2026-10-14T16:05:03.789419Z",
+  "schemaVersion": 2,
+  "skipped": [],
+  "summary": [
+    {
+      "findingIDs": [
+        "windows.hardening.cfg"
+      ],
+      "text": "Control Flow Guard not declared"
+    },
+    {
+      "findingIDs": [
+        "windows.imports.debugger"
+      ],
+      "text": "Debugger detection APIs"
+    },
+    {
+      "findingIDs": [
+        "windows.pe.unsigned"
+      ],
+      "text": "Not signed"
+    },
+    {
+      "findingIDs": [
+        "windows.imports.dynamic"
+      ],
+      "text": "Dynamic loading APIs"
+    },
+    {
+      "findingIDs": [
+        "windows.manifest.requestedExecutionLevel"
+      ],
+      "text": "Runs with the invoking user's privileges"
+    },
+    {
+      "findingIDs": [
+        "windows.manifest.uiAccess"
+      ],
+      "text": "Does not request elevated UI access"
+    }
+  ],
+  "target": {
+    "build": "",
+    "id": "t64.exe",
+    "kind": "windows-pe",
+    "name": "Simple Launcher",
+    "path": "t64.exe",
+    "version": "1.1.0.14"
+  },
+  "tool": {
+    "name": "underhood",
+    "version": "0.1.0-dev"
+  }
+}

@@ -13,6 +13,7 @@ import (
 	"strings"
 
 	_ "github.com/harinaralasetty/underhood/internal/analyzers/macos"
+	_ "github.com/harinaralasetty/underhood/internal/analyzers/windows"
 	"github.com/harinaralasetty/underhood/internal/inventory"
 	"github.com/harinaralasetty/underhood/internal/model"
 	"github.com/harinaralasetty/underhood/internal/report"
@@ -23,6 +24,7 @@ import (
 const Usage = `Underhood — static, offline app inspection
 Usage: underhood <path> [--format md|json|both] [--output <path>]
        [--max-binary-mb <n>] [--no-binary-strings] [--full] [--version] [--help]
+Supported kinds: macos-app, windows-pe, windows-folder.
 Flags may appear before or after the path; -- ends option parsing.
 --format both requires --output <basepath> (writes .md and .json).
 --max-binary-mb is a positive MiB limit per binary (default 300).

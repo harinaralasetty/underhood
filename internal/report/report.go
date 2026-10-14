@@ -119,7 +119,17 @@ func Build(r target.Result) model.Report {
 		}
 		return a.File < b.File
 	})
-	limits := append(append([]string{}, Limits...), r.Limits...)
+	baseLimits := Limits
+	if strings.HasPrefix(r.Target.Kind, "windows-") {
+		baseLimits = []string{
+			"Static analysis only; target binaries are never executed.",
+			"Strings in a binary are not proof of network traffic; endpoints are not verified traffic.",
+			"Runtime-built URLs and server-driven behaviour are invisible.",
+			"Findings are not a verdict of safety; applications may behave differently from declarations.",
+			"PE folders inspect at most 20 of 200 detected PE files, at depth two, with at most 20,000 inventory entries; symlinks inside targets are not traversed.",
+		}
+	}
+	limits := append(append([]string{}, baseLimits...), r.Limits...)
 	sort.Strings(limits)
 	unique := []string{}
 	for _, l := range limits {
@@ -163,13 +173,13 @@ func Markdown(w io.Writer, r model.Report, full bool) error {
 	}
 	var b strings.Builder
 	p := func(format string, args ...any) { fmt.Fprintf(&b, format, args...) }
-	p("# Underhood: %s\n\n**ID:** %s  \n**Version / build:** %s / %s  \n**Path:** %s  \n**Tool version:** %s  \n**Scanned at:** %s\n\n## Summary\n\n", escape(r.Target.Name), escape(r.Target.ID), escape(r.Target.Version), escape(r.Target.Build), escape(r.Target.Path), r.Tool.Version, r.ScannedAt)
+	p("# Underhood: %s\n\n**ID:** %s  \n**Version / build:** %s  \n**Path:** %s  \n**Tool version:** %s  \n**Scanned at:** %s\n\n## Summary\n\n", escape(r.Target.Name), escape(r.Target.ID), versionBuild(r), escape(r.Target.Path), r.Tool.Version, r.ScannedAt)
 	for _, s := range r.Summary {
 		p("%s", summaryLine(s))
 	}
 	titles := map[string]string{"identity": "Identity and bundle", "signing": "Signing and notarization", "entitlements": "Entitlements", "permissions": "Declared privacy permissions", "registrations": "URL schemes and document types", "launchItems": "Launch items, helpers and XPC services", "automation": "Automation surface", "network": "Network surface"}
-	for _, cat := range model.Categories {
-		p("\n## %s\n\n", titles[cat])
+	for _, cat := range reportCategories(r) {
+		p("\n## %s\n\n", categoryTitle(cat, titles[cat]))
 		found := false
 		var endpoints []model.Finding
 		for _, f := range r.Findings {

@@ -31,6 +31,8 @@ No external modules or Apple command-line tools are required. The inspector buil
 
 ```sh
 underhood /System/Applications/Calculator.app
+underhood ./launcher.exe --format both --output launcher-report
+underhood ./portable-app --format json
 underhood /System/Applications/Notes.app --format json --output notes.json
 underhood /System/Applications/Calculator.app --format both --output calculator --full
 ```
@@ -39,13 +41,15 @@ Markdown goes to stdout by default. `--format both` writes `<base>.md` and `<bas
 
 Use `--no-binary-strings` to omit endpoint scanning, or `--max-binary-mb 100` to change the per-binary bound (default 300 MiB). Flags may follow the target. Exit codes: **0** report produced, including documented skips; **1** usage/output error; **2** invalid or unsupported target.
 
+Windows files can be inspected from macOS or Linux, and the tool also builds for Windows. No Windows runtime is needed. See [Windows inspection](docs/windows.md).
+
 ## How it works
 
 **Detect target → inventory → parse → analysers → evidence-backed report.**
 
 Underhood parses bundle plists, Mach-O slices and embedded code-signature metadata in-process. It reports permissions, entitlements, registrations, launch declarations, automation metadata and endpoint strings, with source-file and locator evidence. No subprocesses, target execution or network access occur.
 
-The user-supplied target path is resolved through symlinks before detection; reports show the resolved root. Traversal inside the target avoids symlinks and bounds nesting, file counts, metadata and binary scanning. One analyser's failure becomes a skip note while the others continue. Reports sort and merge evidence deterministically; `scannedAt` varies. Host launch entries affect macOS-host results and are unavailable on other hosts.
+The user-supplied target path is resolved through symlinks before detection; macOS reports show the resolved root and Windows reports retain the cleaned command-line path. Traversal inside the target avoids symlinks and bounds nesting, file counts, metadata and binary scanning. One analyser's failure becomes a skip note while the others continue. Reports sort and merge evidence deterministically; `scannedAt` varies. Host launch entries affect macOS-host results and are unavailable on other hosts.
 
 Default Markdown shows readable titles and inline path/locator evidence, a nested-bundle table, and at most eight grouped summary items. Repeated informational families are capped at ten entries, informational endpoint rows at fifty, and skip notes at twenty. Sensitive and notable findings remain visible, so large automation surfaces can exceed compact size targets. `--full` lists every evidence entry and description; JSON always retains all findings and retained evidence.
 
@@ -54,7 +58,9 @@ Default Markdown shows readable titles and inline path/locator evidence, a neste
 | Target | What you get | Status |
 | --- | --- | --- |
 | macOS `.app` | Identity, signing metadata, entitlements, privacy declarations, URL/document registrations, launch items, automation, endpoint strings | Available |
-| Windows `.exe` / `.dll` / `.msix` | Planned Windows static inspection | Planned next |
+| Windows PE `.exe` / `.dll` | Identity, embedded manifests/version info, hardening, Authenticode metadata, imports and strings | Available |
+| Windows portable/installed app folders | PE inventory and up to 20 embedded binaries | Available |
+| Windows `.msix` / `.appx`, bundles and unpacked MSIX | Package manifests, capabilities and signatures | Planned next |
 | Linux, iOS `.ipa`, Android `.apk` | Target-specific static inspection | Roadmap |
 
 ## Sample report
@@ -77,6 +83,20 @@ Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/com.
 
 Excerpt above omits other summary and finding lines. Full generated reports: [Calculator Markdown](examples/calculator.md) · [Calculator JSON](examples/calculator.json). These describe the inspected system-app version, not every version of Calculator. A declared capability or string is not observed runtime behavior.
 
+Windows launcher excerpt ([Markdown](examples/windows-launcher.md) · [JSON](examples/windows-launcher.json)):
+
+```markdown
+# Underhood: Simple Launcher
+- Control Flow Guard not declared
+- Debugger detection APIs
+- Not signed
+- Dynamic loading APIs
+- Runs with the invoking user's privileges
+- Does not request elevated UI access
+```
+
+This x64 console launcher declares `asInvoker` and imports KERNEL32/SHLWAPI. Imports are heuristics common in legitimate tools and in malware; presence does not establish use.
+
 ## FAQ
 
 **Does it run the app?** No. It reads files and never executes the target or bundled binaries.
@@ -95,6 +115,7 @@ Excerpt above omits other summary and finding lines. Full generated reports: [Ca
 
 ## Documentation
 
+- [Windows inspection](docs/windows.md) · [B1 verification](docs/windows-verification.md)
 - [Architecture and limits](docs/architecture.md)
 - [JSON schema v2](docs/schema.md)
 - [Finding catalogue](docs/findings.md)

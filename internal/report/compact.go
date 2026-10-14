@@ -18,7 +18,7 @@ const compactSkipLimit = 20
 func compact(w io.Writer, r model.Report) error {
 	var b strings.Builder
 	p := func(f string, a ...any) { fmt.Fprintf(&b, f, a...) }
-	p("# Underhood: %s\n\n**ID:** %s  \n**Version / build:** %s / %s  \n**Path:** %s  \n**Tool version:** %s  \n**Scanned at:** %s\n\n## Summary\n\n", escape(r.Target.Name), escape(r.Target.ID), escape(r.Target.Version), escape(r.Target.Build), escape(r.Target.Path), r.Tool.Version, r.ScannedAt)
+	p("# Underhood: %s\n\n**ID:** %s  \n**Version / build:** %s  \n**Path:** %s  \n**Tool version:** %s  \n**Scanned at:** %s\n\n## Summary\n\n", escape(r.Target.Name), escape(r.Target.ID), versionBuild(r), escape(r.Target.Path), r.Tool.Version, r.ScannedAt)
 	for _, s := range r.Summary {
 		p("%s", summaryLine(s))
 	}
@@ -26,8 +26,8 @@ func compact(w io.Writer, r model.Report) error {
 	findings := append([]model.Finding(nil), r.Findings...)
 	sort.SliceStable(findings, func(i, j int) bool { return findings[i].ID < findings[j].ID })
 	nested := nestedBundles(findings)
-	for _, cat := range model.Categories {
-		p("\n## %s\n\n", cat)
+	for _, cat := range reportCategories(r) {
+		p("\n## %s\n\n", categoryTitle(cat, cat))
 		found := false
 		var endpoints []model.Finding
 		counts, omitted, places := map[string]int{}, map[string]int{}, map[string][]string{}
@@ -69,6 +69,9 @@ func compact(w io.Writer, r model.Report) error {
 			if len(f.Evidence) > 0 {
 				e := f.Evidence[0]
 				p("%s · %s = %s\n", escape(e.File), escape(e.Locator), escape(e.Value))
+			}
+			if strings.HasPrefix(f.ID, "windows.") && (len(f.Evidence) == 0 || !strings.EqualFold(strings.TrimSpace(f.Detail), strings.TrimSpace(f.Evidence[0].Value))) {
+				p("%s\n", escape(f.Detail))
 			}
 			if cat == "entitlements" || cat == "permissions" {
 				detail := strings.SplitN(f.Detail, ": ", 2)[0]
@@ -168,7 +171,7 @@ func nestedBundles(findings []model.Finding) map[string][4]string {
 	rows := map[string][4]string{}
 	for _, f := range findings {
 		parts := strings.SplitN(f.ID, "@", 2)
-		if len(parts) != 2 || f.Category != "identity" {
+		if len(parts) != 2 || f.Category != "identity" || !strings.HasPrefix(parts[0], "bundle.") {
 			continue
 		}
 		row := rows[parts[1]]

@@ -10,4 +10,4 @@ Implement `target.Target` in a new isolated package. Its three methods are `Kind
 6. Add synthetic fixtures and negative, cap, symlink and determinism tests. Cross-build on all supported hosts.
 7. Update README availability, schema notes and the findings catalogue.
 
-A target addition should not require changing shared model or report code. Windows targets are planned but are not implemented in this version. Never add subprocesses, third-party modules, input execution or runtime network access.
+A target addition should not require changing shared model or report code. Windows PE and PE-folder targets are available; MSIX is planned next. Never add subprocesses, third-party modules, input execution or runtime network access.

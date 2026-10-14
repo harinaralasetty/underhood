@@ -13,6 +13,7 @@ The CLI detects a registered target, inventories safe entries, parses metadata a
 | `internal/macho` | Thin/fat headers, load commands, signature blobs, CMS certificates |
 | `internal/scan` | Streaming ASCII and UTF-16LE URL extraction |
 | `internal/analyzers/macos` | Eight independent macOS analysers |
+| `internal/analyzers/windows` | PE headers, bounded resources/imports, manifests, Authenticode and PE folders |
 | `internal/report` | Merging, stable ordering, summary, Markdown and JSON |
 | `internal/testutil` | Generated portable fixtures |
 
@@ -28,6 +29,8 @@ The four flag masks follow [XNU cs_blobs.h](https://github.com/apple-oss-distrib
 
 The host launch-job scan runs only on macOS. Its results depend on the host's installed launch plists; other hosts report it unavailable. Determinism assumes unchanged inputs, host launch entries and options, and excludes `scannedAt`.
 
-Default Markdown uses readable titles, inline path/locator evidence, and a nested-bundle identity table. The summary groups declarations, keeps all underlying IDs in JSON, and shows at most two IDs per Markdown item. Repeated informational families show ten entries, informational endpoints show up to fifty rows sorted by URL count then host, and grouped skips show twenty lines. Sensitive and notable findings are never capped. `--full` and JSON retain all findings and evidence, so large notable App Intents surfaces still produce large compact reports.
+Default Markdown uses readable titles, inline path/locator evidence, and a nested-bundle identity table. The summary groups declarations, keeps all underlying IDs in JSON, and uses readable text only in Markdown summaries. Repeated informational families show ten entries, informational endpoints show up to fifty rows sorted by URL count then host, and grouped skips show twenty lines. Sensitive and notable findings are never capped. `--full` and JSON retain all findings and evidence, so large notable App Intents surfaces still produce large compact reports.
 
 The top-level input path is resolved before detection; internal bundle symlinks remain untraversed. Output checks use the resolved root and reject target/system locations, directories, symlinks and non-regular files. Existing regular files are atomically replaced using an exclusively created temporary file in the destination directory and rename; a hard link is replaced rather than written through. Reports use mode 0600 even when replacing an older file. Temporary files are removed on error. Both destinations are validated before writing; a second-output failure removes the first only if this run created it. A pre-existing first destination that was replaced remains intact. The two renames are not a single transaction. Concurrent adversarial directory mutation remains outside the portable filesystem safety guarantee.
+
+Windows PE analysis accepts `io.ReaderAt` and size, independent of disk traversal. Disk targets use inventory safe-open checks. PE detection checks content rather than extensions. Folder discovery is limited to top-level files and one subdirectory level; 200 PE candidates and 20 analyses, prioritizing largest `.exe` files and path tie-breaks. A root AppxManifest.xml stops analysis with an explicit deferred-MSIX skip. No files are extracted or target code executed. New category headings are conditional so macOS rendering remains unchanged.
