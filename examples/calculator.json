@@ -1283,58 +1283,23 @@
     "Strings in a binary are not proof of network traffic; endpoints are not verified traffic.",
     "Symlinks are not traversed; nested bundles are limited to depth 4, inventory to 20,000 entries, and metadata to 16 MiB per file. Reached caps are reported."
   ],
-  "scannedAt": "2026-10-14T15:25:50.703546Z",
+  "scannedAt": "2026-10-14T15:51:02.827072Z",
   "schemaVersion": 2,
   "skipped": [],
   "summary": [
     {
       "findingIDs": [
-        "ent.com.apple.security.temporary-exception.files.absolute-path.read-only"
+        "ent.com.apple.security.temporary-exception.files.absolute-path.read-only",
+        "ent.com.apple.security.temporary-exception.mach-lookup.global-name"
       ],
-      "text": "com.apple.security.temporary-exception.files.absolute-path.read-only"
+      "text": "Requests 2 sandbox temporary exceptions: files.absolute-path.read-only, mach-lookup.global-name"
     },
     {
       "findingIDs": [
         "automation.action@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent",
-        "automation.action@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent"
-      ],
-      "text": "App Intent identifier (2 findings)"
-    },
-    {
-      "findingIDs": [
-        "net.entitlement.com.apple.security.network.client"
-      ],
-      "text": "Allows outgoing network connections"
-    },
-    {
-      "findingIDs": [
-        "bundle.CFBundleDisplayName",
-        "bundle.CFBundleDisplayName@Contents/PlugIns/CalculatorWidget.appex"
-      ],
-      "text": "CFBundleDisplayName (2 findings)"
-    },
-    {
-      "findingIDs": [
-        "sign.authorities",
-        "sign.authorities@Contents/PlugIns/CalculatorWidget.appex"
-      ],
-      "text": "Signing authority chain (2 findings)"
-    },
-    {
-      "findingIDs": [
-        "ent.com.apple.security.temporary-exception.mach-lookup.global-name"
-      ],
-      "text": "com.apple.security.temporary-exception.mach-lookup.global-name"
-    },
-    {
-      "findingIDs": [
+        "automation.action@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent",
         "automation.appintents@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata",
-        "automation.appintents@Contents/Resources/Metadata.appintents/extract.actionsdata"
-      ],
-      "text": "App Intents metadata (2 findings)"
-    },
-    {
-      "findingIDs": [
+        "automation.appintents@Contents/Resources/Metadata.appintents/extract.actionsdata",
         "automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.identifier",
         "automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].name",
         "automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].valueType.linkEnumeration.wrapper.identifier",
@@ -1350,9 +1315,47 @@
         "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.identifier",
         "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].cases[0].identifier",
         "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].identifier",
-        "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.generator.name"
+        "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.generator.name",
+        "automation.title@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.descriptionMetadata.categoryName.title",
+        "automation.title@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].title",
+        "automation.title@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.title",
+        "automation.title@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].displayRepresentation.title",
+        "automation.title@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].cases[0].displayRepresentation.title",
+        "automation.title@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.descriptionMetadata.categoryName.title",
+        "automation.title@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].title",
+        "automation.title@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.title",
+        "automation.title@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].displayRepresentation.title",
+        "automation.title@Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].cases[0].displayRepresentation.title"
       ],
-      "text": "App Intent identifier/title field (16 findings)"
+      "text": "Declares App Intents / Shortcuts actions (30 metadata entries)"
+    },
+    {
+      "findingIDs": [
+        "ent.com.apple.security.files.user-selected.read-write"
+      ],
+      "text": "Requests access to user-selected files"
+    },
+    {
+      "findingIDs": [
+        "ent.com.apple.security.network.client",
+        "net.entitlement.com.apple.security.network.client"
+      ],
+      "text": "Allows outgoing network connections"
+    },
+    {
+      "findingIDs": [
+        "net.host.crl.apple.com",
+        "net.host.ocsp.apple.com",
+        "net.host.www.apple.com"
+      ],
+      "text": "3 distinct hosts found as strings in binaries; strings are not proof of traffic"
+    },
+    {
+      "findingIDs": [
+        "ent.com.apple.security.app-sandbox",
+        "ent.com.apple.security.app-sandbox@Contents/PlugIns/CalculatorWidget.appex"
+      ],
+      "text": "App Sandbox enabled"
     }
   ],
   "target": {

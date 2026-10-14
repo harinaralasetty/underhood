@@ -35,7 +35,7 @@ underhood /System/Applications/Notes.app --format json --output notes.json
 underhood /System/Applications/Calculator.app --format both --output calculator --full
 ```
 
-Markdown goes to stdout by default. `--format both` writes `<base>.md` and `<base>.json`. Output parents must exist; existing files, symlinks, hard links, target paths and system locations are refused. Pick a new output name for each saved scan.
+Markdown goes to stdout by default. `--format both` writes `<base>.md` and `<base>.json`. Output parents must exist. Existing regular files outside target and system directories are replaced atomically using a temporary file in the same directory; all saved reports use mode `0600`, including replacements. Directories, symlinks and other non-regular outputs are refused. Replacing a hard link leaves its original file untouched. Both destinations are checked before `--format both` writes; if the second write fails, the first is removed only when newly created by this run. A replaced first report remains in place.
 
 Use `--no-binary-strings` to omit endpoint scanning, or `--max-binary-mb 100` to change the per-binary bound (default 300 MiB). Flags may follow the target. Exit codes: **0** report produced, including documented skips; **1** usage/output error; **2** invalid or unsupported target.
 
@@ -45,9 +45,9 @@ Use `--no-binary-strings` to omit endpoint scanning, or `--max-binary-mb 100` to
 
 Underhood parses bundle plists, Mach-O slices and embedded code-signature metadata in-process. It reports permissions, entitlements, registrations, launch declarations, automation metadata and endpoint strings, with source-file and locator evidence. No subprocesses, target execution or network access occur.
 
-Traversal avoids symlinks and bounds nesting, file counts, metadata and binary scanning. One analyser's failure becomes a skip note while the others continue. Reports sort and merge evidence deterministically; `scannedAt` varies. Host launch entries affect macOS-host results and are unavailable on other hosts.
+The user-supplied target path is resolved through symlinks before detection; reports show the resolved root. Traversal inside the target avoids symlinks and bounds nesting, file counts, metadata and binary scanning. One analyser's failure becomes a skip note while the others continue. Reports sort and merge evidence deterministically; `scannedAt` varies. Host launch entries affect macOS-host results and are unavailable on other hosts.
 
-Default Markdown is compact and uses a path/locator reference key. `--full` lists every evidence entry and description; JSON always retains all findings and retained evidence.
+Default Markdown shows readable titles and inline path/locator evidence, a nested-bundle table, and at most eight grouped summary items. Repeated informational families are capped at ten entries, informational endpoint rows at fifty, and skip notes at twenty. Sensitive and notable findings remain visible, so large automation surfaces can exceed compact size targets. `--full` lists every evidence entry and description; JSON always retains all findings and retained evidence.
 
 ## What you can analyse
 
@@ -62,20 +62,20 @@ Default Markdown is compact and uses a path/locator reference key. `--full` list
 ```markdown
 # Underhood: Calculator
 
-**ID:** com.apple.calculator  
-**Version / build:** 12.0 / 225  
-**Path:** /System/Applications/Calculator.app  
-**Tool version:** 0.1.0-dev  
-**Scanned at:** 2026-10-14T15:25:50.703546Z
+## Summary
 
-**bundle.sandbox** [I/D] (+1 evidence)  
-P2/L28 = true
+- Requests 2 sandbox temporary exceptions: files.absolute-path.read-only, mach-lookup.global-name
+- Requests access to user-selected files
+- Allows outgoing network connections
+- App Sandbox enabled
 
-- P2: Contents/MacOS/Calculator
-- L28: Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.app-sandbox
+## identity
+
+**App Sandbox presence** · I/D · `bundle.sandbox`
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.app-sandbox = true
 ```
 
-Full generated reports: [Calculator Markdown](examples/calculator.md) · [Calculator JSON](examples/calculator.json). These describe the inspected system-app version, not every version of Calculator. A declared capability or string is not observed runtime behavior.
+Excerpt above omits other summary and finding lines. Full generated reports: [Calculator Markdown](examples/calculator.md) · [Calculator JSON](examples/calculator.json). These describe the inspected system-app version, not every version of Calculator. A declared capability or string is not observed runtime behavior.
 
 ## FAQ
 

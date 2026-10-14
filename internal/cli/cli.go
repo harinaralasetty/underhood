@@ -3,6 +3,7 @@ package cli
 
 import (
 	"bytes"
+	"crypto/rand"
 	"fmt"
 	"io"
 	"os"
@@ -25,6 +26,8 @@ Usage: underhood <path> [--format md|json|both] [--output <path>]
 Flags may appear before or after the path; -- ends option parsing.
 --format both requires --output <basepath> (writes .md and .json).
 --max-binary-mb is a positive MiB limit per binary (default 300).
+--output atomically replaces regular files outside target/system directories (mode 0600).
+Directories, symlinks and other non-regular outputs are refused.
 Exit codes: 0 report produced; 1 usage/output error; 2 invalid target.
 `
 
@@ -170,7 +173,7 @@ func destination(name, root string) (string, error) {
 		if !st.Mode().IsRegular() {
 			return "", fmt.Errorf("output must be a regular file, not a symlink")
 		}
-		return "", fmt.Errorf("refusing existing output path (also prevents hard-link overwrites): %s", name)
+		return p, nil
 	}
 	if !os.IsNotExist(e) {
 		return "", e
@@ -219,7 +222,14 @@ func Run(args []string, stdout, stderr io.Writer) int {
 		}
 		return 0
 	}
-	root, _ := filepath.Abs(o.Path)
+	root, e := filepath.EvalSymlinks(o.Path)
+	if e != nil {
+		return fail(1, e)
+	}
+	root, e = filepath.Abs(root)
+	if e != nil {
+		return fail(1, e)
+	}
 	names := []string{o.Output}
 	data := [][]byte{md.Bytes()}
 	if o.Format == "json" {
@@ -237,22 +247,73 @@ func Run(args []string, stdout, stderr io.Writer) int {
 		}
 		paths = append(paths, p)
 	}
-	for i, p := range paths {
-		if e = inventory.Safe(filepath.Dir(p)); e != nil {
-			return fail(1, e)
-		}
-		f, err := os.OpenFile(p, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
-		if err != nil {
-			return fail(1, err)
-		}
-		_, err = f.Write(data[i])
-		closeErr := f.Close()
-		if err != nil {
-			return fail(1, err)
-		}
-		if closeErr != nil {
-			return fail(1, closeErr)
-		}
+	if e := writeOutputs(paths, data, atomicWrite); e != nil {
+		return fail(1, e)
 	}
 	return 0
+}
+
+// writeOutputs only rolls back destinations created by this run. Replacements
+// remain intact if a later write fails; restoring old contents is not atomic.
+func writeOutputs(paths []string, data [][]byte, write func(string, []byte) error) error {
+	existed := make([]bool, len(paths))
+	for i, p := range paths {
+		st, err := os.Lstat(p)
+		if err == nil {
+			if !st.Mode().IsRegular() {
+				return fmt.Errorf("output must be a regular file, not a symlink")
+			}
+			existed[i] = true
+		} else if !os.IsNotExist(err) {
+			return err
+		}
+	}
+	for i, p := range paths {
+		if err := write(p, data[i]); err != nil {
+			for j := 0; j < i; j++ {
+				if !existed[j] {
+					_ = os.Remove(paths[j])
+				}
+			}
+			return err
+		}
+	}
+	return nil
+}
+
+func atomicWrite(path string, data []byte) error {
+	return atomicWriteWithRename(path, data, os.Rename)
+}
+
+func atomicWriteWithRename(path string, data []byte, rename func(string, string) error) error {
+	if err := inventory.Safe(filepath.Dir(path)); err != nil {
+		return err
+	}
+	// Recheck the leaf without following it before creating any output.
+	if st, err := os.Lstat(path); err == nil {
+		if !st.Mode().IsRegular() {
+			return fmt.Errorf("output must be a regular file, not a symlink")
+		}
+	} else if !os.IsNotExist(err) {
+		return err
+	}
+	var nonce [16]byte
+	if _, err := rand.Read(nonce[:]); err != nil {
+		return err
+	}
+	temp := filepath.Join(filepath.Dir(path), fmt.Sprintf(".underhood-%x.tmp", nonce))
+	f, err := os.OpenFile(temp, os.O_CREATE|os.O_EXCL|os.O_WRONLY, 0600)
+	if err != nil {
+		return err
+	}
+	defer os.Remove(temp)
+	_, err = f.Write(data)
+	closeErr := f.Close()
+	if err != nil {
+		return err
+	}
+	if closeErr != nil {
+		return closeErr
+	}
+	return rename(temp, path)
 }

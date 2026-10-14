@@ -2,6 +2,7 @@
 package scan
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"net/url"
@@ -89,7 +90,7 @@ func Reader(r io.Reader, max int64, chunk int) (Result, error) {
 	seen := map[string]bool{}
 	runs := []run{{stride: 1, encoding: "ASCII"}, {stride: 2, encoding: "UTF-16LE"}, {stride: 2, encoding: "UTF-16LE"}}
 	flush := func(s *run) {
-		if !s.overflow && len(s.buf) >= 7 {
+		if !s.overflow && len(s.buf) >= 7 && bytes.Contains(s.buf, []byte("://")) {
 			for _, m := range urlPattern.FindAllIndex(s.buf, -1) {
 				value := strings.TrimRight(string(s.buf[m[0]:m[1]]), "),;]}")
 				u, e := url.Parse(value)

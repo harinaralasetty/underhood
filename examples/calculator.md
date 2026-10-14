@@ -4,142 +4,127 @@
 **Version / build:** 12.0 / 225  
 **Path:** /System/Applications/Calculator.app  
 **Tool version:** 0.1.0-dev  
-**Scanned at:** 2026-10-14T15:25:50.703546Z
+**Scanned at:** 2026-10-14T15:51:02.827072Z
 
 ## Summary
 
-- com.apple.security.temporary-exception.files.absolute-path.read-only [ent.com.apple.security.temporary-exception.files.absolute-path.read-only]
-- App Intent identifier (2 findings) [automation.action@P7, automation.action@P22]
-- Allows outgoing network connections [net.entitlement.com.apple.security.network.client]
-- CFBundleDisplayName (2 findings) [bundle.CFBundleDisplayName, bundle.CFBundleDisplayName@P3]
-- Signing authority chain (2 findings) [sign.authorities, sign.authorities@P3]
-- com.apple.security.temporary-exception.mach-lookup.global-name [ent.com.apple.security.temporary-exception.mach-lookup.global-name]
-- App Intents metadata (2 findings) [automation.appintents@P6, automation.appintents@P21]
-- App Intent identifier/title field (16 findings) [automation.intent@P9, automation.intent@P10, automation.intent@P12, automation.intent@P15, automation.intent@P16, automation.intent@P18, automation.intent@P19, automation.intent@P20, automation.intent@P24, automation.intent@P25, automation.intent@P27, automation.intent@P30, automation.intent@P31, automation.intent@P33, automation.intent@P34, automation.intent@P35]
+- Requests 2 sandbox temporary exceptions: files.absolute-path.read-only, mach-lookup.global-name
+- Declares App Intents / Shortcuts actions (30 metadata entries)
+- Requests access to user-selected files
+- Allows outgoing network connections
+- 3 distinct hosts found as strings in binaries; strings are not proof of traffic
+- App Sandbox enabled
 
-Compact view: each block starts with its finding ID. P/L references expand to exact paths/locators below; @P expands the ID suffix. One evidence entry per finding; --full or JSON includes all entries and full descriptions. I = info, N = notable, S = sensitive; D = declared, B = found-in-binary, H = heuristic.
+I = info, N = notable, S = sensitive; D = declared, B = found-in-binary, H = heuristic. Use --full or JSON for every evidence entry.
 
 ## identity
 
-**bundle.CFBundleDisplayName** [I/D]  
-P1/L15 = Calculator
+**CFBundleDisplayName** · I/D · `bundle.CFBundleDisplayName`  
+Contents/Info.plist · CFBundleDisplayName = Calculator
 
-**bundle.CFBundleDisplayName@P3** [I/D]  
-P4/L15 = CalculatorWidget
+**CFBundleIdentifier** · I/D · `bundle.CFBundleIdentifier`  
+Contents/Info.plist · CFBundleIdentifier = com.apple.calculator
 
-**bundle.CFBundleIdentifier** [I/D]  
-P1/L16 = com.apple.calculator
+**CFBundleName** · I/D · `bundle.CFBundleName`  
+Contents/Info.plist · CFBundleName = Calculator
 
-**bundle.CFBundleIdentifier@P3** [I/D]  
-P4/L16 = com.apple.calculator.CalculatorWidget
+**CFBundleShortVersionString** · I/D · `bundle.CFBundleShortVersionString`  
+Contents/Info.plist · CFBundleShortVersionString = 12.0
 
-**bundle.CFBundleName** [I/D]  
-P1/L17 = Calculator
+**CFBundleVersion** · I/D · `bundle.CFBundleVersion`  
+Contents/Info.plist · CFBundleVersion = 225
 
-**bundle.CFBundleName@P3** [I/D]  
-P4/L17 = CalculatorWidget
+**LSMinimumSystemVersion** · I/D · `bundle.LSMinimumSystemVersion`  
+Contents/Info.plist · LSMinimumSystemVersion = 27.0
 
-**bundle.CFBundleShortVersionString** [I/D]  
-P1/L18 = 12.0
+**Architectures** · I/B · `bundle.architectures`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/CPU = arm64e
 
-**bundle.CFBundleShortVersionString@P3** [I/D]  
-P4/L18 = 11.0
+**App Sandbox presence** · I/D · `bundle.sandbox`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.app-sandbox = true
 
-**bundle.CFBundleVersion** [I/D]  
-P1/L19 = 225
+### Nested bundles
 
-**bundle.CFBundleVersion@P3** [I/D]  
-P4/L19 = 224
-
-**bundle.LSMinimumSystemVersion** [I/D]  
-P1/L20 = 27.0
-
-**bundle.LSMinimumSystemVersion@P3** [I/D]  
-P4/L20 = 27.0
-
-**bundle.architectures** [I/B] (+1 evidence)  
-P2/L22 = arm64e
-
-**bundle.sandbox** [I/D] (+1 evidence)  
-P2/L28 = true
-
+| Path | Bundle ID | Version | Build | Sandbox |
+| --- | --- | --- | --- | --- |
+| Contents/PlugIns/CalculatorWidget.appex | com.apple.calculator.CalculatorWidget | 11.0 | 224 | true |
 
 ## signing
 
-**sign.authorities** [I/D] (+5 evidence)  
-P2/L21 = macOS Software Signing
+**Signing authority chain** · I/D · `sign.authorities`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/CMS/certificate[0] = macOS Software Signing
 
-**sign.authorities@P3** [I/D] (+5 evidence)  
-P5/L21 = macOS Software Signing
+**Signing authority chain** · I/D · `sign.authorities@Contents/PlugIns/CalculatorWidget.appex`  
+Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget · Mach-O arm64e slice at byte 16384/CMS/certificate[0] = macOS Software Signing
 
-**sign.flags** [I/D] (+3 evidence)  
-P2/L23 = flags=0x0()
+**Code signature flags** · I/D · `sign.flags`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/CodeDirectory slot 0x0/flags = flags=0x0()
 
-**sign.flags@P3** [I/D] (+3 evidence)  
-P5/L23 = flags=0x0()
+**Code signature flags** · I/D · `sign.flags@Contents/PlugIns/CalculatorWidget.appex`  
+Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget · Mach-O arm64e slice at byte 16384/CodeDirectory slot 0x0/flags = flags=0x0()
 
-**sign.team** [I/D] (+1 evidence)  
-P2/L24 = not set
+**Signing team** · I/D · `sign.team`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/CodeDirectory slot 0x0/teamID = not set
 
-**sign.team@P3** [I/D] (+1 evidence)  
-P5/L24 = not set
+**Signing team** · I/D · `sign.team@Contents/PlugIns/CalculatorWidget.appex`  
+Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget · Mach-O arm64e slice at byte 16384/CodeDirectory slot 0x0/teamID = not set
 
 
 ## entitlements
 
-**ent.com.apple.private.coreservices.canmaplsdatabase** [I/D] (+1 evidence)  
-P2/L25 = true
+**com.apple.private.coreservices.canmaplsdatabase** · I/D · `ent.com.apple.private.coreservices.canmaplsdatabase`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/com.apple.private.coreservices.canmaplsdatabase = true
 
-**ent.com.apple.private.hid.client.event-dispatch.internal** [I/D] (+1 evidence)  
-P2/L26 = true
+**com.apple.private.hid.client.event-dispatch.internal** · I/D · `ent.com.apple.private.hid.client.event-dispatch.internal`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/com.apple.private.hid.client.event-dispatch.internal = true
 
-**ent.com.apple.runningboard.terminateprocess** [I/D] (+1 evidence)  
-P2/L27 = true
+**com.apple.runningboard.terminateprocess** · I/D · `ent.com.apple.runningboard.terminateprocess`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/com.apple.runningboard.terminateprocess = true
 
-**ent.com.apple.security.app-sandbox** [I/D] (+1 evidence)  
-P2/L28 = true
+**com.apple.security.app-sandbox** · I/D · `ent.com.apple.security.app-sandbox`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.app-sandbox = true
 App Sandbox entitlement
 
-**ent.com.apple.security.app-sandbox@P3** [I/D] (+1 evidence)  
-P5/L28 = true
+**com.apple.security.app-sandbox** · I/D · `ent.com.apple.security.app-sandbox@Contents/PlugIns/CalculatorWidget.appex`  
+Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget · Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.app-sandbox = true
 App Sandbox entitlement
 
-**ent.com.apple.security.exception.shared-preference.read-only** [I/D] (+1 evidence)  
-P2/L29 = ["com.apple.calculator"]
+**com.apple.security.exception.shared-preference.read-only** · I/D · `ent.com.apple.security.exception.shared-preference.read-only`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.exception.shared-preference.read-only = ["com.apple.calculator"]
 
-**ent.com.apple.security.exception.shared-preference.read-write** [I/D] (+1 evidence)  
-P2/L30 = ["com.apple.internal.testplatform"]
+**com.apple.security.exception.shared-preference.read-write** · I/D · `ent.com.apple.security.exception.shared-preference.read-write`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.exception.shared-preference.read-write = ["com.apple.internal.testplatform"]
 
-**ent.com.apple.security.files.user-selected.read-write** [N/D] (+1 evidence)  
-P2/L31 = true
+**com.apple.security.files.user-selected.read-write** · N/D · `ent.com.apple.security.files.user-selected.read-write`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.files.user-selected.read-write = true
 Requests access to user-selected files
 
-**ent.com.apple.security.network.client** [N/D] (+1 evidence)  
-P2/L32 = true
+**com.apple.security.network.client** · N/D · `ent.com.apple.security.network.client`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.network.client = true
 Allows outgoing network connections
 
-**ent.com.apple.security.print** [I/D] (+1 evidence)  
-P2/L33 = true
+**com.apple.security.print** · I/D · `ent.com.apple.security.print`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.print = true
 
-**ent.com.apple.security.temporary-exception.files.absolute-path.read-only** [S/D] (+1 evidence)  
-P2/L34 = ["/Library/Managed Preferences/"]
+**com.apple.security.temporary-exception.files.absolute-path.read-only** · S/D · `ent.com.apple.security.temporary-exception.files.absolute-path.read-only`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.temporary-exception.files.absolute-path.read-only = ["/Library/Managed Preferences/"]
 Requests a sandbox exception; exception targets/values follow
 
-**ent.com.apple.security.temporary-exception.mach-lookup.global-name** [S/D] (+1 evidence)  
-P2/L35 = ["com.apple.managedconfiguration.profiled","com.apple.ManagedSettingsAgent","com.apple.internal.xctestinternalangel.sessions"]
+**com.apple.security.temporary-exception.mach-lookup.global-name** · S/D · `ent.com.apple.security.temporary-exception.mach-lookup.global-name`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.temporary-exception.mach-lookup.global-name = ["com.apple.managedconfiguration.profiled","com.apple.ManagedSettingsAgent","com.apple.internal.xctestinternalangel.sessions"]
 Requests a sandbox exception; exception targets/values follow
 
-**ent.file-read-data** [I/D] (+1 evidence)  
-P2/L36 = true
+**file-read-data** · I/D · `ent.file-read-data`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/file-read-data = true
 
-**ent.file-write-data** [I/D] (+1 evidence)  
-P2/L37 = true
+**file-write-data** · I/D · `ent.file-write-data`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/file-write-data = true
 
-**ent.user-preference-read** [I/D] (+1 evidence)  
-P2/L38 = true
+**user-preference-read** · I/D · `ent.user-preference-read`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/user-preference-read = true
 
-**ent.user-preference-write** [I/D] (+1 evidence)  
-P2/L39 = true
+**user-preference-write** · I/D · `ent.user-preference-write`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/user-preference-write = true
 
 
 ## permissions
@@ -156,101 +141,85 @@ none found
 
 ## automation
 
-**automation.action@P7** [N/D]  
-P6/L10 = LaunchCalculatorOpenIntent
+**App Intent identifier** · N/D · `automation.action@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent`  
+Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata · $.actions/dictionary key = LaunchCalculatorOpenIntent
 
-**automation.action@P22** [N/D]  
-P21/L10 = LaunchCalculatorOpenIntent
+**App Intent identifier** · N/D · `automation.action@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent`  
+Contents/Resources/Metadata.appintents/extract.actionsdata · $.actions/dictionary key = LaunchCalculatorOpenIntent
 
-**automation.appintents@P6** [N/D]  
-P6/L40 = extract.actionsdata
+**App Intents metadata** · N/D · `automation.appintents@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata`  
+Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata · metadata file = extract.actionsdata
 
-**automation.appintents@P21** [N/D]  
-P21/L40 = extract.actionsdata
+**App Intents metadata** · N/D · `automation.appintents@Contents/Resources/Metadata.appintents/extract.actionsdata`  
+Contents/Resources/Metadata.appintents/extract.actionsdata · metadata file = extract.actionsdata
 
-**automation.intent@P9** [N/D]  
-P6/L2 = LaunchCalculatorOpenIntent
+**App Intent identifier/title field** · N/D · `automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.identifier`  
+Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata · $.actions.LaunchCalculatorOpenIntent.identifier = LaunchCalculatorOpenIntent
 
-**automation.intent@P10** [N/D]  
-P6/L3 = target
+**App Intent identifier/title field** · N/D · `automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].name`  
+Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata · $.actions.LaunchCalculatorOpenIntent.parameters[0].name = target
 
-**automation.intent@P12** [N/D]  
-P6/L5 = CalculatorAppView
+**App Intent identifier/title field** · N/D · `automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].valueType.linkEnumeration.wrapper.identifier`  
+Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata · $.actions.LaunchCalculatorOpenIntent.parameters[0].valueType.linkEnumeration.wrapper.identifier = CalculatorAppView
 
-**automation.intent@P15** [N/D]  
-P6/L8 = app
+**App Intent identifier/title field** · N/D · `automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].identifier`  
+Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata · $.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].identifier = app
 
-**automation.intent@P16** [N/D]  
-P6/L9 = CalculatorAppView
+**App Intent identifier/title field** · N/D · `automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.identifier`  
+Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata · $.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.identifier = CalculatorAppView
 
-**automation.intent@P18** [N/D]  
-P6/L12 = app
+**App Intent identifier/title field** · N/D · `automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].cases[0].identifier`  
+Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata · $.enums[0].cases[0].identifier = app
 
-**automation.intent@P19** [N/D]  
-P6/L13 = CalculatorAppView
+**App Intent identifier/title field** · N/D · `automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].identifier`  
+Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata · $.enums[0].identifier = CalculatorAppView
 
-**automation.intent@P20** [N/D]  
-P6/L14 = xcode-tools
+**App Intent identifier/title field** · N/D · `automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.generator.name`  
+Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata · $.generator.name = xcode-tools
 
-**automation.intent@P24** [N/D]  
-P21/L2 = LaunchCalculatorOpenIntent
+**App Intent identifier/title field** · N/D · `automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.identifier`  
+Contents/Resources/Metadata.appintents/extract.actionsdata · $.actions.LaunchCalculatorOpenIntent.identifier = LaunchCalculatorOpenIntent
 
-**automation.intent@P25** [N/D]  
-P21/L3 = target
+**App Intent identifier/title field** · N/D · `automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].name`  
+Contents/Resources/Metadata.appintents/extract.actionsdata · $.actions.LaunchCalculatorOpenIntent.parameters[0].name = target
 
-**automation.intent@P27** [N/D]  
-P21/L5 = CalculatorAppView
+**App Intent title** · N/D · `automation.title@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.descriptionMetadata.categoryName.title`  
+Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata · $.actions.LaunchCalculatorOpenIntent.descriptionMetadata.categoryName.title = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
 
-**automation.intent@P30** [N/D]  
-P21/L8 = app
+**App Intent title** · N/D · `automation.title@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].title`  
+Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata · $.actions.LaunchCalculatorOpenIntent.parameters[0].title = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
 
-**automation.intent@P31** [N/D]  
-P21/L9 = CalculatorAppView
+**App Intent title** · N/D · `automation.title@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.title`  
+Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata · $.actions.LaunchCalculatorOpenIntent.title = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
 
-**automation.intent@P33** [N/D]  
-P21/L12 = app
+**App Intent title** · N/D · `automation.title@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].displayRepresentation.title`  
+Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata · $.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].displayRepresentation.title = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
 
-**automation.intent@P34** [N/D]  
-P21/L13 = CalculatorAppView
+**App Intent title** · N/D · `automation.title@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].cases[0].displayRepresentation.title`  
+Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata · $.enums[0].cases[0].displayRepresentation.title = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
 
-**automation.intent@P35** [N/D]  
-P21/L14 = xcode-tools
+**App Intent title** · N/D · `automation.title@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.descriptionMetadata.categoryName.title`  
+Contents/Resources/Metadata.appintents/extract.actionsdata · $.actions.LaunchCalculatorOpenIntent.descriptionMetadata.categoryName.title = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
 
-**automation.title@P8** [N/D]  
-P6/L1 = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
+**App Intent title** · N/D · `automation.title@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].title`  
+Contents/Resources/Metadata.appintents/extract.actionsdata · $.actions.LaunchCalculatorOpenIntent.parameters[0].title = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
 
-**automation.title@P11** [N/D]  
-P6/L4 = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
+**App Intent title** · N/D · `automation.title@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.title`  
+Contents/Resources/Metadata.appintents/extract.actionsdata · $.actions.LaunchCalculatorOpenIntent.title = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
 
-**automation.title@P13** [N/D]  
-P6/L6 = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
+**App Intent title** · N/D · `automation.title@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].displayRepresentation.title`  
+Contents/Resources/Metadata.appintents/extract.actionsdata · $.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].displayRepresentation.title = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
 
-**automation.title@P14** [N/D]  
-P6/L7 = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
+**App Intent title** · N/D · `automation.title@Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].cases[0].displayRepresentation.title`  
+Contents/Resources/Metadata.appintents/extract.actionsdata · $.enums[0].cases[0].displayRepresentation.title = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
 
-**automation.title@P17** [N/D]  
-P6/L11 = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
-
-**automation.title@P23** [N/D]  
-P21/L1 = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
-
-**automation.title@P26** [N/D]  
-P21/L4 = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
-
-**automation.title@P28** [N/D]  
-P21/L6 = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
-
-**automation.title@P29** [N/D]  
-P21/L7 = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
-
-**automation.title@P32** [N/D]  
-P21/L11 = {"alternatives":[],"key":"Calculator","table":"WidgetLocalizable"}
+automation.intent: … and 6 more (use --full or JSON)
 
 
 ## network
 
-**net.entitlement.com.apple.security.network.client** [N/D] (+1 evidence)  
-P2/L32 = true
+**Allows outgoing network connections** · N/D · `net.entitlement.com.apple.security.network.client`  
+Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.network.client = true
 
 URL string present in a binary, not verified traffic. Counts reflect retained distinct URL evidence (caps may apply). Finding ID = net.host.<host>.
 
@@ -259,84 +228,6 @@ URL string present in a binary, not verified traffic. Counts reflect retained di
 | crl.apple.com | 2 | http://crl.apple.com/root.crl0 |
 | ocsp.apple.com | 2 | http://ocsp.apple.com/ocsp03-applerootca0 |
 | www.apple.com | 1 | https://www.apple.com/appleca/0 |
-
-## Evidence reference key
-
-- P1: Contents/Info.plist
-- P2: Contents/MacOS/Calculator
-- P3: Contents/PlugIns/CalculatorWidget.appex
-- P4: Contents/PlugIns/CalculatorWidget.appex/Contents/Info.plist
-- P5: Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget
-- P6: Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata
-- P7: Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent
-- P8: Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.descriptionMetadata.categoryName.title
-- P9: Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.identifier
-- P10: Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].name
-- P11: Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].title
-- P12: Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].valueType.linkEnumeration.wrapper.identifier
-- P13: Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.title
-- P14: Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].displayRepresentation.title
-- P15: Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].identifier
-- P16: Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.identifier
-- P17: Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].cases[0].displayRepresentation.title
-- P18: Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].cases[0].identifier
-- P19: Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].identifier
-- P20: Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.generator.name
-- P21: Contents/Resources/Metadata.appintents/extract.actionsdata
-- P22: Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent
-- P23: Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.descriptionMetadata.categoryName.title
-- P24: Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.identifier
-- P25: Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].name
-- P26: Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].title
-- P27: Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].valueType.linkEnumeration.wrapper.identifier
-- P28: Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.title
-- P29: Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].displayRepresentation.title
-- P30: Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].identifier
-- P31: Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.identifier
-- P32: Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].cases[0].displayRepresentation.title
-- P33: Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].cases[0].identifier
-- P34: Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].identifier
-- P35: Contents/Resources/Metadata.appintents/extract.actionsdata:$.generator.name
-- L1: $.actions.LaunchCalculatorOpenIntent.descriptionMetadata.categoryName.title
-- L2: $.actions.LaunchCalculatorOpenIntent.identifier
-- L3: $.actions.LaunchCalculatorOpenIntent.parameters[0].name
-- L4: $.actions.LaunchCalculatorOpenIntent.parameters[0].title
-- L5: $.actions.LaunchCalculatorOpenIntent.parameters[0].valueType.linkEnumeration.wrapper.identifier
-- L6: $.actions.LaunchCalculatorOpenIntent.title
-- L7: $.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].displayRepresentation.title
-- L8: $.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].identifier
-- L9: $.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.identifier
-- L10: $.actions/dictionary key
-- L11: $.enums[0].cases[0].displayRepresentation.title
-- L12: $.enums[0].cases[0].identifier
-- L13: $.enums[0].identifier
-- L14: $.generator.name
-- L15: CFBundleDisplayName
-- L16: CFBundleIdentifier
-- L17: CFBundleName
-- L18: CFBundleShortVersionString
-- L19: CFBundleVersion
-- L20: LSMinimumSystemVersion
-- L21: Mach-O arm64e slice at byte 16384/CMS/certificate[0]
-- L22: Mach-O arm64e slice at byte 16384/CPU
-- L23: Mach-O arm64e slice at byte 16384/CodeDirectory slot 0x0/flags
-- L24: Mach-O arm64e slice at byte 16384/CodeDirectory slot 0x0/teamID
-- L25: Mach-O arm64e slice at byte 16384/entitlements/com.apple.private.coreservices.canmaplsdatabase
-- L26: Mach-O arm64e slice at byte 16384/entitlements/com.apple.private.hid.client.event-dispatch.internal
-- L27: Mach-O arm64e slice at byte 16384/entitlements/com.apple.runningboard.terminateprocess
-- L28: Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.app-sandbox
-- L29: Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.exception.shared-preference.read-only
-- L30: Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.exception.shared-preference.read-write
-- L31: Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.files.user-selected.read-write
-- L32: Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.network.client
-- L33: Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.print
-- L34: Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.temporary-exception.files.absolute-path.read-only
-- L35: Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.temporary-exception.mach-lookup.global-name
-- L36: Mach-O arm64e slice at byte 16384/entitlements/file-read-data
-- L37: Mach-O arm64e slice at byte 16384/entitlements/file-write-data
-- L38: Mach-O arm64e slice at byte 16384/entitlements/user-preference-read
-- L39: Mach-O arm64e slice at byte 16384/entitlements/user-preference-write
-- L40: metadata file
 
 ## Skipped analyses and bounded scans
 

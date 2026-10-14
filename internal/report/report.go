@@ -130,76 +130,6 @@ func Build(r target.Result) model.Report {
 	return model.Report{SchemaVersion: 2, Tool: model.Tool{Name: "underhood", Version: model.Version}, ScannedAt: time.Now().UTC().Format(time.RFC3339Nano), Target: r.Target, Summary: Summary(f), Findings: f, Skipped: skipped, Limits: unique}
 }
 
-// Summary groups related nested declarations and chooses category variety before repeats.
-func Summary(f []model.Finding) []model.SummaryItem {
-	type group struct {
-		category, title string
-		severity        model.Severity
-		ids             []string
-	}
-	groups := map[string]*group{}
-	for _, v := range f {
-		base := strings.SplitN(v.ID, "@", 2)[0]
-		if strings.HasPrefix(base, "net.host.") {
-			base = "net.host"
-		}
-		if base == "bundle.sandbox" {
-			continue
-		}
-		key := v.Category + "\x00" + base
-		g := groups[key]
-		if g == nil {
-			g = &group{category: v.Category, title: v.Title, severity: v.Severity}
-			groups[key] = g
-		}
-		g.ids = append(g.ids, v.ID)
-		if rank(v.Severity) > rank(g.severity) {
-			g.severity = v.Severity
-		}
-		if base == "net.host" {
-			g.title = "Endpoint string hosts"
-		}
-	}
-	all := []*group{}
-	for _, g := range groups {
-		sort.Strings(g.ids)
-		all = append(all, g)
-	}
-	sort.Slice(all, func(i, j int) bool {
-		a, b := all[i], all[j]
-		if rank(a.severity) != rank(b.severity) {
-			return rank(a.severity) > rank(b.severity)
-		}
-		return a.ids[0] < b.ids[0]
-	})
-	out := []model.SummaryItem{}
-	used := map[*group]bool{}
-	categories := map[string]bool{}
-	add := func(g *group) {
-		text := g.title
-		if len(g.ids) > 1 {
-			text += fmt.Sprintf(" (%d findings)", len(g.ids))
-			if strings.HasPrefix(g.ids[0], "ent.no-sandbox@") {
-				text = fmt.Sprintf("App Sandbox not enabled in %d nested helpers", len(g.ids))
-			}
-		}
-		out = append(out, model.SummaryItem{Text: text, FindingIDs: g.ids})
-		used[g] = true
-		categories[g.category] = true
-	}
-	for _, g := range all {
-		if len(out) < 8 && !categories[g.category] {
-			add(g)
-		}
-	}
-	for _, g := range all {
-		if len(out) < 8 && !used[g] {
-			add(g)
-		}
-	}
-	return out
-}
-
 // JSON writes indented JSON with sorted object keys and no HTML escaping.
 func JSON(w io.Writer, r model.Report) error {
 	b, e := json.Marshal(r)
@@ -235,7 +165,7 @@ func Markdown(w io.Writer, r model.Report, full bool) error {
 	p := func(format string, args ...any) { fmt.Fprintf(&b, format, args...) }
 	p("# Underhood: %s\n\n**ID:** %s  \n**Version / build:** %s / %s  \n**Path:** %s  \n**Tool version:** %s  \n**Scanned at:** %s\n\n## Summary\n\n", escape(r.Target.Name), escape(r.Target.ID), escape(r.Target.Version), escape(r.Target.Build), escape(r.Target.Path), r.Tool.Version, r.ScannedAt)
 	for _, s := range r.Summary {
-		p("- %s [%s]\n", escape(s.Text), escape(strings.Join(s.FindingIDs, ", ")))
+		p("%s", summaryLine(s))
 	}
 	titles := map[string]string{"identity": "Identity and bundle", "signing": "Signing and notarization", "entitlements": "Entitlements", "permissions": "Declared privacy permissions", "registrations": "URL schemes and document types", "launchItems": "Launch items, helpers and XPC services", "automation": "Automation surface", "network": "Network surface"}
 	for _, cat := range model.Categories {

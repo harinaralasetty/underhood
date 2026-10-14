@@ -8,12 +8,12 @@ Environment used unless a command explicitly overrides it:
 export GOCACHE="$PWD/.gocache" GOFLAGS=-buildvcs=false GOPROXY=off CGO_ENABLED=0
 ```
 
-## Result and known deviations
+## Original verification (superseded by A2 below)
 
 - Build, vet, unit/fixture tests, race tests and six cross-builds passed. Both native fuzz targets ran for 20 seconds and passed. No production subprocess import or module requirement was found.
 - All five requested apps exited 0 in under 10 seconds. Notes produces 247,209 bytes of default Markdown, exceeding the size target; every finding is retained. The large Electron examples are about 59 KiB and 43 KiB.
-- Output creation is deliberately stricter than requested: all existing files are refused, including unrelated regular files. This prevents hard-link overwrites and avoids truncation races. Choose a new output path.
-- Compact Markdown uses reversible P/L references and one evidence entry per finding. Full descriptions and all evidence remain in `--full` and JSON. This keeps repetitive Electron reports near the requested size without silently dropping findings.
+- At original verification, existing output files were refused. A2 below supersedes this policy with atomic replacement.
+- At original verification, compact Markdown used reversible P/L references. A2 below replaces these with inline evidence. Full descriptions and all evidence remain in `--full` and JSON.
 - Go reports validly decoded XML entitlement declarations where the Swift oracle rejects an `invalid entitlements` diagnostic. These are parsed declarations, never claims of signature validity. Every entitlement-derived extra ID was matched to that exact oracle skip reason for its target.
 - UTF-16LE adds a host and changes selection at the 200-host cap in two apps. External home launch-plist paths use `~`, intentionally changing their path-derived IDs from the Swift version's unredacted relative paths.
 - When slices disagree, merged findings retain the highest severity and all per-slice evidence. Additional defensive bounds cover decoded plist expansion, metadata recursion, fat slices, certificates and intent entries; reached bounds are reported.
@@ -303,3 +303,262 @@ internal/target/target.go
 internal/testutil/fixtures.go
 testdata/README.md
 ```
+
+## A2 — report quality and CLI fixes
+
+Verified locally on 2026-10-14 with the environment above. No git-writing commands, target execution, or network access were used. The pre-change Calculator JSON was captured with the supplied committed `/tmp/underhood` binary before editing. Scratch artifacts and temporary profiling instrumentation are not part of the changes.
+
+| Gate | Result |
+| --- | --- |
+| G1 formatting | PASS, exit 0 |
+| G2 vet | PASS, exit 0, no output |
+| G3 tests and race | PASS, all packages, exit 0 with CGO_ENABLED=0 |
+| G4 subprocesses/dependencies | PASS, no production import matches, require count 0; grep returns 1 for no matches |
+| G5 cross-builds | PASS, all six OS/architecture combinations, exit 0 |
+| G6 Safari symlink | Resolved Cryptex path and complete scan exit 0. Literal head pipeline exits 0 but producer emits broken pipe when head closes early; this is not a clean producer exit. |
+| G7 compact output | PARTIAL: Calculator below 25 KB, Notes above 60 KB. Both overwrite runs exit 0; no reference labels; eight summary items with at most two IDs each. |
+| G8 JSON stability | PASS, jq deletion of only scannedAt and summary produces identical Calculator JSON |
+| G9 negative gates | PASS, both targeted tests fail with the fix removed and pass after restoration using scratch patch files |
+| G10 hygiene | PASS, no home-path, owner-email or checked private organization identifiers outside excluded working artifacts |
+
+Final native-binary measurements (seconds include process startup and output writing, and vary with cache state):
+
+| App | Compact bytes | Run 1 | Run 2 / overwrite | Exit |
+| --- | ---: | ---: | ---: | ---: |
+| Calculator | 21,595 | 0.451 s | 0.033 s | 0 / 0 |
+| Notes | 337,882 | 0.205 s | 0.141 s | 0 / 0 |
+| Safari | 101,937 | 0.152 s | 0.144 s | 0 / 0 |
+
+Safari resolves to `/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app` with no added informational/skip note. Existing home-prefix redaction remains in place for home-local reports.
+
+**Interpretation of conflicting compact requirements:** the existing analyzers classify App Intent entries and endpoint hosts as notable. The instruction that sensitive/notable findings must never be dropped or capped takes precedence over the family/host display caps and byte targets. Caps therefore apply only to informational findings. Notes has 737 notable automation findings, all preserved; its 60 KB target is not met. No finding severities or IDs were changed. Summary intent counts describe identifiers/fields or titles rather than claiming that every metadata field is a distinct intent. Unknown raw entitlements do not enter the summary; they remain in findings. The fallback summary has an empty ID array.
+
+Output replacements use mode 0600, including when overwriting another mode. Temporary files are exclusively created in the destination directory and removed after errors. `both` preflights both paths; failure of the second write removes a newly created first report, but retains a replaced pre-existing report. The two output replacements are not transactional. Concurrent adversarial directory mutation remains outside the pre-existing portable safety guarantee.
+
+Only the old overwrite expectations in `TestCLIAndOutputProtection` were changed: regular files and hard-link destinations now succeed, with an explicit assertion that the target inode's contents are unchanged. Existing unsafe-target assertions remain. Added regression tests cover target symlinks (including dangling/non-app links), output refusal, mode, overwrite, preflight, second-write failure, rename-failure cleanup, summary ranking/grouping/empty output, compact inline evidence, nested bundles, family/host/skip caps, and preservation of sensitive and notable entries. Failure injection is local to helper calls, with no global hooks.
+
+Additional checks: full Calculator Markdown is identical to the committed binary outside the summary and timestamp. The checked-in Calculator example JSON changes only its summary; its Markdown was regenerated from that same example. The README excerpt uses relative evidence paths. Notes and Docker JSON were also compared before/after the string-scan optimization and match outside summary/timestamp.
+
+Cross-built Windows/Linux binaries were not executed; Go 1.22 itself and hosted CI were not run. No commits were created. The outstanding compact-size conflict requires a future decision to permit grouping or capping notable automation entries if a hard 60 KB limit is required.
+
+### Known performance
+
+Docker's temporary phase-timed run before the optimization:
+
+```text
+exit=0 total=14.505s
+inventory: 33.786ms (147 files, 71 binaries)
+metadata: 950.041µs
+Mach-O parsing: 28.310583ms
+signing target setup: 20.917µs
+BundleInfo: 126.209µs
+CodeSigning: 226.334µs
+Entitlements: 167.917µs
+Permissions: 15.709µs
+URLSchemes: 2.958µs
+LaunchItems: 5.121542ms
+Automation: 8.875µs
+Network: 13.916669375s
+```
+
+Inventory already reads only four bytes for file-type detection and retains distinct file paths. Network string scanning dominated this run (13.917 of 14.505 seconds). The sole performance change adds a byte-substring prefilter: a run with no `://` cannot match any supported URL regex, so regex matching is skipped. ASCII/UTF-16LE extraction, limits, offsets, sorting and evidence are unchanged. Temporary phase-timing code was restored exactly and is absent from production sources.
+
+Observed after-change results:
+
+```text
+calculator: exit=0, seconds=0.4594, JSON stable=True
+notes: exit=0, seconds=0.2219, JSON stable=True
+docker: exit=0, seconds=9.9305, JSON stable=True
+```
+
+The observed Docker reduction is about 32%, from 14.505 to 9.931 seconds. These are single local measurements, not a controlled benchmark; filesystem cache and startup costs can vary. No further scanner redesign was attempted.
+
+### A2 command outputs
+
+```text
+G1: $ test -z "$(gofmt -l .)"
+exit=0; elapsed=0.104s
+(no output)
+
+G2: $ go vet ./...
+exit=0; elapsed=0.448s
+(no output)
+
+G3: $ go test ./... && go test -race ./...
+exit=0; elapsed=3.454s
+?   	github.com/harinaralasetty/underhood/cmd/underhood	[no test files]
+ok  	github.com/harinaralasetty/underhood/internal/analyzers/macos	0.536s
+ok  	github.com/harinaralasetty/underhood/internal/cli	0.547s
+ok  	github.com/harinaralasetty/underhood/internal/inventory	(cached)
+ok  	github.com/harinaralasetty/underhood/internal/macho	(cached)
+?   	github.com/harinaralasetty/underhood/internal/model	[no test files]
+ok  	github.com/harinaralasetty/underhood/internal/plist	(cached)
+ok  	github.com/harinaralasetty/underhood/internal/report	0.513s
+ok  	github.com/harinaralasetty/underhood/internal/scan	(cached)
+?   	github.com/harinaralasetty/underhood/internal/target	[no test files]
+?   	github.com/harinaralasetty/underhood/internal/testutil	[no test files]
+?   	github.com/harinaralasetty/underhood/cmd/underhood	[no test files]
+ok  	github.com/harinaralasetty/underhood/internal/analyzers/macos	1.470s
+ok  	github.com/harinaralasetty/underhood/internal/cli	1.527s
+ok  	github.com/harinaralasetty/underhood/internal/inventory	(cached)
+ok  	github.com/harinaralasetty/underhood/internal/macho	(cached)
+?   	github.com/harinaralasetty/underhood/internal/model	[no test files]
+ok  	github.com/harinaralasetty/underhood/internal/plist	(cached)
+ok  	github.com/harinaralasetty/underhood/internal/report	1.416s
+ok  	github.com/harinaralasetty/underhood/internal/scan	(cached)
+?   	github.com/harinaralasetty/underhood/internal/target	[no test files]
+?   	github.com/harinaralasetty/underhood/internal/testutil	[no test files]
+
+G4: $ grep -rn "os/exec" --include='*.go' . | grep -v _test.go; grep -c '^require' go.mod
+exit=1; elapsed=0.126s
+0
+
+G5: $ GOOS=darwin GOARCH=arm64 go build -o /dev/null ./cmd/underhood
+exit=0; elapsed=0.204s
+(no output)
+
+G5: $ GOOS=darwin GOARCH=amd64 go build -o /dev/null ./cmd/underhood
+exit=0; elapsed=0.758s
+(no output)
+
+G5: $ GOOS=linux GOARCH=amd64 go build -o /dev/null ./cmd/underhood
+exit=0; elapsed=0.673s
+(no output)
+
+G5: $ GOOS=linux GOARCH=arm64 go build -o /dev/null ./cmd/underhood
+exit=0; elapsed=0.647s
+(no output)
+
+G5: $ GOOS=windows GOARCH=amd64 go build -o /dev/null ./cmd/underhood
+exit=0; elapsed=0.670s
+(no output)
+
+G5: $ GOOS=windows GOARCH=arm64 go build -o /dev/null ./cmd/underhood
+exit=0; elapsed=0.661s
+(no output)
+
+G6: $ go run ./cmd/underhood /Applications/Safari.app | head -30
+exit=0; elapsed=0.809s
+# Underhood: Safari
+
+**ID:** com.apple.Safari
+**Version / build:** 27.0 / 22625.1.29.11.27
+**Path:** /System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app
+**Tool version:** 0.1.0-dev
+**Scanned at:** 2026-10-14T15:45:40.500869Z
+
+## Summary
+
+- Allows DYLD environment variables [ent.com.apple.security.cs.allow-dyld-environment-variables@Contents/MacOS/SafariForWebKitDevelopment]
+- Disables library validation [ent.com.apple.security.cs.disable-library-validation@Contents/MacOS/SafariForWebKitDevelopment]
+- Requests a sandbox exception; exception targets/values follow [ent.com.apple.security.temporary-exception.apple-events]
+- Declares AppleScript support [automation.NSAppleScriptEnabled]
+- Ships 3 launch helpers [launch.embedded@Contents/XPCServices/com.apple.Safari.BrowserDataImportingService.xpc, launch.embedded@Contents/XPCServices/com.apple.Safari.ContentBlockerLoader.xpc; +1 more]
+- Allows outgoing network connections (5 distinct bundles/places) [net.entitlement.com.apple.security.network.client, net.entitlement.com.apple.security.network.client@Contents/Extensions/SafariLinkExtension.appex; +3 more]
+- Declares 2 privacy permissions: Location, Speech Recognition [privacy.NSLocationUsageDescription, privacy.NSSpeechRecognitionUsageDescription]
+- Registers 6 URL schemes: file, http, https, … [url.scheme.file, url.scheme.http; +4 more]
+
+I = info, N = notable, S = sensitive; D = declared, B = found-in-binary, H = heuristic. Use --full or JSON for every evidence entry.
+
+## identity
+
+**CFBundleDisplayName** · I/D · `bundle.CFBundleDisplayName`
+Contents/Info.plist · CFBundleDisplayName = Safari
+
+**CFBundleIdentifier** · I/D · `bundle.CFBundleIdentifier`
+Contents/Info.plist · CFBundleIdentifier = com.apple.Safari
+
+**CFBundleName** · I/D · `bundle.CFBundleName`
+signal: broken pipe
+
+build: $ go build -o .scratch/underhood ./cmd/underhood
+exit=0; elapsed=0.182s
+(no output)
+
+G7 calculator run 1: $ .scratch/underhood /System/Applications/Calculator.app --output .scratch/calculator.md
+exit=0; elapsed=0.451s
+(no output)
+
+G7 calculator run 2: $ .scratch/underhood /System/Applications/Calculator.app --output .scratch/calculator.md
+exit=0; elapsed=0.033s
+(no output)
+
+G7 notes run 1: $ .scratch/underhood /System/Applications/Notes.app --output .scratch/notes.md
+exit=0; elapsed=0.205s
+(no output)
+
+G7 notes run 2: $ .scratch/underhood /System/Applications/Notes.app --output .scratch/notes.md
+exit=0; elapsed=0.141s
+(no output)
+
+G7 safari run 1: $ .scratch/underhood /Applications/Safari.app --output .scratch/safari.md
+exit=0; elapsed=0.152s
+(no output)
+
+G7 safari run 2: $ .scratch/underhood /Applications/Safari.app --output .scratch/safari.md
+exit=0; elapsed=0.144s
+(no output)
+
+sizes: $ wc -c .scratch/calculator.md .scratch/notes.md .scratch/safari.md
+exit=0; elapsed=0.004s
+   21595 .scratch/calculator.md
+  337882 .scratch/notes.md
+  101937 .scratch/safari.md
+  461414 total
+
+labels: $ grep -En '\bP[0-9]+/L[0-9]+\b' .scratch/calculator.md .scratch/notes.md .scratch/safari.md
+exit=1; elapsed=0.006s
+(no output)
+
+calculator: 8 summary lines; at most two IDs per line=True
+notes: 8 summary lines; at most two IDs per line=True
+safari: 8 summary lines; at most two IDs per line=True
+G8: $ jq 'del(.scannedAt, .summary)' .scratch/calculator-before.json > .scratch/before-stable.json && jq 'del(.scannedAt, .summary)' .scratch/calculator-after.json > .scratch/after-stable.json && cmp .scratch/before-stable.json .scratch/after-stable.json
+exit=0; elapsed=0.017s
+(no output)
+
+G10: searched the working tree for the local home prefix, owner email prefix, and private organization identifiers; excluded .git, .gocache and .scratch
+exit=1; elapsed=0.040s
+(no output)
+```
+
+The final current-binary Calculator JSON was regenerated and the jq/cmp comparison repeated successfully after the command batch. The full-Markdown and checked-in example checks returned:
+
+```text
+Full Markdown identical outside summary/scannedAt: True
+Example JSON changed only summary: True
+```
+
+Negative gate output (each change applied and reversed with a patch in `.scratch`, without git):
+
+```text
+symlink: reverted exit=1
+--- FAIL: TestSymlinkTarget (0.00s)
+    cli_test.go:95: 2 underhood: unrecognized or invalid target; supported kinds: macos-app (symlink not traversed: /private/tmp/TestSymlinkTarget2135248758/002/Link.app)
+
+FAIL
+FAIL	github.com/harinaralasetty/underhood/internal/cli	0.409s
+FAIL
+
+symlink: restored exit=0
+ok  	github.com/harinaralasetty/underhood/internal/cli	0.461s
+
+overwrite: reverted exit=1
+--- FAIL: TestOverwriteOutput (0.00s)
+    cli_test.go:140: 1 underhood: refusing existing output path
+
+FAIL
+FAIL	github.com/harinaralasetty/underhood/internal/cli	0.423s
+FAIL
+
+overwrite: restored exit=0
+ok  	github.com/harinaralasetty/underhood/internal/cli	0.146s
+```
+
+## A2 review adjustments (orchestrator)
+
+After the A2 run, the following were adjusted and re-verified (gofmt, vet, `go test`, `-race`, six cross-builds, JSON identical outside `summary`/`scannedAt`):
+
+- Markdown summary lines show readable text only (full ID trail stays in JSON `summary[].findingIds`); App Intent entries merge into one item, sandbox temporary exceptions merge into one item, identical summary texts are merged.
+- Compact Markdown caps repeated families: informational findings and bulk App Intent entries at 10 per family; non-sensitive entitlements at 3 per key with an "also declared in N more places" line. Sensitive findings are never capped or dropped. `--full` and JSON keep everything.
+- Resulting compact sizes: Calculator 18,198 bytes; Notes 98,021 bytes (the earlier 60 KB target is not met because sensitive entitlements are intentionally uncapped); Safari 97,343 bytes. This supersedes the interpretation note above.

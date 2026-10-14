@@ -4,6 +4,17 @@ All notable changes are documented here, following [Keep a Changelog](https://ke
 
 ## [Unreleased]
 
+### Fixed
+
+- Resolve top-level app symlinks before detection and output-boundary checks.
+- Group and rank readable summaries with category variety and bounded Markdown ID citations.
+- Replace compact evidence references with inline evidence and a nested-bundle table; cap informational repetition and skip lines while preserving notable and sensitive findings.
+- Atomically replace existing regular output files without writing through hard links; clean temporary files and newly created first outputs after a second-output failure.
+
+### Performance
+
+- Skip URL regular-expression matching for binary string runs without a `://` delimiter; endpoint results are unchanged.
+
 ### Added
 
 - Standard-library Go CLI with Markdown and schema v2 JSON reports.

@@ -53,6 +53,10 @@ func Analyze(path string, options model.Options) (Result, error) {
 	if e != nil {
 		return Result{}, e
 	}
+	root, e = filepath.EvalSymlinks(root)
+	if e != nil {
+		return Result{}, fmt.Errorf("resolve target path: %w", e)
+	}
 	mu.RLock()
 	targets := append([]Target(nil), registry...)
 	mu.RUnlock()

@@ -8,7 +8,7 @@ All fields shown below are present. Lists are arrays, including when empty. JSON
   "tool": {"name": "underhood", "version": "0.1.0-dev"},
   "scannedAt": "2026-01-01T00:00:00Z",
   "target": {"kind": "macos-app", "path": "./Fixture.app", "name": "Fixture", "id": "org.test.fixture", "version": "1.0", "build": "1"},
-  "summary": [{"text": "Architectures", "findingIDs": ["bundle.architectures"]}],
+  "summary": [{"text": "No notable declarations found in the scanned files.", "findingIDs": []}],
   "findings": [{"id": "bundle.architectures", "category": "identity", "title": "Architectures", "detail": "arm64", "severity": "info", "confidence": "found-in-binary", "evidence": [{"file": "Contents/MacOS/Fixture", "locator": "Mach-O arm64 slice at byte 0/CPU", "value": "arm64"}]}],
   "skipped": [],
   "limits": ["Signatures are parsed, not cryptographically verified."]
@@ -29,6 +29,6 @@ This illustrative example abbreviates the mandatory limits list; see the generat
 
 Severity: `info`, `notable`, `sensitive`. Confidence: `declared`, `found-in-binary`, `heuristic`. Categories: `identity`, `signing`, `entitlements`, `permissions`, `registrations`, `launchItems`, `automation`, `network`.
 
-Finding IDs merge distinct evidence. If slices disagree, the merged finding retains the highest sensitivity and all slice evidence. Missing evidence drops the claim and creates a report skip note. Repeated skip reasons collapse with a count. Every summary item cites contributing IDs, with at most eight items.
+Finding IDs merge distinct evidence. If slices disagree, the merged finding retains the highest sensitivity and all slice evidence. Missing evidence drops the claim and creates a report skip note. Repeated skip reasons collapse with a count. Summary items group related declarations and cite every contributing ID, with at most eight items ranked by sensitivity and stable key after selecting category variety. Identity and ordinary informational signing findings are excluded. When no eligible declarations exist, the single fallback item has an empty `findingIDs` array. Markdown cites at most two IDs per item; JSON retains them all.
 
 Evidence paths are bundle-relative; external host launch paths can use `../` or `~`. The target root in values becomes `.`, and the current home prefix becomes `~`. The target path itself remains useful as a path, with its home prefix redacted. Paths and declarations may still contain application-supplied identifying information; review reports before sharing.
