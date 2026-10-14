@@ -17,7 +17,9 @@ All notable changes are documented here, following [Keep a Changelog](https://ke
 
 ### Added
 
-- Portable Windows PE and PE-folder inspection: bounded resources, embedded manifests, VERSIONINFO, hardening, parsed Authenticode, imports and ASCII/UTF-16LE strings. MSIX packages and unpacked MSIX analysis remain planned next.
+- MSIX/APPX packages, bundles and unpacked manifest folders: bounded ZIP/XML parsing, declared capabilities/extensions, parsed package signatures, and shared in-memory PE inspection. Synthetic robustness fixtures and generated example reports.
+
+- Portable Windows PE and PE-folder inspection: bounded resources, embedded manifests, VERSIONINFO, hardening, parsed Authenticode, imports and ASCII/UTF-16LE strings.
 
 - Standard-library Go CLI with Markdown and schema v2 JSON reports.
 - Portable macOS bundle inventory, XML/binary plists, Mach-O/fat slices, embedded signing metadata and CMS certificate names.

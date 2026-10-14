@@ -67,7 +67,7 @@ func compact(w io.Writer, r model.Report) error {
 			conf := map[model.Confidence]string{model.Declared: "D", model.Binary: "B", model.Heuristic: "H"}[f.Confidence]
 			p("**%s** · %s/%s · `%s`  \n", escape(f.Title), sev, conf, escape(f.ID))
 			if len(f.Evidence) > 0 {
-				e := f.Evidence[0]
+				e := compactEvidence(f)
 				p("%s · %s = %s\n", escape(e.File), escape(e.Locator), escape(e.Value))
 			}
 			if strings.HasPrefix(f.ID, "windows.") && (len(f.Evidence) == 0 || !strings.EqualFold(strings.TrimSpace(f.Detail), strings.TrimSpace(f.Evidence[0].Value))) {
@@ -205,4 +205,33 @@ func nestedBundles(findings []model.Finding) map[string][4]string {
 		rows[parts[1]] = row
 	}
 	return rows
+}
+
+// MSIX extension wrapper attributes only repeat the category. Prefer a typed
+// child so the compact report shows the declared scheme, alias, port or account.
+func compactEvidence(f model.Finding) model.Evidence {
+	base := baseID(f.ID)
+	for _, e := range f.Evidence {
+		if base == "windows.msix.signature" && e.Locator == "signer[0].subject" {
+			return e
+		}
+		if base == "windows.msix.contents" && e.Locator == "zip entries" {
+			return e
+		}
+	}
+	if strings.HasPrefix(base, "windows.msix.extension.") {
+		for _, key := range []string{"StartAccount=", "Enabled=", "LocalPort", "RemotePort", "IPProtocol=", "Alias="} {
+			for _, e := range f.Evidence {
+				if strings.Contains(e.Value, key) {
+					return e
+				}
+			}
+		}
+		for _, e := range f.Evidence {
+			if !strings.HasSuffix(e.Locator, "/Extension") {
+				return e
+			}
+		}
+	}
+	return f.Evidence[0]
 }

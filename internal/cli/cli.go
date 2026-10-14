@@ -24,7 +24,7 @@ import (
 const Usage = `Underhood — static, offline app inspection
 Usage: underhood <path> [--format md|json|both] [--output <path>]
        [--max-binary-mb <n>] [--no-binary-strings] [--full] [--version] [--help]
-Supported kinds: macos-app, windows-pe, windows-folder.
+Supported kinds: macos-app, windows-pe, windows-folder, windows-msix.
 Flags may appear before or after the path; -- ends option parsing.
 --format both requires --output <basepath> (writes .md and .json).
 --max-binary-mb is a positive MiB limit per binary (default 300).

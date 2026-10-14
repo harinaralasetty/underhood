@@ -51,3 +51,19 @@ func TestWindowsMixedResources(t *testing.T) {
 		t.Fatal(r.Summary)
 	}
 }
+
+func TestMSIXCompactEvidence(t *testing.T) {
+	f := model.Finding{ID: "windows.msix.extension.windows.service", Evidence: []model.Evidence{{Locator: "/Extension", Value: "Category=windows.service"}, {Locator: "/Extension/Service", Value: "StartAccount=localSystem"}}}
+	if got := compactEvidence(f); !strings.Contains(got.Value, "localSystem") {
+		t.Fatal(got)
+	}
+	f = model.Finding{ID: "windows.msix.signature", Evidence: []model.Evidence{{Locator: "PKCX / SignedData", Value: "PKCS#7"}, {Locator: "signer[0].subject", Value: "CN=Synthetic"}}}
+	if got := compactEvidence(f); got.Value != "CN=Synthetic" {
+		t.Fatal(got)
+	}
+	fs := []model.Finding{{ID: "windows.msix.signature", Category: "signing", Severity: model.Info}, {ID: "windows.pe.unsigned@a.exe", Category: "signing", Severity: model.Notable, Title: "Unsigned"}, {ID: "windows.pe.unsigned@b.exe", Category: "signing", Severity: model.Notable, Title: "Unsigned"}}
+	s := Summary(fs)
+	if len(s) != 1 || !strings.Contains(s[0].Text, "Embedded executable not signed") || len(s[0].FindingIDs) != 2 {
+		t.Fatal(s)
+	}
+}

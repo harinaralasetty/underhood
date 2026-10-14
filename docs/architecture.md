@@ -13,7 +13,7 @@ The CLI detects a registered target, inventories safe entries, parses metadata a
 | `internal/macho` | Thin/fat headers, load commands, signature blobs, CMS certificates |
 | `internal/scan` | Streaming ASCII and UTF-16LE URL extraction |
 | `internal/analyzers/macos` | Eight independent macOS analysers |
-| `internal/analyzers/windows` | PE headers, bounded resources/imports, manifests, Authenticode and PE folders |
+| `internal/analyzers/windows` | PE headers, bounded resources/imports, manifests, Authenticode, MSIX/bundle readers and app folders |
 | `internal/report` | Merging, stable ordering, summary, Markdown and JSON |
 | `internal/testutil` | Generated portable fixtures |
 
@@ -33,4 +33,6 @@ Default Markdown uses readable titles, inline path/locator evidence, and a neste
 
 The top-level input path is resolved before detection; internal bundle symlinks remain untraversed. Output checks use the resolved root and reject target/system locations, directories, symlinks and non-regular files. Existing regular files are atomically replaced using an exclusively created temporary file in the destination directory and rename; a hard link is replaced rather than written through. Reports use mode 0600 even when replacing an older file. Temporary files are removed on error. Both destinations are validated before writing; a second-output failure removes the first only if this run created it. A pre-existing first destination that was replaced remains intact. The two renames are not a single transaction. Concurrent adversarial directory mutation remains outside the portable filesystem safety guarantee.
 
-Windows PE analysis accepts `io.ReaderAt` and size, independent of disk traversal. Disk targets use inventory safe-open checks. PE detection checks content rather than extensions. Folder discovery is limited to top-level files and one subdirectory level; 200 PE candidates and 20 analyses, prioritizing largest `.exe` files and path tie-breaks. A root AppxManifest.xml stops analysis with an explicit deferred-MSIX skip. No files are extracted or target code executed. New category headings are conditional so macOS rendering remains unchanged.
+Windows PE analysis accepts `io.ReaderAt` and size, independent of disk traversal. Disk targets use inventory safe-open checks. PE detection checks content rather than extensions. Folder discovery is limited to top-level files and one subdirectory level; 200 PE candidates and 20 analyses, prioritizing largest `.exe` files and path tie-breaks. A root AppxManifest.xml selects manifest analysis and safe reads of declared application executables. No files are extracted or target code executed. New category headings are conditional so macOS rendering remains unchanged.
+
+MSIX and bundle archives preflight bounded central-directory counts/lengths before `archive/zip` allocation. Bounded in-memory payloads feed the shared PE and PKCS#7 parsers. A report-wide budget limits decompression and PE analyses; bundles permit only one nesting level and four application packages. No ZIP names are used for disk extraction. Manifest parsing is prefix-independent and bounded by bytes, elements, depth and findings. See [Windows inspection](windows.md) for exact caps and detection tradeoffs.

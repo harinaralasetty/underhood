@@ -14,7 +14,8 @@ func baseID(id string) string { return strings.SplitN(id, "@", 2)[0] }
 const summaryLimit = 8
 
 var summaryLabels = map[string]string{
-	"windows.pe.unsigned": "Not signed",
+	"windows.pe.unsigned":   "Not signed",
+	"windows.msix.unsigned": "Package not signed",
 
 	"automation.NSAppleScriptEnabled":   "Declares AppleScript support",
 	"automation.OSAScriptingDefinition": "Declares an AppleScript scripting dictionary",
@@ -36,6 +37,13 @@ type summaryGroup struct {
 // useful behavioural summary.
 func Summary(findings []model.Finding) []model.SummaryItem {
 	groups := map[string]*summaryGroup{}
+	hasMSIX := false
+	for _, f := range findings {
+		if strings.HasPrefix(f.ID, "windows.msix.") {
+			hasMSIX = true
+			break
+		}
+	}
 	ordered := append([]model.Finding(nil), findings...)
 	sort.Slice(ordered, func(i, j int) bool { return ordered[i].ID < ordered[j].ID })
 	for _, f := range ordered {
@@ -47,6 +55,9 @@ func Summary(findings []model.Finding) []model.SummaryItem {
 			continue
 		}
 		if strings.HasPrefix(base, "windows.") && f.Severity == model.Info && (f.Category == "hardening" || f.Category == "sections" || base == "windows.imports.libraries") {
+			continue
+		}
+		if strings.HasPrefix(base, "windows.msix.") && f.Severity == model.Info && f.Category == "signing" {
 			continue
 		}
 		text := f.Title
@@ -99,6 +110,9 @@ func Summary(findings []model.Finding) []model.SummaryItem {
 		if label, ok := summaryLabels[base]; ok {
 			text = label
 		}
+		if hasMSIX && base == "windows.pe.unsigned" && strings.Contains(f.ID, "@") {
+			text = "Embedded executable not signed"
+		}
 		if strings.HasPrefix(base, "registration.CFBundleDocumentTypes.") {
 			text = "Declares supported document types"
 		}
@@ -126,6 +140,10 @@ func Summary(findings []model.Finding) []model.SummaryItem {
 			key += "=" + text
 		}
 		switch {
+		case strings.HasPrefix(base, "windows.msix.restricted."):
+			key = "windows.msix.restricted"
+		case strings.HasPrefix(base, "windows.msix.capability."):
+			key = "windows.msix.capability"
 		case strings.HasPrefix(base, "privacy."):
 			key = "privacy"
 		case strings.HasPrefix(base, "url.scheme."):
@@ -152,6 +170,10 @@ func Summary(findings []model.Finding) []model.SummaryItem {
 			g.severity = f.Severity
 		}
 		switch key {
+		case "windows.msix.restricted":
+			g.names[strings.TrimPrefix(base, "windows.msix.restricted.")] = true
+		case "windows.msix.capability":
+			g.names[strings.TrimPrefix(base, "windows.msix.capability.")] = true
 		case "privacy":
 			g.names[privacyName(strings.TrimPrefix(base, "privacy."))] = true
 		case "url.scheme":
@@ -223,6 +245,10 @@ func namesList(m map[string]bool, limit int) string {
 func (g *summaryGroup) description() string {
 	n := len(g.places)
 	switch g.key {
+	case "windows.msix.restricted":
+		return fmt.Sprintf("Declares %d restricted capabilities: %s", len(g.names), namesList(g.names, 4))
+	case "windows.msix.capability":
+		return fmt.Sprintf("Declares %d capabilities: %s", len(g.names), namesList(g.names, 4))
 	case "net.sdk.sparkle":
 		g.text = "Possible embedded self-updater: Sparkle"
 	case "sign.unsigned":

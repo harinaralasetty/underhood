@@ -34,7 +34,7 @@ No `sign.stapled-ticket` finding is emitted: Gatekeeper and notarization are not
 
 ## Windows PE findings
 
-All Windows IDs may carry `@<relative-path>` when analysing a folder or future package entry. Raw header/resource declarations use `declared`; import capability interpretations use `heuristic`; URL and persistence strings use `found-in-binary`.
+All Windows IDs may carry `@<relative-path>` when analysing a folder or package entry. Raw header/resource declarations use `declared`; import capability interpretations use `heuristic`; URL and persistence strings use `found-in-binary`.
 
 | ID pattern | Category | Severity / meaning |
 | --- | --- | --- |
@@ -72,3 +72,37 @@ These APIs are common in legitimate tools and in malware; presence does not esta
 Persistence matches (case-insensitive ASCII/UTF-16LE): `\CurrentVersion\Run`, `\CurrentVersion\RunOnce`, `\Services\`, `\Winlogon\`, `Image File Execution Options`, `schtasks`, `\Startup\`. These do not establish a registry write or scheduled task.
 
 Sources: [PE format, imports, resources and flags](https://learn.microsoft.com/en-us/windows/win32/debug/pe-format), [manifest declarations](https://learn.microsoft.com/en-us/windows/win32/sbscs/application-manifests), [process functions](https://learn.microsoft.com/en-us/windows/win32/procthread/process-and-thread-functions), [Winsock](https://learn.microsoft.com/en-us/windows/win32/winsock/windows-sockets-start-page-2), [service functions](https://learn.microsoft.com/en-us/windows/win32/services/service-functions), [dynamic linking](https://learn.microsoft.com/en-us/windows/win32/dlls/run-time-dynamic-linking).
+
+## MSIX / APPX declarations
+
+The same `windows-msix` kind covers packages and bundles. Manifest findings have `declared` confidence. Nested package findings add `@<package-path>` and embedded PE IDs use the full entry path. Endpoint hosts retain the shared report-wide IDs and per-entry evidence paths.
+
+| ID pattern | Category | Severity / meaning |
+| --- | --- | --- |
+| `windows.msix.identity`, `.property.<name>`, `.dependency.<type>` | identity | info: identity, display properties, device family and package dependencies |
+| `windows.msix.application` | windows-manifest | info: application ID, executable, entry point, runtime behavior and trust level |
+| `windows.msix.capability.<name>` | capabilities | table below; unknown names info |
+| `windows.msix.restricted.<name>` | capabilities | table below; unknown restricted names info, raw |
+| `windows.msix.extension.<category>` | windows-manifest | startup tasks/firewall rules notable; full-trust processes and LocalSystem services sensitive; other/unknown extensions info |
+| `windows.msix.uri-rule` | network | notable: declared content URI rules, not observed traffic |
+| `windows.msix.signature` | signing | info: PKCX/PKCS#7 metadata; no verification |
+| `windows.msix.unsigned` | signing | notable: signature entry absent |
+| `windows.msix.signature-unparsable` | signing | notable: signature present but malformed, unreadable, over cap or ambiguous |
+| `windows.msix.publisher-mismatch` | signing | notable: manifest publisher differs textually from signer subject; not a trust verdict |
+| `windows.msix.contents`, `.bundle.package` | identity | info: layout counts, executable names and bundle package declarations |
+
+The authoritative capability severity and plain-English meaning table is `internal/analyzers/windows/capabilities.go`. Names are case-sensitive, while XML prefix spelling is irrelevant. Known restricted names are classified even when the restricted namespace prefix is omitted; unknown names retain informational severity.
+
+| Capability group | Names | Severity |
+| --- | --- | --- |
+| Network | internetClient, internetClientServer, privateNetworkClientServer | notable |
+| User data | documentsLibrary, picturesLibrary, videosLibrary, musicLibrary, contacts, appointments, removableStorage, enterpriseAuthentication, sharedUserCertificates | notable |
+| Device | microphone, webcam, location, bluetooth, usb, serialcommunication, humaninterfacedevice, radios | notable |
+| Restricted | runFullTrust, broadFileSystemAccess, allowElevation, packagedServices, localSystemServices, unvirtualizedResources, appDiagnostics, packageManagement, confirmAppClose, inputObservation, customInstallActions | sensitive |
+| Unmapped/custom | raw Name, including unknown restricted declarations | info |
+
+For example, `runFullTrust` declares execution outside the app sandbox with the user's privileges; `broadFileSystemAccess` requests broad access to user-accessible files; `allowElevation` permits requesting elevation; and `localSystemServices` declares services under LocalSystem. Declarations do not establish permission grants, execution or effective host state.
+
+Extension evidence retains protocol names, file types, startup Enabled/DisplayName, execution aliases, service name/startup/account, firewall directions/protocols/ports, URI hosts, background tasks, COM server declarations, share targets, app services and full-trust processes. Summary sentences group restricted capability names and repeated executable findings; raw ID arrays remain only in JSON.
+
+Sources: Microsoft's [app capability declarations](https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/app-capability-declarations), [package manifest schema](https://learn.microsoft.com/en-us/uwp/schemas/appxpackage/uapmanifestschema/schema-root), and [bundle manifest schema](https://learn.microsoft.com/en-us/uwp/schemas/bundlemanifestschema/schema-root).

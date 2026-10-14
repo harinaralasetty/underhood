@@ -50,12 +50,12 @@ func TestWindowsTargets(t *testing.T) {
 	if !found {
 		t.Fatal("missing namespaced finding")
 	}
-	if e := os.WriteFile(filepath.Join(root, "AppxManifest.xml"), []byte("not parsed in B1"), 0600); e != nil {
+	if e := os.WriteFile(filepath.Join(root, "AppxManifest.xml"), []byte("malformed manifest"), 0600); e != nil {
 		t.Fatal(e)
 	}
 	r, e = (Folder{}).Analyze(target.Context{Root: root})
-	if e != nil || len(r.Findings) != 0 || len(r.Skipped) != 1 || r.Skipped[0].Reason != "MSIX folder analysis arrives in a later release" {
-		t.Fatalf("MSIX skip: %+v %v", r, e)
+	if e != nil || len(r.Findings) != 0 || len(r.Skipped) != 1 || !strings.Contains(r.Skipped[0].Reason, "manifest") {
+		t.Fatalf("Malformed MSIX manifest: %+v %v", r, e)
 	}
 }
 func TestFolderDepthSymlinkAndCap(t *testing.T) {

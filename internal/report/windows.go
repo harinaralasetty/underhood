@@ -30,7 +30,7 @@ func categoryTitle(cat, fallback string) string {
 	case "windows-manifest":
 		return "Windows application manifest"
 	case "capabilities":
-		return "Inferred capabilities"
+		return "Capabilities"
 	case "imports":
 		return "Imported libraries and symbols"
 	case "hardening":

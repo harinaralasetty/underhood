@@ -1,0 +1,913 @@
+{
+  "findings": [
+    {
+      "category": "capabilities",
+      "confidence": "declared",
+      "detail": "Unmapped capability (raw declaration). Declaration does not establish permission grant or use.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "Capabilities/CustomCapability/@Name",
+          "value": "Synthetic.Custom"
+        }
+      ],
+      "id": "windows.msix.capability.Synthetic.Custom",
+      "severity": "info",
+      "title": "Declares capability: Synthetic.Custom"
+    },
+    {
+      "category": "capabilities",
+      "confidence": "declared",
+      "detail": "Requests access to the documents library. Declaration does not establish permission grant or use.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "Capabilities/Capability/@Name",
+          "value": "documentsLibrary"
+        }
+      ],
+      "id": "windows.msix.capability.documentsLibrary",
+      "severity": "notable",
+      "title": "Declares capability: documentsLibrary"
+    },
+    {
+      "category": "capabilities",
+      "confidence": "declared",
+      "detail": "Requests outbound internet access. Declaration does not establish permission grant or use.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "Capabilities/Capability/@Name",
+          "value": "internetClient"
+        }
+      ],
+      "id": "windows.msix.capability.internetClient",
+      "severity": "notable",
+      "title": "Declares capability: internetClient"
+    },
+    {
+      "category": "capabilities",
+      "confidence": "declared",
+      "detail": "Requests microphone access. Declaration does not establish permission grant or use.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "Capabilities/DeviceCapability/@Name",
+          "value": "microphone"
+        }
+      ],
+      "id": "windows.msix.capability.microphone",
+      "severity": "notable",
+      "title": "Declares capability: microphone"
+    },
+    {
+      "category": "capabilities",
+      "confidence": "declared",
+      "detail": "Requests broad access to files available to the user. Declaration does not establish permission grant or use.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "Capabilities/Capability/@Name",
+          "value": "broadFileSystemAccess"
+        }
+      ],
+      "id": "windows.msix.restricted.broadFileSystemAccess",
+      "severity": "sensitive",
+      "title": "Declares capability: broadFileSystemAccess"
+    },
+    {
+      "category": "capabilities",
+      "confidence": "declared",
+      "detail": "Runs outside the app sandbox with the user's full privileges. Declaration does not establish permission grant or use.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "Capabilities/Capability/@Name",
+          "value": "runFullTrust"
+        }
+      ],
+      "id": "windows.msix.restricted.runFullTrust",
+      "severity": "sensitive",
+      "title": "Declares capability: runFullTrust"
+    },
+    {
+      "category": "hardening",
+      "confidence": "declared",
+      "detail": "Header declaration only; runtime enforcement is not assessed.",
+      "evidence": [
+        {
+          "file": "bin/app.exe",
+          "locator": "OptionalHeader.DllCharacteristics",
+          "value": "false"
+        }
+      ],
+      "id": "windows.hardening.appContainer@bin/app.exe",
+      "severity": "info",
+      "title": "AppContainer"
+    },
+    {
+      "category": "hardening",
+      "confidence": "declared",
+      "detail": "Header declaration only; runtime enforcement is not assessed.",
+      "evidence": [
+        {
+          "file": "bin/app.exe",
+          "locator": "OptionalHeader.DllCharacteristics",
+          "value": "true"
+        }
+      ],
+      "id": "windows.hardening.aslr@bin/app.exe",
+      "severity": "info",
+      "title": "ASLR"
+    },
+    {
+      "category": "hardening",
+      "confidence": "declared",
+      "detail": "Header declaration only; runtime enforcement is not assessed.",
+      "evidence": [
+        {
+          "file": "bin/app.exe",
+          "locator": "OptionalHeader.DllCharacteristics",
+          "value": "false"
+        }
+      ],
+      "id": "windows.hardening.cfg@bin/app.exe",
+      "severity": "notable",
+      "title": "Control Flow Guard not declared"
+    },
+    {
+      "category": "hardening",
+      "confidence": "declared",
+      "detail": "Header declaration only; runtime enforcement is not assessed.",
+      "evidence": [
+        {
+          "file": "bin/app.exe",
+          "locator": "OptionalHeader.DllCharacteristics",
+          "value": "false"
+        }
+      ],
+      "id": "windows.hardening.forceIntegrity@bin/app.exe",
+      "severity": "info",
+      "title": "Force integrity"
+    },
+    {
+      "category": "hardening",
+      "confidence": "declared",
+      "detail": "Header declaration only; runtime enforcement is not assessed.",
+      "evidence": [
+        {
+          "file": "bin/app.exe",
+          "locator": "OptionalHeader.DllCharacteristics",
+          "value": "false"
+        }
+      ],
+      "id": "windows.hardening.highEntropyVA@bin/app.exe",
+      "severity": "info",
+      "title": "High-entropy VA"
+    },
+    {
+      "category": "hardening",
+      "confidence": "declared",
+      "detail": "Header declaration only; runtime enforcement is not assessed.",
+      "evidence": [
+        {
+          "file": "bin/app.exe",
+          "locator": "OptionalHeader.DllCharacteristics",
+          "value": "false"
+        }
+      ],
+      "id": "windows.hardening.noSEH@bin/app.exe",
+      "severity": "info",
+      "title": "No SEH"
+    },
+    {
+      "category": "hardening",
+      "confidence": "declared",
+      "detail": "Header declaration only; runtime enforcement is not assessed.",
+      "evidence": [
+        {
+          "file": "bin/app.exe",
+          "locator": "OptionalHeader.DllCharacteristics",
+          "value": "true"
+        }
+      ],
+      "id": "windows.hardening.nx@bin/app.exe",
+      "severity": "info",
+      "title": "NX compatibility"
+    },
+    {
+      "category": "hardening",
+      "confidence": "declared",
+      "detail": "Header declaration only; runtime enforcement is not assessed.",
+      "evidence": [
+        {
+          "file": "bin/app.exe",
+          "locator": "OptionalHeader.DllCharacteristics",
+          "value": "false"
+        }
+      ],
+      "id": "windows.hardening.terminalServerAware@bin/app.exe",
+      "severity": "info",
+      "title": "Terminal-server aware"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "x64",
+      "evidence": [
+        {
+          "file": "bin/app.exe",
+          "locator": "COFF.Machine",
+          "value": "x64"
+        }
+      ],
+      "id": "windows.identity.machine@bin/app.exe",
+      "severity": "info",
+      "title": "Machine"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "console",
+      "evidence": [
+        {
+          "file": "bin/app.exe",
+          "locator": "OptionalHeader.Subsystem",
+          "value": "console"
+        }
+      ],
+      "id": "windows.identity.subsystem@bin/app.exe",
+      "severity": "info",
+      "title": "Subsystem"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "The COFF timestamp can be forged or zeroed for reproducible builds.",
+      "evidence": [
+        {
+          "file": "bin/app.exe",
+          "locator": "COFF.TimeDateStamp",
+          "value": "0 (1970-01-01T00:00:00Z)"
+        }
+      ],
+      "id": "windows.identity.timestamp@bin/app.exe",
+      "severity": "info",
+      "title": "Linker timestamp"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "EXE",
+      "evidence": [
+        {
+          "file": "bin/app.exe",
+          "locator": "COFF.Characteristics",
+          "value": "EXE"
+        }
+      ],
+      "id": "windows.identity.type@bin/app.exe",
+      "severity": "info",
+      "title": "Image type"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "Declared linker, OS and subsystem versions.",
+      "evidence": [
+        {
+          "file": "bin/app.exe",
+          "locator": "OptionalHeader",
+          "value": "linker 0.0; OS 6.0; subsystem 6.0; image size 28672"
+        }
+      ],
+      "id": "windows.identity.versions@bin/app.exe",
+      "severity": "info",
+      "title": "Image versions"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "Counts describe safe, unambiguous entries; executable names do not establish execution.",
+      "evidence": [
+        {
+          "file": "(root files)",
+          "locator": "entry count",
+          "value": "2"
+        },
+        {
+          "file": ".",
+          "locator": "zip entries",
+          "value": "4 entries; 1 executable files"
+        },
+        {
+          "file": "Assets",
+          "locator": "entry count",
+          "value": "1"
+        },
+        {
+          "file": "bin",
+          "locator": "entry count",
+          "value": "1"
+        },
+        {
+          "file": "bin/app.exe",
+          "locator": "executable",
+          "value": "bin/app.exe"
+        }
+      ],
+      "id": "windows.msix.contents",
+      "severity": "info",
+      "title": "Package contents"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "Declared dependency; installation is not checked.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "Dependencies/PackageDependency",
+          "value": "MinVersion=1.0.0.0; Name=Synthetic.Framework"
+        }
+      ],
+      "id": "windows.msix.dependency.PackageDependency",
+      "severity": "info",
+      "title": "Package dependency"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "Declared dependency; installation is not checked.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "Dependencies/TargetDeviceFamily",
+          "value": "MaxVersionTested=10.0.26100.0; MinVersion=10.0.19041.0; Name=Windows.Desktop"
+        }
+      ],
+      "id": "windows.msix.dependency.TargetDeviceFamily",
+      "severity": "info",
+      "title": "Package dependency"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "Manifest identity declaration.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "Identity",
+          "value": "Name=Underhood.Synthetic; ProcessorArchitecture=x64; Publisher=CN=Synthetic signer,O=Underhood test; Version=1.2.3.0"
+        }
+      ],
+      "id": "windows.msix.identity",
+      "severity": "info",
+      "title": "Package identity"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "Manifest property; resource references are not resolved.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "Properties/DisplayName",
+          "value": "Synthetic Windows App"
+        }
+      ],
+      "id": "windows.msix.property.DisplayName",
+      "severity": "info",
+      "title": "DisplayName"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "Manifest property; resource references are not resolved.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "Properties/PublisherDisplayName",
+          "value": "Underhood test"
+        }
+      ],
+      "id": "windows.msix.property.PublisherDisplayName",
+      "severity": "info",
+      "title": "PublisherDisplayName"
+    },
+    {
+      "category": "imports",
+      "confidence": "declared",
+      "detail": "Static import declarations; dynamically loaded libraries may be absent.",
+      "evidence": [
+        {
+          "file": "bin/app.exe",
+          "locator": "ImportDirectory",
+          "value": "winhttp.dll"
+        }
+      ],
+      "id": "windows.imports.libraries@bin/app.exe",
+      "severity": "info",
+      "title": "Imported libraries"
+    },
+    {
+      "category": "imports",
+      "confidence": "heuristic",
+      "detail": "These APIs are common in legitimate tools and in malware; presence does not establish use.",
+      "evidence": [
+        {
+          "file": "bin/app.exe",
+          "locator": "ImportDirectory",
+          "value": "winhttp.dll"
+        },
+        {
+          "file": "bin/app.exe",
+          "locator": "ImportDirectory",
+          "value": "winhttp.dll:WinHttpOpen"
+        }
+      ],
+      "id": "windows.imports.network@bin/app.exe",
+      "severity": "notable",
+      "title": "Network APIs"
+    },
+    {
+      "category": "network",
+      "confidence": "declared",
+      "detail": "A manifest URL rule, not observed network traffic.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/ApplicationContentUriRules/Rule",
+          "value": "Match=https://synthetic.example.org/*; Type=include"
+        }
+      ],
+      "id": "windows.msix.uri-rule",
+      "severity": "notable",
+      "title": "Declares content URI rule"
+    },
+    {
+      "category": "sections",
+      "confidence": "declared",
+      "detail": "Section flags and sizes are static declarations.",
+      "evidence": [
+        {
+          "file": "bin/app.exe",
+          "locator": "Sections[0]",
+          "value": ".idata; raw 16384; virtual 16384; flags 0x40000040"
+        }
+      ],
+      "id": "windows.section.0@bin/app.exe",
+      "severity": "info",
+      "title": "Section .idata"
+    },
+    {
+      "category": "sections",
+      "confidence": "declared",
+      "detail": "Section flags and sizes are static declarations.",
+      "evidence": [
+        {
+          "file": "bin/app.exe",
+          "locator": "Sections[1]",
+          "value": ".rsrc; raw 512; virtual 176; flags 0x40000040"
+        }
+      ],
+      "id": "windows.section.1@bin/app.exe",
+      "severity": "info",
+      "title": "Section .rsrc"
+    },
+    {
+      "category": "signing",
+      "confidence": "declared",
+      "detail": "Authenticode/MSIX signatures are parsed but not cryptographically verified; trust, revocation and timestamp validity are not assessed.",
+      "evidence": [
+        {
+          "file": "AppxSignature.p7x",
+          "locator": "PKCX / SignedData",
+          "value": "PKCS#7 SignedData"
+        },
+        {
+          "file": "AppxSignature.p7x",
+          "locator": "digest algorithms",
+          "value": "2.16.840.1.101.3.4.2.1"
+        },
+        {
+          "file": "AppxSignature.p7x",
+          "locator": "signer[0].expiry",
+          "value": "Signing certificate is expired now; a valid timestamp can keep a signature acceptable."
+        },
+        {
+          "file": "AppxSignature.p7x",
+          "locator": "signer[0].subject",
+          "value": "CN=Synthetic signer,O=Underhood test"
+        },
+        {
+          "file": "AppxSignature.p7x",
+          "locator": "signer[0].validity",
+          "value": "2000-01-01T00:00:00Z to 2001-01-01T00:00:00Z"
+        },
+        {
+          "file": "AppxSignature.p7x",
+          "locator": "timestamp attributes",
+          "value": "1.2.840.113549.1.9.6, 1.2.840.113549.1.9.16.2.14 (presence only)"
+        }
+      ],
+      "id": "windows.msix.signature",
+      "severity": "info",
+      "title": "Package signature present"
+    },
+    {
+      "category": "signing",
+      "confidence": "declared",
+      "detail": "No Authenticode certificate table is declared. Authenticode/MSIX signatures are parsed but not cryptographically verified; trust, revocation and timestamp validity are not assessed.",
+      "evidence": [
+        {
+          "file": "bin/app.exe",
+          "locator": "Security directory",
+          "value": "absent"
+        }
+      ],
+      "id": "windows.pe.unsigned@bin/app.exe",
+      "severity": "notable",
+      "title": "Unsigned"
+    },
+    {
+      "category": "windows-manifest",
+      "confidence": "declared",
+      "detail": "asInvoker",
+      "evidence": [
+        {
+          "file": "bin/app.exe",
+          "locator": ".rsrc/RT_MANIFEST/1/1033/requestedExecutionLevel",
+          "value": "asInvoker"
+        }
+      ],
+      "id": "windows.manifest.requestedExecutionLevel@bin/app.exe",
+      "severity": "info",
+      "title": "Requested execution level"
+    },
+    {
+      "category": "windows-manifest",
+      "confidence": "declared",
+      "detail": "Declared executable, entry point, runtime behavior and trust level.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application",
+          "value": "EntryPoint=windows.fullTrustApplication; Executable=bin\\app.exe; Id=App; RuntimeBehavior=packagedClassicApp; TrustLevel=mediumIL"
+        }
+      ],
+      "id": "windows.msix.application",
+      "severity": "info",
+      "title": "Application declaration"
+    },
+    {
+      "category": "windows-manifest",
+      "confidence": "declared",
+      "detail": "Raw extension declaration; activation is not observed.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension",
+          "value": "Category=windows.appExecutionAlias"
+        },
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension/AppExecutionAlias/ExecutionAlias",
+          "value": "Alias=synthetic.exe"
+        }
+      ],
+      "id": "windows.msix.extension.windows.appExecutionAlias",
+      "severity": "info",
+      "title": "Registers command aliases"
+    },
+    {
+      "category": "windows-manifest",
+      "confidence": "declared",
+      "detail": "Raw extension declaration; activation is not observed.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension",
+          "value": "Category=windows.appService"
+        },
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension/AppService",
+          "value": "Name=SyntheticAppService"
+        }
+      ],
+      "id": "windows.msix.extension.windows.appService",
+      "severity": "info",
+      "title": "Declares an app service"
+    },
+    {
+      "category": "windows-manifest",
+      "confidence": "declared",
+      "detail": "Raw extension declaration; activation is not observed.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension",
+          "value": "Category=windows.appUriHandler"
+        },
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension/AppUriHandler/Host",
+          "value": "Name=synthetic.example.org"
+        }
+      ],
+      "id": "windows.msix.extension.windows.appUriHandler",
+      "severity": "info",
+      "title": "Registers web URI hosts"
+    },
+    {
+      "category": "windows-manifest",
+      "confidence": "declared",
+      "detail": "Raw extension declaration; activation is not observed.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension",
+          "value": "Category=windows.backgroundTasks"
+        },
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension/BackgroundTasks/Task",
+          "value": "Type=timer"
+        }
+      ],
+      "id": "windows.msix.extension.windows.backgroundTasks",
+      "severity": "info",
+      "title": "Declares background tasks"
+    },
+    {
+      "category": "windows-manifest",
+      "confidence": "declared",
+      "detail": "Raw extension declaration; activation is not observed.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension",
+          "value": "Category=windows.comServer"
+        },
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension/ComServer/ExeServer",
+          "value": "Executable=bin\\app.exe"
+        }
+      ],
+      "id": "windows.msix.extension.windows.comServer",
+      "severity": "info",
+      "title": "Registers a COM server"
+    },
+    {
+      "category": "windows-manifest",
+      "confidence": "declared",
+      "detail": "Raw extension declaration; activation is not observed.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension",
+          "value": "Category=windows.fileTypeAssociation"
+        },
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension/FileTypeAssociation",
+          "value": "Name=synthetic"
+        },
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension/FileTypeAssociation/SupportedFileTypes/FileType",
+          "value": ".synthetic"
+        }
+      ],
+      "id": "windows.msix.extension.windows.fileTypeAssociation",
+      "severity": "info",
+      "title": "Registers file types"
+    },
+    {
+      "category": "windows-manifest",
+      "confidence": "declared",
+      "detail": "Declared directions, protocols and ports; effective firewall configuration is not inspected.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension",
+          "value": "Category=windows.firewallRules"
+        },
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension/FirewallRules",
+          "value": "Executable=bin\\app.exe"
+        },
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension/FirewallRules/Rule",
+          "value": "Direction=in; IPProtocol=TCP; LocalPortMax=4242; LocalPortMin=4242"
+        }
+      ],
+      "id": "windows.msix.extension.windows.firewallRules",
+      "severity": "notable",
+      "title": "Declares firewall rules"
+    },
+    {
+      "category": "windows-manifest",
+      "confidence": "declared",
+      "detail": "Declares a process outside the app sandbox with the user's privileges.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension",
+          "value": "Category=windows.fullTrustProcess"
+        },
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension/FullTrustProcess",
+          "value": "Executable=bin\\app.exe"
+        }
+      ],
+      "id": "windows.msix.extension.windows.fullTrustProcess",
+      "severity": "sensitive",
+      "title": "Declares a full-trust process"
+    },
+    {
+      "category": "windows-manifest",
+      "confidence": "declared",
+      "detail": "Raw extension declaration; activation is not observed.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension",
+          "value": "Category=windows.protocol"
+        },
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension/Protocol",
+          "value": "Name=synthetic"
+        }
+      ],
+      "id": "windows.msix.extension.windows.protocol",
+      "severity": "info",
+      "title": "Registers a URL protocol"
+    },
+    {
+      "category": "windows-manifest",
+      "confidence": "declared",
+      "detail": "The declared service runs as LocalSystem; installation and execution are not assessed.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension",
+          "value": "Category=windows.service"
+        },
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension/Service",
+          "value": "Name=SyntheticService; StartAccount=localSystem; StartupType=auto"
+        }
+      ],
+      "id": "windows.msix.extension.windows.service",
+      "severity": "sensitive",
+      "title": "Declares a LocalSystem service"
+    },
+    {
+      "category": "windows-manifest",
+      "confidence": "declared",
+      "detail": "Raw extension declaration; activation is not observed.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension",
+          "value": "Category=windows.shareTarget"
+        },
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension/ShareTarget/DataFormat",
+          "value": "Text"
+        }
+      ],
+      "id": "windows.msix.extension.windows.shareTarget",
+      "severity": "info",
+      "title": "Registers a share target"
+    },
+    {
+      "category": "windows-manifest",
+      "confidence": "declared",
+      "detail": "Declares a task that can run at sign-in; Enabled is the manifest setting, not current user state.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension",
+          "value": "Category=windows.startupTask"
+        },
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension/StartupTask",
+          "value": "DisplayName=Synthetic startup; Enabled=true; TaskId=SyntheticTask"
+        }
+      ],
+      "id": "windows.msix.extension.windows.startupTask",
+      "severity": "notable",
+      "title": "Declares a startup task"
+    },
+    {
+      "category": "windows-manifest",
+      "confidence": "declared",
+      "detail": "Raw extension declaration; activation is not observed.",
+      "evidence": [
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension",
+          "value": "Category=windows.syntheticUnknown"
+        },
+        {
+          "file": "AppxManifest.xml",
+          "locator": "/Package/Applications/Application/Extensions/Extension/Unknown",
+          "value": "Name=raw"
+        }
+      ],
+      "id": "windows.msix.extension.windows.syntheticUnknown",
+      "severity": "info",
+      "title": "Declares extension: windows.syntheticUnknown"
+    }
+  ],
+  "limits": [
+    "Authenticode/MSIX signatures are parsed but not cryptographically verified; trust, revocation and timestamp validity are not assessed.",
+    "Findings are not a verdict of safety; applications may behave differently from declarations.",
+    "Imports are heuristics common in legitimate tools and in malware; presence does not establish use.",
+    "No registry, services or scheduled tasks are inspected; external manifests and installer contents are not read.",
+    "PE folders inspect at most 20 of 200 detected PE files, at depth two, with at most 20,000 inventory entries; symlinks inside targets are not traversed.",
+    "Runtime-built URLs and server-driven behaviour are invisible.",
+    "Static analysis only; target binaries are never executed.",
+    "Strings in a binary are not proof of network traffic; endpoints are not verified traffic."
+  ],
+  "scannedAt": "2026-10-14T16:19:04.85491Z",
+  "schemaVersion": 2,
+  "skipped": [],
+  "summary": [
+    {
+      "findingIDs": [
+        "windows.msix.extension.windows.fullTrustProcess"
+      ],
+      "text": "Declares a full-trust process"
+    },
+    {
+      "findingIDs": [
+        "windows.msix.extension.windows.service"
+      ],
+      "text": "Declares a LocalSystem service"
+    },
+    {
+      "findingIDs": [
+        "windows.msix.restricted.broadFileSystemAccess",
+        "windows.msix.restricted.runFullTrust"
+      ],
+      "text": "Declares 2 restricted capabilities: broadFileSystemAccess, runFullTrust"
+    },
+    {
+      "findingIDs": [
+        "windows.hardening.cfg@bin/app.exe"
+      ],
+      "text": "Control Flow Guard not declared"
+    },
+    {
+      "findingIDs": [
+        "windows.imports.network@bin/app.exe"
+      ],
+      "text": "Network APIs"
+    },
+    {
+      "findingIDs": [
+        "windows.msix.capability.Synthetic.Custom",
+        "windows.msix.capability.documentsLibrary",
+        "windows.msix.capability.internetClient",
+        "windows.msix.capability.microphone"
+      ],
+      "text": "Declares 4 capabilities: Synthetic.Custom, documentsLibrary, internetClient, microphone"
+    },
+    {
+      "findingIDs": [
+        "windows.msix.uri-rule"
+      ],
+      "text": "Declares content URI rule"
+    },
+    {
+      "findingIDs": [
+        "windows.pe.unsigned@bin/app.exe"
+      ],
+      "text": "Embedded executable not signed"
+    }
+  ],
+  "target": {
+    "build": "",
+    "id": "Underhood.Synthetic",
+    "kind": "windows-msix",
+    "name": "Synthetic Windows App",
+    "path": "synthetic.msix",
+    "version": "1.2.3.0"
+  },
+  "tool": {
+    "name": "underhood",
+    "version": "0.1.0-dev"
+  }
+}

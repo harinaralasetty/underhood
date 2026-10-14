@@ -214,8 +214,7 @@ func folderFiles(root string, first bool) ([]folderFile, []model.SkipNote) {
 func (Folder) Analyze(c target.Context) (target.Result, error) {
 	r := initial(c.Root, "windows-folder")
 	if hasManifest(c.Root) {
-		r.Skipped = append(r.Skipped, model.SkipNote{Analyzer: "WindowsFolder", File: "AppxManifest.xml", Reason: "MSIX folder analysis arrives in a later release", Count: 1})
-		return r, nil
+		return analyzeAppxFolder(c)
 	}
 	files, notes := folderFiles(c.Root, false)
 	r.Skipped = notes

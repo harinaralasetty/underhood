@@ -36,3 +36,36 @@ func TestWindowsCLI(t *testing.T) {
 		}
 	}
 }
+
+func TestMSIXCLI(t *testing.T) {
+	for _, tc := range []struct {
+		name string
+		data []byte
+		code int
+		kind string
+	}{
+		{"package.bin", testutil.MSIX(nil), 0, "windows-msix"},
+		{"bundle.bin", testutil.MSIXBundle(testutil.MSIX(nil)), 0, "windows-msix"},
+		{"fake.msix", []byte("not a zip"), 2, ""},
+		{"ordinary.zip", testutil.Zip(map[string][]byte{"hello": []byte("world")}), 2, ""},
+		{"bad-xml.msix", testutil.Zip(map[string][]byte{"AppxManifest.xml": []byte("invalid")}), 0, "windows-msix"},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			p := filepath.Join(t.TempDir(), tc.name)
+			if e := os.WriteFile(p, tc.data, 0600); e != nil {
+				t.Fatal(e)
+			}
+			var out, err bytes.Buffer
+			code := Run([]string{p, "--format", "json"}, &out, &err)
+			if code != tc.code {
+				t.Fatalf("code %d: %s %s", code, &out, &err)
+			}
+			if code == 0 && !strings.Contains(out.String(), `"kind": "`+tc.kind+`"`) {
+				t.Fatal(out.String())
+			}
+			if code == 2 && !strings.Contains(err.String(), "windows-msix") {
+				t.Fatal(err.String())
+			}
+		})
+	}
+}

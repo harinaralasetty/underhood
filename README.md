@@ -60,7 +60,7 @@ Default Markdown shows readable titles and inline path/locator evidence, a neste
 | macOS `.app` | Identity, signing metadata, entitlements, privacy declarations, URL/document registrations, launch items, automation, endpoint strings | Available |
 | Windows PE `.exe` / `.dll` | Identity, embedded manifests/version info, hardening, Authenticode metadata, imports and strings | Available |
 | Windows portable/installed app folders | PE inventory and up to 20 embedded binaries | Available |
-| Windows `.msix` / `.appx`, bundles and unpacked MSIX | Package manifests, capabilities and signatures | Planned next |
+| Windows `.msix` / `.appx`, bundles and unpacked MSIX | Package manifests, capabilities, signatures and embedded PEs | Available |
 | Linux, iOS `.ipa`, Android `.apk` | Target-specific static inspection | Roadmap |
 
 ## Sample report
@@ -82,6 +82,16 @@ Contents/MacOS/Calculator · Mach-O arm64e slice at byte 16384/entitlements/com.
 ```
 
 Excerpt above omits other summary and finding lines. Full generated reports: [Calculator Markdown](examples/calculator.md) · [Calculator JSON](examples/calculator.json). These describe the inspected system-app version, not every version of Calculator. A declared capability or string is not observed runtime behavior.
+
+MSIX packages, bundles, and unpacked manifest folders can also be inspected from macOS, Linux, or Windows:
+
+```sh
+underhood ./application.msix --format both --output package-report
+underhood ./application.msixbundle --full
+underhood ./unpacked-app --format json
+```
+
+Synthetic package example: [Markdown](examples/windows-msix.md) · [JSON](examples/windows-msix.json). This example is generated from test fixtures and is not a real application.
 
 Windows launcher excerpt ([Markdown](examples/windows-launcher.md) · [JSON](examples/windows-launcher.json)):
 
