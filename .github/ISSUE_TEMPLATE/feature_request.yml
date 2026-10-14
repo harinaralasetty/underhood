@@ -1,0 +1,17 @@
+name: Feature request
+description: Suggest a focused static-analysis improvement.
+title: 'Feature: '
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem to solve
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Proposed behavior and evidence source
+      description: Explain what offline evidence supports the proposed claim.
+    validations:
+      required: true

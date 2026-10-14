@@ -1,0 +1,1370 @@
+{
+  "findings": [
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "LaunchCalculatorOpenIntent",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions/dictionary key",
+          "value": "LaunchCalculatorOpenIntent"
+        }
+      ],
+      "id": "automation.action@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent",
+      "severity": "notable",
+      "title": "App Intent identifier"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "LaunchCalculatorOpenIntent",
+      "evidence": [
+        {
+          "file": "Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions/dictionary key",
+          "value": "LaunchCalculatorOpenIntent"
+        }
+      ],
+      "id": "automation.action@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent",
+      "severity": "notable",
+      "title": "App Intent identifier"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "App Intents metadata found; parsing identifiers and titles is best-effort.",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "metadata file",
+          "value": "extract.actionsdata"
+        }
+      ],
+      "id": "automation.appintents@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata",
+      "severity": "notable",
+      "title": "App Intents metadata"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "App Intents metadata found; parsing identifiers and titles is best-effort.",
+      "evidence": [
+        {
+          "file": "Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "metadata file",
+          "value": "extract.actionsdata"
+        }
+      ],
+      "id": "automation.appintents@Contents/Resources/Metadata.appintents/extract.actionsdata",
+      "severity": "notable",
+      "title": "App Intents metadata"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "identifier: LaunchCalculatorOpenIntent",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions.LaunchCalculatorOpenIntent.identifier",
+          "value": "LaunchCalculatorOpenIntent"
+        }
+      ],
+      "id": "automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.identifier",
+      "severity": "notable",
+      "title": "App Intent identifier/title field"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "name: target",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions.LaunchCalculatorOpenIntent.parameters[0].name",
+          "value": "target"
+        }
+      ],
+      "id": "automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].name",
+      "severity": "notable",
+      "title": "App Intent identifier/title field"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "identifier: CalculatorAppView",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions.LaunchCalculatorOpenIntent.parameters[0].valueType.linkEnumeration.wrapper.identifier",
+          "value": "CalculatorAppView"
+        }
+      ],
+      "id": "automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].valueType.linkEnumeration.wrapper.identifier",
+      "severity": "notable",
+      "title": "App Intent identifier/title field"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "identifier: app",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].identifier",
+          "value": "app"
+        }
+      ],
+      "id": "automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].identifier",
+      "severity": "notable",
+      "title": "App Intent identifier/title field"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "identifier: CalculatorAppView",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.identifier",
+          "value": "CalculatorAppView"
+        }
+      ],
+      "id": "automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.identifier",
+      "severity": "notable",
+      "title": "App Intent identifier/title field"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "identifier: app",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.enums[0].cases[0].identifier",
+          "value": "app"
+        }
+      ],
+      "id": "automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].cases[0].identifier",
+      "severity": "notable",
+      "title": "App Intent identifier/title field"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "identifier: CalculatorAppView",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.enums[0].identifier",
+          "value": "CalculatorAppView"
+        }
+      ],
+      "id": "automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].identifier",
+      "severity": "notable",
+      "title": "App Intent identifier/title field"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "name: xcode-tools",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.generator.name",
+          "value": "xcode-tools"
+        }
+      ],
+      "id": "automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.generator.name",
+      "severity": "notable",
+      "title": "App Intent identifier/title field"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "identifier: LaunchCalculatorOpenIntent",
+      "evidence": [
+        {
+          "file": "Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions.LaunchCalculatorOpenIntent.identifier",
+          "value": "LaunchCalculatorOpenIntent"
+        }
+      ],
+      "id": "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.identifier",
+      "severity": "notable",
+      "title": "App Intent identifier/title field"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "name: target",
+      "evidence": [
+        {
+          "file": "Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions.LaunchCalculatorOpenIntent.parameters[0].name",
+          "value": "target"
+        }
+      ],
+      "id": "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].name",
+      "severity": "notable",
+      "title": "App Intent identifier/title field"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "identifier: CalculatorAppView",
+      "evidence": [
+        {
+          "file": "Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions.LaunchCalculatorOpenIntent.parameters[0].valueType.linkEnumeration.wrapper.identifier",
+          "value": "CalculatorAppView"
+        }
+      ],
+      "id": "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].valueType.linkEnumeration.wrapper.identifier",
+      "severity": "notable",
+      "title": "App Intent identifier/title field"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "identifier: app",
+      "evidence": [
+        {
+          "file": "Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].identifier",
+          "value": "app"
+        }
+      ],
+      "id": "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].identifier",
+      "severity": "notable",
+      "title": "App Intent identifier/title field"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "identifier: CalculatorAppView",
+      "evidence": [
+        {
+          "file": "Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.identifier",
+          "value": "CalculatorAppView"
+        }
+      ],
+      "id": "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.identifier",
+      "severity": "notable",
+      "title": "App Intent identifier/title field"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "identifier: app",
+      "evidence": [
+        {
+          "file": "Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.enums[0].cases[0].identifier",
+          "value": "app"
+        }
+      ],
+      "id": "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].cases[0].identifier",
+      "severity": "notable",
+      "title": "App Intent identifier/title field"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "identifier: CalculatorAppView",
+      "evidence": [
+        {
+          "file": "Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.enums[0].identifier",
+          "value": "CalculatorAppView"
+        }
+      ],
+      "id": "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].identifier",
+      "severity": "notable",
+      "title": "App Intent identifier/title field"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "name: xcode-tools",
+      "evidence": [
+        {
+          "file": "Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.generator.name",
+          "value": "xcode-tools"
+        }
+      ],
+      "id": "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.generator.name",
+      "severity": "notable",
+      "title": "App Intent identifier/title field"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "Calculator",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions.LaunchCalculatorOpenIntent.descriptionMetadata.categoryName.title",
+          "value": "{\"alternatives\":[],\"key\":\"Calculator\",\"table\":\"WidgetLocalizable\"}"
+        }
+      ],
+      "id": "automation.title@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.descriptionMetadata.categoryName.title",
+      "severity": "notable",
+      "title": "App Intent title"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "Calculator",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions.LaunchCalculatorOpenIntent.parameters[0].title",
+          "value": "{\"alternatives\":[],\"key\":\"Calculator\",\"table\":\"WidgetLocalizable\"}"
+        }
+      ],
+      "id": "automation.title@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].title",
+      "severity": "notable",
+      "title": "App Intent title"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "Calculator",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions.LaunchCalculatorOpenIntent.title",
+          "value": "{\"alternatives\":[],\"key\":\"Calculator\",\"table\":\"WidgetLocalizable\"}"
+        }
+      ],
+      "id": "automation.title@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.title",
+      "severity": "notable",
+      "title": "App Intent title"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "Calculator",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].displayRepresentation.title",
+          "value": "{\"alternatives\":[],\"key\":\"Calculator\",\"table\":\"WidgetLocalizable\"}"
+        }
+      ],
+      "id": "automation.title@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].displayRepresentation.title",
+      "severity": "notable",
+      "title": "App Intent title"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "Calculator",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.enums[0].cases[0].displayRepresentation.title",
+          "value": "{\"alternatives\":[],\"key\":\"Calculator\",\"table\":\"WidgetLocalizable\"}"
+        }
+      ],
+      "id": "automation.title@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].cases[0].displayRepresentation.title",
+      "severity": "notable",
+      "title": "App Intent title"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "Calculator",
+      "evidence": [
+        {
+          "file": "Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions.LaunchCalculatorOpenIntent.descriptionMetadata.categoryName.title",
+          "value": "{\"alternatives\":[],\"key\":\"Calculator\",\"table\":\"WidgetLocalizable\"}"
+        }
+      ],
+      "id": "automation.title@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.descriptionMetadata.categoryName.title",
+      "severity": "notable",
+      "title": "App Intent title"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "Calculator",
+      "evidence": [
+        {
+          "file": "Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions.LaunchCalculatorOpenIntent.parameters[0].title",
+          "value": "{\"alternatives\":[],\"key\":\"Calculator\",\"table\":\"WidgetLocalizable\"}"
+        }
+      ],
+      "id": "automation.title@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].title",
+      "severity": "notable",
+      "title": "App Intent title"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "Calculator",
+      "evidence": [
+        {
+          "file": "Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions.LaunchCalculatorOpenIntent.title",
+          "value": "{\"alternatives\":[],\"key\":\"Calculator\",\"table\":\"WidgetLocalizable\"}"
+        }
+      ],
+      "id": "automation.title@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.title",
+      "severity": "notable",
+      "title": "App Intent title"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "Calculator",
+      "evidence": [
+        {
+          "file": "Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].displayRepresentation.title",
+          "value": "{\"alternatives\":[],\"key\":\"Calculator\",\"table\":\"WidgetLocalizable\"}"
+        }
+      ],
+      "id": "automation.title@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].displayRepresentation.title",
+      "severity": "notable",
+      "title": "App Intent title"
+    },
+    {
+      "category": "automation",
+      "confidence": "declared",
+      "detail": "Calculator",
+      "evidence": [
+        {
+          "file": "Contents/Resources/Metadata.appintents/extract.actionsdata",
+          "locator": "$.enums[0].cases[0].displayRepresentation.title",
+          "value": "{\"alternatives\":[],\"key\":\"Calculator\",\"table\":\"WidgetLocalizable\"}"
+        }
+      ],
+      "id": "automation.title@Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].cases[0].displayRepresentation.title",
+      "severity": "notable",
+      "title": "App Intent title"
+    },
+    {
+      "category": "entitlements",
+      "confidence": "declared",
+      "detail": "Unmapped entitlement (raw declaration): true",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/entitlements/com.apple.private.coreservices.canmaplsdatabase",
+          "value": "true"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/entitlements/com.apple.private.coreservices.canmaplsdatabase",
+          "value": "true"
+        }
+      ],
+      "id": "ent.com.apple.private.coreservices.canmaplsdatabase",
+      "severity": "info",
+      "title": "com.apple.private.coreservices.canmaplsdatabase"
+    },
+    {
+      "category": "entitlements",
+      "confidence": "declared",
+      "detail": "Unmapped entitlement (raw declaration): true",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/entitlements/com.apple.private.hid.client.event-dispatch.internal",
+          "value": "true"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/entitlements/com.apple.private.hid.client.event-dispatch.internal",
+          "value": "true"
+        }
+      ],
+      "id": "ent.com.apple.private.hid.client.event-dispatch.internal",
+      "severity": "info",
+      "title": "com.apple.private.hid.client.event-dispatch.internal"
+    },
+    {
+      "category": "entitlements",
+      "confidence": "declared",
+      "detail": "Unmapped entitlement (raw declaration): true",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/entitlements/com.apple.runningboard.terminateprocess",
+          "value": "true"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/entitlements/com.apple.runningboard.terminateprocess",
+          "value": "true"
+        }
+      ],
+      "id": "ent.com.apple.runningboard.terminateprocess",
+      "severity": "info",
+      "title": "com.apple.runningboard.terminateprocess"
+    },
+    {
+      "category": "entitlements",
+      "confidence": "declared",
+      "detail": "App Sandbox entitlement: true",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.app-sandbox",
+          "value": "true"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/entitlements/com.apple.security.app-sandbox",
+          "value": "true"
+        }
+      ],
+      "id": "ent.com.apple.security.app-sandbox",
+      "severity": "info",
+      "title": "com.apple.security.app-sandbox"
+    },
+    {
+      "category": "entitlements",
+      "confidence": "declared",
+      "detail": "App Sandbox entitlement: true",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget",
+          "locator": "Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.app-sandbox",
+          "value": "true"
+        },
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget",
+          "locator": "Mach-O arm64e.x1 slice at byte 131072/entitlements/com.apple.security.app-sandbox",
+          "value": "true"
+        }
+      ],
+      "id": "ent.com.apple.security.app-sandbox@Contents/PlugIns/CalculatorWidget.appex",
+      "severity": "info",
+      "title": "com.apple.security.app-sandbox"
+    },
+    {
+      "category": "entitlements",
+      "confidence": "declared",
+      "detail": "Unmapped entitlement (raw declaration): [\"com.apple.calculator\"]",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.exception.shared-preference.read-only",
+          "value": "[\"com.apple.calculator\"]"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/entitlements/com.apple.security.exception.shared-preference.read-only",
+          "value": "[\"com.apple.calculator\"]"
+        }
+      ],
+      "id": "ent.com.apple.security.exception.shared-preference.read-only",
+      "severity": "info",
+      "title": "com.apple.security.exception.shared-preference.read-only"
+    },
+    {
+      "category": "entitlements",
+      "confidence": "declared",
+      "detail": "Unmapped entitlement (raw declaration): [\"com.apple.internal.testplatform\"]",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.exception.shared-preference.read-write",
+          "value": "[\"com.apple.internal.testplatform\"]"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/entitlements/com.apple.security.exception.shared-preference.read-write",
+          "value": "[\"com.apple.internal.testplatform\"]"
+        }
+      ],
+      "id": "ent.com.apple.security.exception.shared-preference.read-write",
+      "severity": "info",
+      "title": "com.apple.security.exception.shared-preference.read-write"
+    },
+    {
+      "category": "entitlements",
+      "confidence": "declared",
+      "detail": "Requests access to user-selected files: true",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.files.user-selected.read-write",
+          "value": "true"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/entitlements/com.apple.security.files.user-selected.read-write",
+          "value": "true"
+        }
+      ],
+      "id": "ent.com.apple.security.files.user-selected.read-write",
+      "severity": "notable",
+      "title": "com.apple.security.files.user-selected.read-write"
+    },
+    {
+      "category": "entitlements",
+      "confidence": "declared",
+      "detail": "Allows outgoing network connections: true",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.network.client",
+          "value": "true"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/entitlements/com.apple.security.network.client",
+          "value": "true"
+        }
+      ],
+      "id": "ent.com.apple.security.network.client",
+      "severity": "notable",
+      "title": "com.apple.security.network.client"
+    },
+    {
+      "category": "entitlements",
+      "confidence": "declared",
+      "detail": "Unmapped entitlement (raw declaration): true",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.print",
+          "value": "true"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/entitlements/com.apple.security.print",
+          "value": "true"
+        }
+      ],
+      "id": "ent.com.apple.security.print",
+      "severity": "info",
+      "title": "com.apple.security.print"
+    },
+    {
+      "category": "entitlements",
+      "confidence": "declared",
+      "detail": "Requests a sandbox exception; exception targets/values follow: [\"/Library/Managed Preferences/\"]",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.temporary-exception.files.absolute-path.read-only",
+          "value": "[\"/Library/Managed Preferences/\"]"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/entitlements/com.apple.security.temporary-exception.files.absolute-path.read-only",
+          "value": "[\"/Library/Managed Preferences/\"]"
+        }
+      ],
+      "id": "ent.com.apple.security.temporary-exception.files.absolute-path.read-only",
+      "severity": "sensitive",
+      "title": "com.apple.security.temporary-exception.files.absolute-path.read-only"
+    },
+    {
+      "category": "entitlements",
+      "confidence": "declared",
+      "detail": "Requests a sandbox exception; exception targets/values follow: [\"com.apple.managedconfiguration.profiled\",\"com.apple.ManagedSettingsAgent\",\"com.apple.internal.xctestinternalangel.sessions\"]",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.temporary-exception.mach-lookup.global-name",
+          "value": "[\"com.apple.managedconfiguration.profiled\",\"com.apple.ManagedSettingsAgent\",\"com.apple.internal.xctestinternalangel.sessions\"]"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/entitlements/com.apple.security.temporary-exception.mach-lookup.global-name",
+          "value": "[\"com.apple.managedconfiguration.profiled\",\"com.apple.ManagedSettingsAgent\",\"com.apple.internal.xctestinternalangel.sessions\"]"
+        }
+      ],
+      "id": "ent.com.apple.security.temporary-exception.mach-lookup.global-name",
+      "severity": "sensitive",
+      "title": "com.apple.security.temporary-exception.mach-lookup.global-name"
+    },
+    {
+      "category": "entitlements",
+      "confidence": "declared",
+      "detail": "Unmapped entitlement (raw declaration): true",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/entitlements/file-read-data",
+          "value": "true"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/entitlements/file-read-data",
+          "value": "true"
+        }
+      ],
+      "id": "ent.file-read-data",
+      "severity": "info",
+      "title": "file-read-data"
+    },
+    {
+      "category": "entitlements",
+      "confidence": "declared",
+      "detail": "Unmapped entitlement (raw declaration): true",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/entitlements/file-write-data",
+          "value": "true"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/entitlements/file-write-data",
+          "value": "true"
+        }
+      ],
+      "id": "ent.file-write-data",
+      "severity": "info",
+      "title": "file-write-data"
+    },
+    {
+      "category": "entitlements",
+      "confidence": "declared",
+      "detail": "Unmapped entitlement (raw declaration): true",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/entitlements/user-preference-read",
+          "value": "true"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/entitlements/user-preference-read",
+          "value": "true"
+        }
+      ],
+      "id": "ent.user-preference-read",
+      "severity": "info",
+      "title": "user-preference-read"
+    },
+    {
+      "category": "entitlements",
+      "confidence": "declared",
+      "detail": "Unmapped entitlement (raw declaration): true",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/entitlements/user-preference-write",
+          "value": "true"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/entitlements/user-preference-write",
+          "value": "true"
+        }
+      ],
+      "id": "ent.user-preference-write",
+      "severity": "info",
+      "title": "user-preference-write"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "Calculator",
+      "evidence": [
+        {
+          "file": "Contents/Info.plist",
+          "locator": "CFBundleDisplayName",
+          "value": "Calculator"
+        }
+      ],
+      "id": "bundle.CFBundleDisplayName",
+      "severity": "info",
+      "title": "CFBundleDisplayName"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "CalculatorWidget",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Info.plist",
+          "locator": "CFBundleDisplayName",
+          "value": "CalculatorWidget"
+        }
+      ],
+      "id": "bundle.CFBundleDisplayName@Contents/PlugIns/CalculatorWidget.appex",
+      "severity": "info",
+      "title": "CFBundleDisplayName"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "com.apple.calculator",
+      "evidence": [
+        {
+          "file": "Contents/Info.plist",
+          "locator": "CFBundleIdentifier",
+          "value": "com.apple.calculator"
+        }
+      ],
+      "id": "bundle.CFBundleIdentifier",
+      "severity": "info",
+      "title": "CFBundleIdentifier"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "com.apple.calculator.CalculatorWidget",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Info.plist",
+          "locator": "CFBundleIdentifier",
+          "value": "com.apple.calculator.CalculatorWidget"
+        }
+      ],
+      "id": "bundle.CFBundleIdentifier@Contents/PlugIns/CalculatorWidget.appex",
+      "severity": "info",
+      "title": "CFBundleIdentifier"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "Calculator",
+      "evidence": [
+        {
+          "file": "Contents/Info.plist",
+          "locator": "CFBundleName",
+          "value": "Calculator"
+        }
+      ],
+      "id": "bundle.CFBundleName",
+      "severity": "info",
+      "title": "CFBundleName"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "CalculatorWidget",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Info.plist",
+          "locator": "CFBundleName",
+          "value": "CalculatorWidget"
+        }
+      ],
+      "id": "bundle.CFBundleName@Contents/PlugIns/CalculatorWidget.appex",
+      "severity": "info",
+      "title": "CFBundleName"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "12.0",
+      "evidence": [
+        {
+          "file": "Contents/Info.plist",
+          "locator": "CFBundleShortVersionString",
+          "value": "12.0"
+        }
+      ],
+      "id": "bundle.CFBundleShortVersionString",
+      "severity": "info",
+      "title": "CFBundleShortVersionString"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "11.0",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Info.plist",
+          "locator": "CFBundleShortVersionString",
+          "value": "11.0"
+        }
+      ],
+      "id": "bundle.CFBundleShortVersionString@Contents/PlugIns/CalculatorWidget.appex",
+      "severity": "info",
+      "title": "CFBundleShortVersionString"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "225",
+      "evidence": [
+        {
+          "file": "Contents/Info.plist",
+          "locator": "CFBundleVersion",
+          "value": "225"
+        }
+      ],
+      "id": "bundle.CFBundleVersion",
+      "severity": "info",
+      "title": "CFBundleVersion"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "224",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Info.plist",
+          "locator": "CFBundleVersion",
+          "value": "224"
+        }
+      ],
+      "id": "bundle.CFBundleVersion@Contents/PlugIns/CalculatorWidget.appex",
+      "severity": "info",
+      "title": "CFBundleVersion"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "27.0",
+      "evidence": [
+        {
+          "file": "Contents/Info.plist",
+          "locator": "LSMinimumSystemVersion",
+          "value": "27.0"
+        }
+      ],
+      "id": "bundle.LSMinimumSystemVersion",
+      "severity": "info",
+      "title": "LSMinimumSystemVersion"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "27.0",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/Info.plist",
+          "locator": "LSMinimumSystemVersion",
+          "value": "27.0"
+        }
+      ],
+      "id": "bundle.LSMinimumSystemVersion@Contents/PlugIns/CalculatorWidget.appex",
+      "severity": "info",
+      "title": "LSMinimumSystemVersion"
+    },
+    {
+      "category": "identity",
+      "confidence": "found-in-binary",
+      "detail": "arm64e, arm64e.x1",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/CPU",
+          "value": "arm64e"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/CPU",
+          "value": "arm64e.x1"
+        }
+      ],
+      "id": "bundle.architectures",
+      "severity": "info",
+      "title": "Architectures"
+    },
+    {
+      "category": "identity",
+      "confidence": "declared",
+      "detail": "The main signature enables the App Sandbox entitlement.",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.app-sandbox",
+          "value": "true"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/entitlements/com.apple.security.app-sandbox",
+          "value": "true"
+        }
+      ],
+      "id": "bundle.sandbox",
+      "severity": "info",
+      "title": "App Sandbox presence"
+    },
+    {
+      "category": "network",
+      "confidence": "declared",
+      "detail": "Entitlement value: true",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.network.client",
+          "value": "true"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/entitlements/com.apple.security.network.client",
+          "value": "true"
+        }
+      ],
+      "id": "net.entitlement.com.apple.security.network.client",
+      "severity": "notable",
+      "title": "Allows outgoing network connections"
+    },
+    {
+      "category": "network",
+      "confidence": "found-in-binary",
+      "detail": "URL string present in a binary, not verified traffic; not proof of use.",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "ASCII URL at byte 1726746",
+          "value": "http://crl.apple.com/root.crl0"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "ASCII URL at byte 1729214",
+          "value": "http://crl.apple.com/codesigningcag2.crl0"
+        },
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget",
+          "locator": "ASCII URL at byte 100030",
+          "value": "http://crl.apple.com/codesigningcag2.crl0"
+        },
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget",
+          "locator": "ASCII URL at byte 97562",
+          "value": "http://crl.apple.com/root.crl0"
+        }
+      ],
+      "id": "net.host.crl.apple.com",
+      "severity": "notable",
+      "title": "Endpoint string host: crl.apple.com"
+    },
+    {
+      "category": "network",
+      "confidence": "found-in-binary",
+      "detail": "URL string present in a binary, not verified traffic; not proof of use.",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "ASCII URL at byte 1726666",
+          "value": "http://ocsp.apple.com/ocsp03-applerootca0"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "ASCII URL at byte 1728972",
+          "value": "http://ocsp.apple.com/ocsp03-codesigningcag2010"
+        },
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget",
+          "locator": "ASCII URL at byte 97482",
+          "value": "http://ocsp.apple.com/ocsp03-applerootca0"
+        },
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget",
+          "locator": "ASCII URL at byte 99788",
+          "value": "http://ocsp.apple.com/ocsp03-codesigningcag2010"
+        }
+      ],
+      "id": "net.host.ocsp.apple.com",
+      "severity": "notable",
+      "title": "Endpoint string host: ocsp.apple.com"
+    },
+    {
+      "category": "network",
+      "confidence": "found-in-binary",
+      "detail": "URL string present in a binary, not verified traffic; not proof of use.",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "ASCII URL at byte 1727827",
+          "value": "https://www.apple.com/appleca/0"
+        },
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget",
+          "locator": "ASCII URL at byte 98643",
+          "value": "https://www.apple.com/appleca/0"
+        }
+      ],
+      "id": "net.host.www.apple.com",
+      "severity": "notable",
+      "title": "Endpoint string host: www.apple.com"
+    },
+    {
+      "category": "signing",
+      "confidence": "declared",
+      "detail": "macOS Software Signing → Apple Code Signing Certification Authority → Apple Root CA. Parsed, not cryptographically verified.",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/CMS/certificate[0]",
+          "value": "macOS Software Signing"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/CMS/certificate[1]",
+          "value": "Apple Code Signing Certification Authority"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/CMS/certificate[2]",
+          "value": "Apple Root CA"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/CMS/certificate[0]",
+          "value": "macOS Software Signing"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/CMS/certificate[1]",
+          "value": "Apple Code Signing Certification Authority"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/CMS/certificate[2]",
+          "value": "Apple Root CA"
+        }
+      ],
+      "id": "sign.authorities",
+      "severity": "info",
+      "title": "Signing authority chain"
+    },
+    {
+      "category": "signing",
+      "confidence": "declared",
+      "detail": "macOS Software Signing → Apple Code Signing Certification Authority → Apple Root CA. Parsed, not cryptographically verified.",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget",
+          "locator": "Mach-O arm64e slice at byte 16384/CMS/certificate[0]",
+          "value": "macOS Software Signing"
+        },
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget",
+          "locator": "Mach-O arm64e slice at byte 16384/CMS/certificate[1]",
+          "value": "Apple Code Signing Certification Authority"
+        },
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget",
+          "locator": "Mach-O arm64e slice at byte 16384/CMS/certificate[2]",
+          "value": "Apple Root CA"
+        },
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget",
+          "locator": "Mach-O arm64e.x1 slice at byte 131072/CMS/certificate[0]",
+          "value": "macOS Software Signing"
+        },
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget",
+          "locator": "Mach-O arm64e.x1 slice at byte 131072/CMS/certificate[1]",
+          "value": "Apple Code Signing Certification Authority"
+        },
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget",
+          "locator": "Mach-O arm64e.x1 slice at byte 131072/CMS/certificate[2]",
+          "value": "Apple Root CA"
+        }
+      ],
+      "id": "sign.authorities@Contents/PlugIns/CalculatorWidget.appex",
+      "severity": "info",
+      "title": "Signing authority chain"
+    },
+    {
+      "category": "signing",
+      "confidence": "declared",
+      "detail": "flags=0x0(). Parsed, not cryptographically verified.",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/CodeDirectory slot 0x0/flags",
+          "value": "flags=0x0()"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/CodeDirectory slot 0x0/identifier",
+          "value": "com.apple.calculator"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/CodeDirectory slot 0x0/flags",
+          "value": "flags=0x0()"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/CodeDirectory slot 0x0/identifier",
+          "value": "com.apple.calculator"
+        }
+      ],
+      "id": "sign.flags",
+      "severity": "info",
+      "title": "Code signature flags"
+    },
+    {
+      "category": "signing",
+      "confidence": "declared",
+      "detail": "flags=0x0(). Parsed, not cryptographically verified.",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget",
+          "locator": "Mach-O arm64e slice at byte 16384/CodeDirectory slot 0x0/flags",
+          "value": "flags=0x0()"
+        },
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget",
+          "locator": "Mach-O arm64e slice at byte 16384/CodeDirectory slot 0x0/identifier",
+          "value": "com.apple.calculator.CalculatorWidget"
+        },
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget",
+          "locator": "Mach-O arm64e.x1 slice at byte 131072/CodeDirectory slot 0x0/flags",
+          "value": "flags=0x0()"
+        },
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget",
+          "locator": "Mach-O arm64e.x1 slice at byte 131072/CodeDirectory slot 0x0/identifier",
+          "value": "com.apple.calculator.CalculatorWidget"
+        }
+      ],
+      "id": "sign.flags@Contents/PlugIns/CalculatorWidget.appex",
+      "severity": "info",
+      "title": "Code signature flags"
+    },
+    {
+      "category": "signing",
+      "confidence": "declared",
+      "detail": "TeamIdentifier=not set",
+      "evidence": [
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e slice at byte 16384/CodeDirectory slot 0x0/teamID",
+          "value": "not set"
+        },
+        {
+          "file": "Contents/MacOS/Calculator",
+          "locator": "Mach-O arm64e.x1 slice at byte 1753088/CodeDirectory slot 0x0/teamID",
+          "value": "not set"
+        }
+      ],
+      "id": "sign.team",
+      "severity": "info",
+      "title": "Signing team"
+    },
+    {
+      "category": "signing",
+      "confidence": "declared",
+      "detail": "TeamIdentifier=not set",
+      "evidence": [
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget",
+          "locator": "Mach-O arm64e slice at byte 16384/CodeDirectory slot 0x0/teamID",
+          "value": "not set"
+        },
+        {
+          "file": "Contents/PlugIns/CalculatorWidget.appex/Contents/MacOS/CalculatorWidget",
+          "locator": "Mach-O arm64e.x1 slice at byte 131072/CodeDirectory slot 0x0/teamID",
+          "value": "not set"
+        }
+      ],
+      "id": "sign.team@Contents/PlugIns/CalculatorWidget.appex",
+      "severity": "info",
+      "title": "Signing team"
+    }
+  ],
+  "limits": [
+    "App Intents and AppleScript detection is best-effort; none found does not mean none exist.",
+    "Apps may behave differently from what they declare.",
+    "Gatekeeper and notarization status are not assessed.",
+    "Runtime permission grants (TCC) are not visible.",
+    "Runtime-built URLs and server-driven behaviour are invisible.",
+    "SDK names are heuristic evidence of inclusion, not proof of use. Findings are not a verdict of safety.",
+    "Signatures are parsed, not cryptographically verified. Certificate names are unverified declarations.",
+    "Static analysis only; the target app and its bundled binaries are never executed.",
+    "Strings in a binary are not proof of network traffic; endpoints are not verified traffic.",
+    "Symlinks are not traversed; nested bundles are limited to depth 4, inventory to 20,000 entries, and metadata to 16 MiB per file. Reached caps are reported."
+  ],
+  "scannedAt": "2026-10-14T15:25:50.703546Z",
+  "schemaVersion": 2,
+  "skipped": [],
+  "summary": [
+    {
+      "findingIDs": [
+        "ent.com.apple.security.temporary-exception.files.absolute-path.read-only"
+      ],
+      "text": "com.apple.security.temporary-exception.files.absolute-path.read-only"
+    },
+    {
+      "findingIDs": [
+        "automation.action@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent",
+        "automation.action@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent"
+      ],
+      "text": "App Intent identifier (2 findings)"
+    },
+    {
+      "findingIDs": [
+        "net.entitlement.com.apple.security.network.client"
+      ],
+      "text": "Allows outgoing network connections"
+    },
+    {
+      "findingIDs": [
+        "bundle.CFBundleDisplayName",
+        "bundle.CFBundleDisplayName@Contents/PlugIns/CalculatorWidget.appex"
+      ],
+      "text": "CFBundleDisplayName (2 findings)"
+    },
+    {
+      "findingIDs": [
+        "sign.authorities",
+        "sign.authorities@Contents/PlugIns/CalculatorWidget.appex"
+      ],
+      "text": "Signing authority chain (2 findings)"
+    },
+    {
+      "findingIDs": [
+        "ent.com.apple.security.temporary-exception.mach-lookup.global-name"
+      ],
+      "text": "com.apple.security.temporary-exception.mach-lookup.global-name"
+    },
+    {
+      "findingIDs": [
+        "automation.appintents@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata",
+        "automation.appintents@Contents/Resources/Metadata.appintents/extract.actionsdata"
+      ],
+      "text": "App Intents metadata (2 findings)"
+    },
+    {
+      "findingIDs": [
+        "automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.identifier",
+        "automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].name",
+        "automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].valueType.linkEnumeration.wrapper.identifier",
+        "automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].identifier",
+        "automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.identifier",
+        "automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].cases[0].identifier",
+        "automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].identifier",
+        "automation.intent@Contents/PlugIns/CalculatorWidget.appex/Contents/Resources/Metadata.appintents/extract.actionsdata:$.generator.name",
+        "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.identifier",
+        "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].name",
+        "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.parameters[0].valueType.linkEnumeration.wrapper.identifier",
+        "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.cases[0].identifier",
+        "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.actions.LaunchCalculatorOpenIntent.typeSpecificMetadata[1].enumMetadata.wrapper.identifier",
+        "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].cases[0].identifier",
+        "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.enums[0].identifier",
+        "automation.intent@Contents/Resources/Metadata.appintents/extract.actionsdata:$.generator.name"
+      ],
+      "text": "App Intent identifier/title field (16 findings)"
+    }
+  ],
+  "target": {
+    "build": "225",
+    "id": "com.apple.calculator",
+    "kind": "macos-app",
+    "name": "Calculator",
+    "path": "/System/Applications/Calculator.app",
+    "version": "12.0"
+  },
+  "tool": {
+    "name": "underhood",
+    "version": "0.1.0-dev"
+  }
+}

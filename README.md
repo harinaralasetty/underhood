@@ -1,0 +1,115 @@
+# Underhood
+
+Look under the hood of any app. Offline, deterministic, evidence for every claim.
+
+**See what an app declares and touches in seconds, without running it.**
+
+[![MIT licence](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Go version](https://img.shields.io/badge/Go-1.22%2B-00ADD8.svg)](go.mod) [![CI](https://github.com/harinaralasetty/underhood/actions/workflows/ci.yml/badge.svg)](https://github.com/harinaralasetty/underhood/actions/workflows/ci.yml)
+
+[Quick start](#quick-start) · [How it works](#how-it-works) · [What you can analyse](#what-you-can-analyse) · [Sample report](#sample-report) · [FAQ](#faq) · [Documentation](#documentation)
+
+## Install
+
+With Go 1.22+ once the repository is published:
+
+```sh
+go install github.com/harinaralasetty/underhood/cmd/underhood@latest
+```
+
+Build from source:
+
+```sh
+git clone https://github.com/harinaralasetty/underhood.git
+cd underhood
+CGO_ENABLED=0 go build -o underhood ./cmd/underhood
+./underhood --help
+```
+
+No external modules or Apple command-line tools are required. The inspector builds for macOS, Linux and Windows; a macOS app bundle must be available locally to inspect it. Preserve the bundle layout when copying between hosts.
+
+## Quick start
+
+```sh
+underhood /System/Applications/Calculator.app
+underhood /System/Applications/Notes.app --format json --output notes.json
+underhood /System/Applications/Calculator.app --format both --output calculator --full
+```
+
+Markdown goes to stdout by default. `--format both` writes `<base>.md` and `<base>.json`. Output parents must exist; existing files, symlinks, hard links, target paths and system locations are refused. Pick a new output name for each saved scan.
+
+Use `--no-binary-strings` to omit endpoint scanning, or `--max-binary-mb 100` to change the per-binary bound (default 300 MiB). Flags may follow the target. Exit codes: **0** report produced, including documented skips; **1** usage/output error; **2** invalid or unsupported target.
+
+## How it works
+
+**Detect target → inventory → parse → analysers → evidence-backed report.**
+
+Underhood parses bundle plists, Mach-O slices and embedded code-signature metadata in-process. It reports permissions, entitlements, registrations, launch declarations, automation metadata and endpoint strings, with source-file and locator evidence. No subprocesses, target execution or network access occur.
+
+Traversal avoids symlinks and bounds nesting, file counts, metadata and binary scanning. One analyser's failure becomes a skip note while the others continue. Reports sort and merge evidence deterministically; `scannedAt` varies. Host launch entries affect macOS-host results and are unavailable on other hosts.
+
+Default Markdown is compact and uses a path/locator reference key. `--full` lists every evidence entry and description; JSON always retains all findings and retained evidence.
+
+## What you can analyse
+
+| Target | What you get | Status |
+| --- | --- | --- |
+| macOS `.app` | Identity, signing metadata, entitlements, privacy declarations, URL/document registrations, launch items, automation, endpoint strings | Available |
+| Windows `.exe` / `.dll` / `.msix` | Planned Windows static inspection | Planned next |
+| Linux, iOS `.ipa`, Android `.apk` | Target-specific static inspection | Roadmap |
+
+## Sample report
+
+```markdown
+# Underhood: Calculator
+
+**ID:** com.apple.calculator  
+**Version / build:** 12.0 / 225  
+**Path:** /System/Applications/Calculator.app  
+**Tool version:** 0.1.0-dev  
+**Scanned at:** 2026-10-14T15:25:50.703546Z
+
+**bundle.sandbox** [I/D] (+1 evidence)  
+P2/L28 = true
+
+- P2: Contents/MacOS/Calculator
+- L28: Mach-O arm64e slice at byte 16384/entitlements/com.apple.security.app-sandbox
+```
+
+Full generated reports: [Calculator Markdown](examples/calculator.md) · [Calculator JSON](examples/calculator.json). These describe the inspected system-app version, not every version of Calculator. A declared capability or string is not observed runtime behavior.
+
+## FAQ
+
+**Does it run the app?** No. It reads files and never executes the target or bundled binaries.
+
+**Does it send anything anywhere?** No. Runtime analysis is entirely offline, with no telemetry, network access or API calls.
+
+**Is a signature verified?** No. Underhood parses flags, identifiers, entitlements and certificate names. It does not verify cryptographic integrity, trust, Gatekeeper or notarization.
+
+**How is this different from a decompiler?** It identifies declarations and byte strings with evidence. It does not reconstruct implementation logic or decompile code.
+
+**Why Go?** The standard library provides portable binary/XML/JSON parsing and a small CLI implementation with no external dependencies or host inspection tools.
+
+## Where this fits: complements REA
+
+[REA](https://github.com/morluto/rea) connects AI agents to reverse-engineering tools and returns evidence and limitations. Underhood provides a fast offline first look; its evidence-backed JSON can tell you or an agent where to dig during deeper reverse engineering.
+
+## Documentation
+
+- [Architecture and limits](docs/architecture.md)
+- [JSON schema v2](docs/schema.md)
+- [Finding catalogue](docs/findings.md)
+- [Adding a target](docs/adding-a-target.md)
+- [Verification results and known deviations](docs/verification.md)
+- [Suggested repository topics](docs/github-topics.md)
+
+## Disclaimer
+
+Static findings are not a verdict of safety. Apps may behave differently from their declarations. See [DISCLAIMER.md](DISCLAIMER.md).
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for build, test, fuzz and extension instructions, and [SECURITY.md](SECURITY.md) for private vulnerability reporting. Production code must remain dependency-free and subprocess-free.
+
+## License
+
+[MIT](LICENSE).
