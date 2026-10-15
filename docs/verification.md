@@ -555,7 +555,7 @@ overwrite: restored exit=0
 ok  	github.com/harinaralasetty/underhood/internal/cli	0.146s
 ```
 
-## A2 review adjustments (orchestrator)
+## Report-format review adjustments
 
 After the A2 run, the following were adjusted and re-verified (gofmt, vet, `go test`, `-race`, six cross-builds, JSON identical outside `summary`/`scannedAt`):
 

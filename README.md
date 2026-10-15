@@ -1,8 +1,8 @@
-# Underhood
+# Underhood: offline static analyzer for macOS apps and Windows executables
 
-Look under the hood of any app. Offline, deterministic, evidence for every claim.
+Look under the hood of any app. Underhood reads a macOS `.app`, a Windows `.exe` / `.dll` or an `.msix` package without running it, and reports entitlements, privacy permissions, code-signing metadata, URL schemes, launch items, capabilities and network endpoint strings, with evidence for every claim.
 
-**See what an app declares and touches in seconds, without running it.**
+**Offline, deterministic, one dependency-free Go binary. It runs on macOS, Linux and Windows and can inspect targets from any of them.**
 
 [![MIT licence](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![Go version](https://img.shields.io/badge/Go-1.22%2B-00ADD8.svg)](go.mod) [![CI](https://github.com/harinaralasetty/underhood/actions/workflows/ci.yml/badge.svg)](https://github.com/harinaralasetty/underhood/actions/workflows/ci.yml)
 
@@ -10,7 +10,7 @@ Look under the hood of any app. Offline, deterministic, evidence for every claim
 
 ## Install
 
-With Go 1.22+ once the repository is published:
+With Go 1.22+:
 
 ```sh
 go install github.com/harinaralasetty/underhood/cmd/underhood@latest
@@ -125,7 +125,7 @@ This x64 console launcher declares `asInvoker` and imports KERNEL32/SHLWAPI. Imp
 
 ## Documentation
 
-- [Windows inspection](docs/windows.md) · [B1 verification](docs/windows-verification.md)
+- [Windows inspection](docs/windows.md) · [PE verification](docs/windows-verification.md) · [MSIX verification](docs/windows-msix-verification.md)
 - [Architecture and limits](docs/architecture.md)
 - [JSON schema v2](docs/schema.md)
 - [Finding catalogue](docs/findings.md)

@@ -1,5 +1,5 @@
-# Suggested GitHub topics
+# GitHub topics and About text
 
-Apply after publishing; no repository settings were changed here.
+About: Offline static analyzer for macOS apps and Windows executables: entitlements, permissions, code signing, MSIX capabilities, URL schemes and endpoint strings, with evidence for every claim. Single Go binary, no dependencies.
 
-`static-analysis`, `reverse-engineering`, `macos`, `windows`, `privacy`, `entitlements`, `security-tools`, `cli`, `go`, `app-analysis`
+Topics: `static-analysis`, `reverse-engineering`, `macos`, `windows`, `privacy`, `entitlements`, `security-tools`, `cli`, `go`, `golang`, `binary-analysis`, `mach-o`, `pe-file`, `msix`, `code-signing`, `authenticode`, `app-analysis`
