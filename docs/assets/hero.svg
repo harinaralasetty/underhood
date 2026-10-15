@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="400" viewBox="0 0 880 400" role="img" aria-labelledby="t d">
+  <title id="t">Underhood terminal output for macOS Calculator</title>
+  <desc id="d">Running underhood on Calculator.app prints a summary of sandbox exceptions, App Intents, network access, endpoint strings and sandbox status.</desc>
+  <defs>
+    <linearGradient id="bar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b3040"/><stop offset="1" stop-color="#232837"/></linearGradient>
+  </defs>
+  <style>
+    .m{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;font-size:13px}
+    .dim{fill:#7d8590}.fg{fill:#e6edf3}.k{fill:#79c0ff}.g{fill:#7ee787}.y{fill:#e3b341}.p{fill:#d2a8ff}
+  </style>
+  <rect x="1" y="1" width="878" height="398" rx="12" fill="#0d1117" stroke="#30363d"/>
+  <path d="M1 13a12 12 0 0 1 12-12h854a12 12 0 0 1 12 12v31H1z" fill="url(#bar)"/>
+  <circle cx="24" cy="23" r="6" fill="#ff5f56"/><circle cx="46" cy="23" r="6" fill="#ffbd2e"/><circle cx="68" cy="23" r="6" fill="#27c93f"/>
+  <text x="440" y="27" text-anchor="middle" class="m dim">underhood — no app launched, nothing sent anywhere</text>
+  <g class="m">
+    <text x="28" y="76"><tspan class="g">$</tspan><tspan class="fg"> underhood /System/Applications/Calculator.app</tspan></text>
+    <text x="28" y="112" class="p"># Underhood: Calculator</text>
+    <text x="28" y="140" class="k">## Summary</text>
+    <text x="28" y="168" class="fg">- Requests 2 sandbox temporary exceptions: files.absolute-path.read-only, mach-lookup.global-name</text>
+    <text x="28" y="192" class="fg">- Declares App Intents / Shortcuts actions (30 metadata entries)</text>
+    <text x="28" y="216" class="fg">- Requests access to user-selected files</text>
+    <text x="28" y="240" class="fg">- Allows outgoing network connections</text>
+    <text x="28" y="264" class="fg">- 3 distinct hosts found as strings in binaries; strings are not proof of traffic</text>
+    <text x="28" y="288" class="fg">- App Sandbox enabled</text>
+    <text x="28" y="324" class="k">## identity</text>
+    <text x="28" y="350"><tspan class="fg" font-weight="700">App Sandbox presence</tspan><tspan class="dim"> · </tspan><tspan class="y">I/D</tspan><tspan class="dim"> · </tspan><tspan class="g">bundle.sandbox</tspan></text>
+    <text x="28" y="372" class="dim">Contents/MacOS/Calculator · Mach-O arm64e slice · entitlements/com.apple.security.app-sandbox = true</text>
+  </g>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="150" viewBox="0 0 880 150" role="img" aria-labelledby="t d">
+  <title id="t">Underhood pipeline</title>
+  <desc id="d">Detect target, inventory files, parse plists, Mach-O and PE, run analysers, write an evidence-backed report.</desc>
+  <style>
+    .b{fill:#0d1117;stroke:#30363d}.h{font:600 14px ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;fill:#e6edf3}
+    .s{font:12px ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;fill:#8b949e}.a{stroke:#58a6ff;stroke-width:2;fill:none}
+  </style>
+  <defs><marker id="m" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L7 4L0 8z" fill="#58a6ff"/></marker></defs>
+  <rect width="880" height="150" rx="12" fill="#0d1117" stroke="#30363d"/>
+  <g>
+    <rect class="b" x="24" y="40" width="132" height="70" rx="8"/><text class="h" x="90" y="70" text-anchor="middle">1 · Detect</text><text class="s" x="90" y="92" text-anchor="middle">.app · PE · MSIX</text>
+    <rect class="b" x="190" y="40" width="132" height="70" rx="8"/><text class="h" x="256" y="70" text-anchor="middle">2 · Inventory</text><text class="s" x="256" y="92" text-anchor="middle">bounded, no symlinks</text>
+    <rect class="b" x="356" y="40" width="132" height="70" rx="8"/><text class="h" x="422" y="70" text-anchor="middle">3 · Parse</text><text class="s" x="422" y="92" text-anchor="middle">plist · Mach-O · PE</text>
+    <rect class="b" x="522" y="40" width="132" height="70" rx="8"/><text class="h" x="588" y="70" text-anchor="middle">4 · Analyse</text><text class="s" x="588" y="92" text-anchor="middle">permissions · signing</text>
+    <rect class="b" x="688" y="40" width="168" height="70" rx="8"/><text class="h" x="772" y="70" text-anchor="middle">5 · Report</text><text class="s" x="772" y="92" text-anchor="middle">Markdown + JSON, evidence</text>
+  </g>
+  <path class="a" d="M156 75H186" marker-end="url(#m)"/><path class="a" d="M322 75H352" marker-end="url(#m)"/><path class="a" d="M488 75H518" marker-end="url(#m)"/><path class="a" d="M654 75H684" marker-end="url(#m)"/>
+</svg>
