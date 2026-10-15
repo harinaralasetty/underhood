@@ -50,6 +50,23 @@ func TestFixtureAndDeterminism(t *testing.T) {
 		}
 	}
 }
+
+// A target below the home directory must still yield bundle-relative IDs and evidence paths.
+func TestTargetUnderHomeKeepsRelativeIDs(t *testing.T) {
+	root := testutil.App(t, false)
+	t.Setenv("HOME", filepath.Dir(root))
+	t.Setenv("USERPROFILE", filepath.Dir(root))
+	r, e := (App{}).Analyze(target.Context{Root: root, Options: model.Options{MaxBinaryMB: 300, BinaryStrings: true}})
+	if e != nil {
+		t.Fatal(e)
+	}
+	for _, f := range r.Findings {
+		if f.ID == "launch.plist@Contents/Library/LaunchAgents/job.plist" {
+			return
+		}
+	}
+	t.Fatal("relative launch.plist ID missing when target is under home")
+}
 func TestFailureContinues(t *testing.T) {
 	root := testutil.App(t, false)
 	ran := false

@@ -220,6 +220,10 @@ func (c *context) executable(r record) string {
 }
 func (c *context) clean(s string) string { return model.Clean(s, c.root, c.home) }
 func (c *context) rel(s string) string {
+	// Paths inside the target stay bundle-relative even when the target itself lives under the home directory.
+	if r := inventory.Relative(c.root, s); r != ".." && !strings.HasPrefix(r, "../") && !filepath.IsAbs(r) {
+		return r
+	}
 	if c.home != "" && (s == c.home || strings.HasPrefix(s, c.home+string(filepath.Separator))) {
 		return "~" + filepath.ToSlash(strings.TrimPrefix(s, c.home))
 	}

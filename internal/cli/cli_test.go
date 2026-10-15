@@ -103,8 +103,12 @@ func TestSymlinkTarget(t *testing.T) {
 	if e != nil {
 		t.Fatal(e)
 	}
-	if rep.Target.Path != resolved {
-		t.Fatalf("path %q != %q", rep.Target.Path, resolved)
+	want := resolved
+	if home, _ := os.UserHomeDir(); home != "" && strings.HasPrefix(resolved, home) {
+		want = "~" + strings.TrimPrefix(resolved, home) // reports redact the home directory
+	}
+	if rep.Target.Path != want {
+		t.Fatalf("path %q != %q", rep.Target.Path, want)
 	}
 	if code := Run([]string{link, "--output", filepath.Join(root, "report.md")}, &out, &err); code != 1 {
 		t.Fatal("allowed output inside resolved target", code)
