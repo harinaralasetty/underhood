@@ -4,6 +4,8 @@ All notable changes are documented here, following [Keep a Changelog](https://ke
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-10-20
+
 ### Release
 
 - Tag-triggered release workflow: pushing a `v*` tag builds macOS, Linux and Windows binaries (amd64 and arm64) with `scripts/release-build.sh`, stamps the version shown by `--version`, and publishes them with SHA-256 checksums to GitHub Releases.
@@ -32,3 +34,6 @@ All notable changes are documented here, following [Keep a Changelog](https://ke
 - Streaming ASCII/UTF-16LE endpoint extraction with resource caps.
 - Evidence merging, summary grouping, compact Markdown and full evidence mode.
 - Synthetic fixtures, malformed-input tests, native fuzz targets and multi-host CI configuration.
+
+[Unreleased]: https://github.com/harinaralasetty/underhood/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/harinaralasetty/underhood/releases/tag/v0.1.0
