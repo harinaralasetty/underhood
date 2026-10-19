@@ -7,6 +7,7 @@ All notable changes are documented here, following [Keep a Changelog](https://ke
 ### Documentation
 
 - README: install from the prebuilt release binaries, with a release badge.
+- README: install with Homebrew from `harinaralasetty/tap`.
 
 ## [0.1.0] - 2026-10-20
 
