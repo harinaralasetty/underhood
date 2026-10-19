@@ -7,8 +7,8 @@ import (
 	"strings"
 )
 
-// Version is the development tool version.
-const Version = "0.1.0-dev"
+// Version is the tool version. Release builds set it with -ldflags "-X" (scripts/release-build.sh).
+var Version = "0.1.0-dev"
 
 // Resource bounds apply to every target.
 const (
