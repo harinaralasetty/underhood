@@ -20,4 +20,6 @@ To add a finding, use a stable ID, category, severity and confidence; attach a s
 
 To add a target, follow [adding a target](docs/adding-a-target.md). Shared core packages must not depend on target-specific parsers. Add malformed input, symlink, cap and determinism coverage. Inspect generated reports for personal data before including examples.
 
+To release, add the version's section to `CHANGELOG.md`, then push a tag such as `v0.1.0`. The Release workflow runs the tests, builds archives for macOS, Linux and Windows on amd64 and arm64 with `scripts/release-build.sh <version>` (run it locally to check; output goes to the ignored `dist/`), and publishes them with `checksums.txt` to GitHub Releases.
+
 Open a focused pull request describing the behavior change and actual verification results. Do not publish private app contents in issues.

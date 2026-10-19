@@ -4,6 +4,10 @@ All notable changes are documented here, following [Keep a Changelog](https://ke
 
 ## [Unreleased]
 
+### Release
+
+- Tag-triggered release workflow: pushing a `v*` tag builds macOS, Linux and Windows binaries (amd64 and arm64) with `scripts/release-build.sh`, stamps the version shown by `--version`, and publishes them with SHA-256 checksums to GitHub Releases.
+
 ### Fixed
 
 - Keep finding IDs bundle-relative for targets inside the home directory.
