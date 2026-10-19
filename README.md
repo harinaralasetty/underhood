@@ -9,6 +9,7 @@
 [![MIT license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Go 1.22+](https://img.shields.io/badge/Go-1.22%2B-00ADD8.svg)](go.mod)
 [![CI](https://github.com/harinaralasetty/underhood/actions/workflows/ci.yml/badge.svg)](https://github.com/harinaralasetty/underhood/actions/workflows/ci.yml)
+[![Latest release](https://img.shields.io/github/v/release/harinaralasetty/underhood)](https://github.com/harinaralasetty/underhood/releases/latest)
 ![Runs on macOS, Linux, Windows](https://img.shields.io/badge/runs%20on-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey.svg)
 ![Zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen.svg)
 
@@ -43,6 +44,16 @@ You want to know what an app is allowed to touch before you trust it, and you do
 ```sh
 go install github.com/harinaralasetty/underhood/cmd/underhood@latest
 ```
+
+or download a prebuilt binary, no Go needed. [Releases](https://github.com/harinaralasetty/underhood/releases/latest) has archives for macOS, Linux and Windows on amd64 and arm64, with `checksums.txt`. For example, on an Apple silicon Mac:
+
+```sh
+curl -LO https://github.com/harinaralasetty/underhood/releases/download/v0.1.0/underhood_0.1.0_darwin_arm64.tar.gz
+tar -xzf underhood_0.1.0_darwin_arm64.tar.gz
+./underhood_0.1.0_darwin_arm64/underhood --version
+```
+
+The binaries are not signed or notarized. If macOS blocks one you downloaded in a browser, run `xattr -d com.apple.quarantine <path to underhood>`.
 
 or build from source:
 

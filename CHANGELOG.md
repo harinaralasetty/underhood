@@ -4,6 +4,10 @@ All notable changes are documented here, following [Keep a Changelog](https://ke
 
 ## [Unreleased]
 
+### Documentation
+
+- README: install from the prebuilt release binaries, with a release badge.
+
 ## [0.1.0] - 2026-10-20
 
 ### Release
