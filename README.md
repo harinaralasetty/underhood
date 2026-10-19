@@ -39,7 +39,13 @@ You want to know what an app is allowed to touch before you trust it, and you do
 
 ## Quick start
 
-**Install** with Go 1.22+:
+**Install** with Homebrew on macOS or Linux:
+
+```sh
+brew install harinaralasetty/tap/underhood
+```
+
+or with Go 1.22+:
 
 ```sh
 go install github.com/harinaralasetty/underhood/cmd/underhood@latest
