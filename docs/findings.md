@@ -2,6 +2,8 @@
 
 Suffix `@<relative-path>` identifies a nested bundle or standalone binary; the main app normally has no suffix. `<key>` and array indices retain their raw declaration names. Categories, titles and severity rules follow the reference implementation; tool-command locators are replaced by parsed source locations.
 
+`underhood diff OLD NEW` reuses these IDs and evidence semantics. It wraps observed differences with added/removed/changed status rather than introducing new finding IDs; see [comparison semantics](diff.md) and [diff JSON](schema.md#diff-json-schema-v1).
+
 | ID pattern | Category | Severity | Confidence |
 | --- | --- | --- | --- |
 | `bundle.<Info-key>` | identity | info | declared |

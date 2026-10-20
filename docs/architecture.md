@@ -15,9 +15,12 @@ The CLI detects a registered target, inventories safe entries, parses metadata a
 | `internal/analyzers/macos` | Eight independent macOS analysers |
 | `internal/analyzers/windows` | PE headers, bounded resources/imports, manifests, Authenticode, MSIX/bundle readers and app folders |
 | `internal/report` | Merging, stable ordering, summary, Markdown and JSON |
+| `internal/diff` | Comparing normalized findings, per-side coverage, diff summary and rendering |
 | `internal/testutil` | Generated portable fixtures |
 
 The shared packages do not import macOS-specific code. `cli` explicitly imports the available target package to register it. New targets can reuse inventory, scanning, model and rendering.
+
+`diff OLD NEW` invokes the same target and report pipelines independently with identical scan options. The portable diff engine matches stable finding IDs and compares declaration fields and retained evidence, ignoring physical string/slice positions and the basename of a standalone root PE. Semantic locators, including declaration keys and Mach-O architecture associations, remain part of equality. It retains complete normalized findings for every change, plus each side's identity, skips and limits. No extra target reads, parsers or target execution are introduced. Output preflight checks every destination against both resolved input roots. See [comparison semantics](diff.md) and the [diff JSON schema](schema.md#diff-json-schema-v1).
 
 Caps: 20,000 inventory entries, four nested bundle levels, 64 ordinary directory levels, 16 MiB per metadata read, 300 MiB per binary string scan by default. Plists have 64 nesting levels and 200,000 decoded nodes, plus a 64 MiB cumulative decoded-byte budget to bound shared-reference expansion. Fat binaries have at most 128 slices; CMS at most 128 certificates. Intent metadata has 20,000 visited entries. Endpoint extraction retains 10,000 distinct URLs per binary, 200 hosts per report and 20 evidence entries per host. Runs longer than 16 KiB are dropped. Every reached cap is disclosed.
 
