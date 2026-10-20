@@ -14,6 +14,7 @@ import (
 
 	_ "github.com/harinaralasetty/underhood/internal/analyzers/macos"
 	_ "github.com/harinaralasetty/underhood/internal/analyzers/windows"
+	"github.com/harinaralasetty/underhood/internal/diff"
 	"github.com/harinaralasetty/underhood/internal/inventory"
 	"github.com/harinaralasetty/underhood/internal/model"
 	"github.com/harinaralasetty/underhood/internal/report"
@@ -24,6 +25,7 @@ import (
 const Usage = `Underhood — static, offline app inspection
 Usage: underhood <path> [--format md|json|both] [--output <path>]
        [--max-binary-mb <n>] [--no-binary-strings] [--full] [--version] [--help]
+       underhood diff OLD NEW [--format markdown|json|both] [--output <path>] [--full]
 Supported kinds: macos-app, windows-pe, windows-folder, windows-msix.
 Flags may appear before or after the path; -- ends option parsing.
 --format both requires --output <basepath> (writes .md and .json).
@@ -36,13 +38,19 @@ Exit codes: 0 report produced; 1 usage/output error; 2 invalid target.
 // Options is the parsed CLI configuration.
 type Options struct {
 	Path, Format, Output string
+	OldPath              string
+	Diff                 bool
 	Scan                 model.Options
 	Full, Help, Version  bool
 }
 
-// Parse accepts flags on either side of the one positional target.
+// Parse accepts interspersed flags and one target, or OLD and NEW after diff.
 func Parse(args []string) (Options, error) {
 	o := Options{Format: "md", Scan: model.Options{MaxBinaryMB: model.DefaultBinaryMB, BinaryStrings: true}}
+	if len(args) > 0 && args[0] == "diff" {
+		o.Diff = true
+		args = args[1:]
+	}
 	seen := map[string]bool{}
 	positional := false
 	for i := 0; i < len(args); i++ {
@@ -90,14 +98,21 @@ func Parse(args []string) (Options, error) {
 				return o, fmt.Errorf("unknown option: %s", a)
 			}
 		} else {
+			if o.Diff && o.OldPath == "" {
+				o.OldPath = a
+				continue
+			}
 			if o.Path != "" {
 				return o, fmt.Errorf("unexpected argument: %s", a)
 			}
 			o.Path = a
 		}
 	}
+	if o.Format == "markdown" {
+		o.Format = "md"
+	}
 	if o.Format != "md" && o.Format != "json" && o.Format != "both" {
-		return o, fmt.Errorf("--format must be md, json, or both")
+		return o, fmt.Errorf("--format must be markdown (md), json, or both")
 	}
 	if !o.Help && !o.Version && o.Path == "" {
 		return o, fmt.Errorf("missing target path")
@@ -198,17 +213,38 @@ func Run(args []string, stdout, stderr io.Writer) int {
 		fmt.Fprintln(stdout, "underhood", model.Version)
 		return 0
 	}
+	var old model.Report
+	if o.Diff {
+		result, err := target.Analyze(o.OldPath, o.Scan)
+		if err != nil {
+			return fail(2, fmt.Errorf("OLD: %w", err))
+		}
+		old = report.Build(result)
+	}
 	r, e := target.Analyze(o.Path, o.Scan)
 	if e != nil {
+		if o.Diff {
+			e = fmt.Errorf("NEW: %w", e)
+		}
 		return fail(2, e)
 	}
 	rep := report.Build(r)
 	var md, js bytes.Buffer
-	if o.Format != "json" {
-		e = report.Markdown(&md, rep, o.Full)
-	}
-	if e == nil && o.Format != "md" {
-		e = report.JSON(&js, rep)
+	if o.Diff {
+		comparison := diff.Compare(old, rep)
+		if o.Format != "json" {
+			e = diff.Markdown(&md, comparison, o.Full)
+		}
+		if e == nil && o.Format != "md" {
+			e = diff.JSON(&js, comparison)
+		}
+	} else {
+		if o.Format != "json" {
+			e = report.Markdown(&md, rep, o.Full)
+		}
+		if e == nil && o.Format != "md" {
+			e = report.JSON(&js, rep)
+		}
 	}
 	if e != nil {
 		return fail(1, e)
@@ -224,13 +260,21 @@ func Run(args []string, stdout, stderr io.Writer) int {
 		}
 		return 0
 	}
-	root, e := filepath.EvalSymlinks(o.Path)
-	if e != nil {
-		return fail(1, e)
+	roots := []string{}
+	inputs := []string{o.Path}
+	if o.Diff {
+		inputs = append(inputs, o.OldPath)
 	}
-	root, e = filepath.Abs(root)
-	if e != nil {
-		return fail(1, e)
+	for _, input := range inputs {
+		root, err := filepath.EvalSymlinks(input)
+		if err != nil {
+			return fail(1, err)
+		}
+		root, err = filepath.Abs(root)
+		if err != nil {
+			return fail(1, err)
+		}
+		roots = append(roots, root)
 	}
 	names := []string{o.Output}
 	data := [][]byte{md.Bytes()}
@@ -243,9 +287,13 @@ func Run(args []string, stdout, stderr io.Writer) int {
 	}
 	paths := []string{}
 	for _, name := range names {
-		p, err := destination(name, root)
-		if err != nil {
-			return fail(1, err)
+		var p string
+		for _, root := range roots {
+			var err error
+			p, err = destination(name, root)
+			if err != nil {
+				return fail(1, err)
+			}
 		}
 		paths = append(paths, p)
 	}

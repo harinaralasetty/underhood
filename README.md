@@ -96,6 +96,33 @@ Windows files can be inspected from macOS or Linux. A macOS app bundle must be a
 
 </details>
 
+## Compare two versions
+
+Run `underhood diff OLD NEW` to compare two macOS bundles, Windows executables, app folders or MSIX packages. Changes are grouped by category and ranked by sensitivity, with OLD and NEW file/locator evidence. `--format markdown|json|both`, `--output` and `--full` work for comparisons; output must be outside both targets. Mismatched identities still produce a diff with a warning.
+
+Real command used locally, after preparing a modified Calculator copy under the ignored `.scratch/` directory:
+
+```sh
+.scratch/underhood diff /System/Applications/Calculator.app .scratch/Calculator-copy.app --format both --output .scratch/calculator-diff
+```
+
+Trimmed output from `.scratch/calculator-diff.md`:
+
+```text
+# Underhood diff: Calculator → Calculator
+
+This update adds 1 finding, removes 0 findings and changes 1 finding.
+```
+
+```text
+**added · NSCameraUsageDescription** · notable · privacy.NSCameraUsageDescription
+
+NEW (notable, declared): Developer-declared purpose: Synthetic camera declaration for the offline diff example.
+- NEW · Contents/Info.plist · NSCameraUsageDescription = Synthetic camera declaration for the offline diff example.
+```
+
+This demonstration changed a version string and added a synthetic camera declaration; it is not an actual Calculator update. See [comparison semantics and reproduction](docs/diff.md). Reached scan caps and other skips are retained separately for each side: an apparent removal is not proof of absence from an incompletely scanned target.
+
 ## What it finds
 
 | Area | Examples |
@@ -168,6 +195,7 @@ The Calculator reports describe the inspected system-app version, not every vers
 - [Windows inspection](docs/windows.md) · [PE verification](docs/windows-verification.md) · [MSIX verification](docs/windows-msix-verification.md)
 - [Architecture and limits](docs/architecture.md)
 - [JSON schema v2](docs/schema.md)
+- [Compare two versions](docs/diff.md) · [Diff verification](docs/diff-verification.md)
 - [Finding catalogue](docs/findings.md)
 - [Adding a target](docs/adding-a-target.md)
 - [Verification results and known deviations](docs/verification.md)

@@ -4,6 +4,11 @@ All notable changes are documented here, following [Keep a Changelog](https://ke
 
 ## [Unreleased]
 
+### Added
+
+- `underhood diff OLD NEW`: compare normalized macOS and Windows reports by stable finding ID, with added/removed/changed declarations, sensitivity ordering, evidence on both sides, mismatch warnings and per-side scan coverage. Markdown, full evidence, and independently versioned diff JSON are available; outputs are protected against both targets.
+- Generated version-pair fixtures and comparison tests covering macOS analyzer families, Windows PE/folders/MSIX, ordering, unchanged inputs, relocated strings, malformed metadata, and one-sided scan caps.
+
 ### Documentation
 
 - README: install from the prebuilt release binaries, with a release badge.
